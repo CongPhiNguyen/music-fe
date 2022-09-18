@@ -1,0 +1,8 @@
+.main-home {
+  position: absolute;
+  top: 0;
+  left: 240px;
+  right: 329px;
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+}

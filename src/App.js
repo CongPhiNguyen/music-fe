@@ -11,12 +11,7 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div className="header-container">
-          <Header />
-        </div>
-        <div className="page-container">
-          <Routers />
-        </div>
+        <Routers />
       </BrowserRouter>
     </Provider>
   );

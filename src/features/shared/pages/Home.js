@@ -1,21 +1,16 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import API from "../../../config/API";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import "./Home.css"
+import MusicControl from "../components/MusicControl";
+import MainSidebar from "../components/MainSidebar";
+import NextSong from "../components/NextSong";
+import MainHome from "../components/MainHome";
 export default function Home() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    axios
-      .get(API.API_ROUTE + "/user/refresh", {
-        withCredentials: true,
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log("err", err);
-        navigate("/login");
-      });
-  });
-  return <div>Home</div>;
+  return <div className="w-screen h-screen home" style={{ backgroundImage: "url(./assets/img/background-theme/backroundThemes/0.svg)" }}>
+    <div className="w-full">
+      <MainSidebar></MainSidebar>
+      <MainHome></MainHome>
+      <NextSong></NextSong>
+    </div>
+    <MusicControl></MusicControl>
+  </div>;
 }
