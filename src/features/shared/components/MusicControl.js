@@ -1,26 +1,162 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./MusicControl.css"
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 import { FaEllipsisH, FaPhotoVideo, FaMicrophone, FaRandom, FaRedoAlt } from "react-icons/fa"
 import { BiSquare } from "react-icons/bi"
-import { BsFillVolumeDownFill, BsCaretLeftFill, BsCaretRightFill, BsPauseFill, BsPlayFill } from "react-icons/bs"
+import { BsFillVolumeDownFill, BsCaretLeftFill, BsCaretRightFill, BsPauseFill, BsPlayFill, BsFillVolumeMuteFill } from "react-icons/bs"
 import { Col, Row } from 'antd';
+import { useSelector, useDispatch } from 'react-redux'
+import { setCurrentSong, setIsPlay } from '../musicSlice'
+import randomIntFromInterval from '../../../utilities/randomNumber'
 export default function MusicControl() {
+    const dispatch = useDispatch()
+    const songsData = useSelector(state => state.musicData.songsData)
+    const indexSong = useSelector(state => state.musicData.indexSong)
+    const cdThumbAnimate = useRef()
+    const cdThumb = useRef()
+    const [volumn, setVolumn] = useState(0)
+    const [isMute, setIsMute] = useState(false)
+    const [percent, setPercent] = useState(0)
+    const [currentTimeMusic, setCurrentTimeMusic] = useState("00:00")
+    const radioRef = useRef()
+    const isPlay = useSelector(state => state.musicData.isPlay)
+
+    const handlePlayMusic = () => {
+        if (indexSong !== null) {
+            dispatch(setIsPlay({ isPlay: true }))
+            radioRef.current.play()
+        }
+    }
+
+    useEffect(() => {
+        cdThumb.current = cdThumbAnimate.current.animate([
+            { transform: 'rotate(360deg)' }
+        ], {
+            duration: 10000, // 10s
+            iterations: Infinity, // số lần lặp lại, Infinity : vô hạn
+        })
+        cdThumb.current.pause()
+    }, [])
+
+    useEffect(() => {
+        if (isPlay) {
+            cdThumb.current.play()
+        } else {
+            cdThumb.current.pause()
+        }
+    }, [isPlay])
+
+    useEffect(() => {
+        if (indexSong !== null) {
+            dispatch(setIsPlay({ isPlay: true }))
+            radioRef.current.play()
+        } else {
+            dispatch(setIsPlay({ isPlay: false }))
+        }
+    }, [indexSong])
+
+    const handlePauseMusic = () => {
+        radioRef.current.pause()
+        dispatch(setIsPlay({ isPlay: false }))
+    }
+
+    const formatTime = (number) => {
+        const minutes = Math.floor(number / 60);
+        const seconds = Math.floor(number - minutes * 60);
+        return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+    }
+
+    const handleTimeUpdate = () => {
+        if (radioRef.current.duration) {
+            setCurrentTimeMusic(formatTime(radioRef.current.currentTime))
+            const progressPercent = Math.floor((radioRef.current.currentTime / radioRef.current.duration) * 100)
+            if (progressPercent === 100) {
+                radioRef.current.pause();
+                dispatch(setIsPlay({ isPlay: false }))
+                if (isRedo) {
+                    dispatch(setIsPlay({ isPlay: true }))
+                    radioRef.current.play()
+                }
+                if (isRandom) {
+                    dispatch(setCurrentSong({ index: randomIntFromInterval(0, songsData.length - 1) }))
+                }
+            }
+            setPercent(progressPercent)
+        }
+    }
+
+    const handleChangeMusic = (e) => {
+        if (radioRef.current.duration) {
+            radioRef.current.currentTime = (e.target.value / 100) * radioRef.current.duration
+        }
+    }
+
+    const handleNextSong = () => {
+        if (indexSong !== null) {
+            let nextSong = indexSong + 1
+            dispatch(setCurrentSong({ index: nextSong }))
+        }
+    }
+
+    const handlePrevSong = () => {
+        if (indexSong !== null) {
+            let prevIndex = indexSong - 1
+            dispatch(setCurrentSong({ index: prevIndex }))
+        }
+
+    }
+
+    const [isRandom, setIsRandom] = useState(false)
+    const handleClickRandom = () => {
+        if (!isRandom && isRedo) {
+            setIsRedo(false)
+        }
+        setIsRandom(!isRandom)
+    }
+
+    const [isRedo, setIsRedo] = useState(false)
+    const handleClickRedo = () => {
+        if (!isRedo && isRandom) {
+            setIsRandom(false)
+        }
+        setIsRedo(!isRedo)
+    }
+
+    useEffect(() => {
+        if (isMute) { radioRef.current.volume = 0 }
+        else {
+            radioRef.current.volume = volumn
+        }
+    }, [isMute])
+
+    useEffect(() => {
+        if (volumn === 0) {
+            setIsMute(true)
+        } else {
+            setIsMute(false)
+        }
+    }, [volumn])
+
+    const handleChangeVolumn = (e) => {
+        radioRef.current.volume = e.target.value
+        setVolumn(e.target.value)
+    }
+
     return (
         <div className='music-control'>
             <Row>
                 <Col span={6}>
-                    <div className='music-control__left' >
+                    <div style={{ transform: `translateX(${isPlay ? "20px" : "0px"})` }} className={`music-control__left`} >
                         <div className='music-control__left-img-box'>
-                            <div className='music-control__left-img'>
+                            <div ref={cdThumbAnimate} style={{ backgroundImage: `url('${indexSong !== null && songsData[indexSong].background}')` }} className={`music-control__left-img `}>
                             </div>
                         </div>
                         <div className='music-control__left-content flex flex-col'>
                             <span className='music-control__left-content-song'>
-                                Chạy Về Khóc Với Anh
+                                {indexSong !== null ? songsData[indexSong].name : "Chọn bài hát"}
                             </span>
                             <span className='music-control__left-content-singer'>
-                                Erik, Duzme Remix
+                                {indexSong !== null ? songsData[indexSong].singer : "Chọn bài hát"}
                             </span>
                         </div>
                         <div className='music-control__left-action'>
@@ -37,20 +173,26 @@ export default function MusicControl() {
                 <Col span={12}>
                     <div className='music-control-center'>
                         <div className='music-control__center-action'>
-                            <FaRandom className='music-control__center-icon' />
-                            <BsCaretLeftFill className='music-control__center-icon' />
-                            <BsPlayFill className='music-control__center-icon music-control__center-icon-main' />
-                            <BsPauseFill className='music-control__center-icon music-control__center-icon-main !hidden' />
-                            <BsCaretRightFill className='music-control__center-icon' />
-                            <FaRedoAlt style={{ fontSize: '3.2rem' }} className='music-control__center-icon' />
+                            <FaRandom onClick={handleClickRandom} className={`music-control__center-icon  !text-[${"#ed2b91"}] `} />
+                            <BsCaretLeftFill onClick={handlePrevSong} className='music-control__center-icon' />
+                            {
+                                isPlay ? (<BsPauseFill onClick={handlePauseMusic} className='music-control__center-icon music-control__center-icon-main ' />) : (
+                                    <BsPlayFill onClick={handlePlayMusic} className='music-control__center-icon music-control__center-icon-main' />
+                                )
+                            }
+                            <BsCaretRightFill onClick={handleNextSong} className='music-control__center-icon' />
+                            <FaRedoAlt onClick={handleClickRedo} style={{ fontSize: '3.2rem' }}
+                                className={`music-control__center-icon !text-[${isRedo ? "#ed2b91" : "#fff"}] `}
+                            />
                         </div>
                         <div className='music-control__center-progress'>
                             <span className='music-control__center-progress-time-start'>
-                                00:00
+                                {currentTimeMusic}
                             </span>
-                            <input id="progress" class="music-control__center-progress-input" type="range" value="0" step="1" min="0" max="100" />
+                            <audio onTimeUpdate={handleTimeUpdate} ref={radioRef} id="audio" src={indexSong !== null && songsData[indexSong].pathSong}></audio>
+                            <input onChange={handleChangeMusic} id="progress" class="music-control__center-progress-input" type="range" value={percent} step="1" min="0" max="100" />
                             <span className='music-control__center-progress-time-end'>
-                                00:00
+                                {indexSong !== null && songsData[indexSong].duration}
                             </span>
                         </div>
                     </div>
@@ -60,10 +202,11 @@ export default function MusicControl() {
                         <FaPhotoVideo className='music-control__right-action-option'></FaPhotoVideo>
                         <FaMicrophone className='music-control__right-action-option'></FaMicrophone>
                         <BiSquare className='music-control__right-action-option'></BiSquare>
-                        <BsFillVolumeDownFill style={{ fontSize: '4rem' }} className='music-control__right-action-option'></BsFillVolumeDownFill>
+                        {
+                            isMute ? (<BsFillVolumeMuteFill onClick={() => { setIsMute(false) }} style={{ fontSize: '4rem' }} className='music-control__right-action-option'></BsFillVolumeMuteFill>) : (<BsFillVolumeDownFill style={{ fontSize: '4rem' }} onClick={() => { setIsMute(true) }} className='music-control__right-action-option'></BsFillVolumeDownFill>)
+                        }
                         <div className='music-control__right-progress'>
-                            <input id='progress-volumn' value={100} type={"range"} step={1} min={0} max={100} className='music-control__right-volumn-input' />
-                            {/* <Progress percent={50} showInfo={false} size="small" status="active" /> */}
+                            <input onChange={handleChangeVolumn} id='progress-volumn' value={isMute ? 0 : volumn} type={"range"} step={0.01} min={0} max={1} className='music-control__right-volumn-input' />
                         </div>
                     </div>
                 </Col>

@@ -43,7 +43,7 @@
   border: 2px solid #fff;
   background-size: contain;
   cursor: pointer;
-  background-image: url("/public/assets/img/songs/1.webp");
+  /* background-image: url("/public/assets/img/songs/1.webp"); */
 }
 
 .music-control__left-content {

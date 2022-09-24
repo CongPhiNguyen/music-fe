@@ -1,11 +1,12 @@
 import React from 'react'
 import "./NextSong.css"
 import { FaStopwatch, FaEllipsisH } from "react-icons/fa"
-import { AiOutlineHeart } from "react-icons/ai"
-import { BsPlayFill } from "react-icons/bs"
-
 import SongComponent from './SongComponent'
+import { useSelector } from 'react-redux'
 export default function NextSong() {
+    const songsData = useSelector(state => state.musicData.songsData)
+    const indexSong = useSelector(state => state.musicData.indexSong)
+
     return (
         <div className='next-song'>
             <div className='next-song__option'>
@@ -26,22 +27,31 @@ export default function NextSong() {
             </div>
             <div className='next-song__box'>
                 <div className='next-song__list'>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent isActive={true}></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
+                    {
+                        songsData.map((song, index) => {
+                            if (indexSong !== null) {
+                                if (index <= indexSong) {
+                                    if (index === indexSong) {
+                                        return (<SongComponent key={index} index={index} song={song} isActive={true}></SongComponent>)
+                                    } else {
+                                        return (<SongComponent key={index} index={index} song={song} isActive={false}></SongComponent>)
+                                    }
+                                } else return null
+                            } else {
+                                return (<SongComponent key={index} index={index} song={song} isActive={false}></SongComponent>)
+                            }
+                        })
+                    }
                 </div>
                 <div className='next-song__last'>
                     <h3 className='next-song__last-heading'>Tiếp theo</h3>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
-                    <SongComponent></SongComponent>
+                    {
+                        indexSong !== null && songsData.map((song, index) => {
+                            if (index > indexSong) {
+                                return (<SongComponent song={song} index={index} isActive={false}></SongComponent>)
+                            } else return null
+                        })
+                    }
                 </div>
             </div>
         </div>
