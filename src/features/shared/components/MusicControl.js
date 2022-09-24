@@ -30,12 +30,11 @@ export default function MusicControl() {
 
     useEffect(() => {
         cdThumb.current = cdThumbAnimate.current.animate([
-            { transform: 'rotate(360deg)' }
+            { transform: 'rotate(180deg)' }
         ], {
-            duration: 10000, // 10s
+            duration: 5000, // 10s
             iterations: Infinity, // số lần lặp lại, Infinity : vô hạn
         })
-        cdThumb.current.pause()
     }, [])
 
     useEffect(() => {
@@ -173,7 +172,7 @@ export default function MusicControl() {
                 <Col span={12}>
                     <div className='music-control-center'>
                         <div className='music-control__center-action'>
-                            <FaRandom onClick={handleClickRandom} className={`music-control__center-icon  !text-[${"#ed2b91"}] `} />
+                            <FaRandom onClick={handleClickRandom} style={{ color: `${isRandom ? "#ed2b91" : "#fff"}` }} className={`music-control__center-icon`} />
                             <BsCaretLeftFill onClick={handlePrevSong} className='music-control__center-icon' />
                             {
                                 isPlay ? (<BsPauseFill onClick={handlePauseMusic} className='music-control__center-icon music-control__center-icon-main ' />) : (
@@ -181,8 +180,8 @@ export default function MusicControl() {
                                 )
                             }
                             <BsCaretRightFill onClick={handleNextSong} className='music-control__center-icon' />
-                            <FaRedoAlt onClick={handleClickRedo} style={{ fontSize: '3.2rem' }}
-                                className={`music-control__center-icon !text-[${isRedo ? "#ed2b91" : "#fff"}] `}
+                            <FaRedoAlt onClick={handleClickRedo} style={{ fontSize: '3.2rem', color: `${isRedo ? "#ed2b91" : "#fff"}` }}
+                                className={`music-control__center-icon `}
                             />
                         </div>
                         <div className='music-control__center-progress'>
