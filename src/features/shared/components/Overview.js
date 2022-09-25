@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import "./Overview.css"
 import { FaChevronRight, FaUpload, FaPhotoVideo, FaMicrophone, FaHeart, FaEllipsisH, FaPlay } from "react-icons/fa"
@@ -21,7 +21,7 @@ function ComponentSong(props) {
                         <div onClick={() => { dispatch(changeIsPlay()) }}>
                             {
                                 isPlay ? (<div className='overview__allsong-item-left-playing'>
-                                    <img className='next-song__item-playing-box-img' src='./assets/img/songs/icon-playing.gif' />
+                                    <img className='next-song__item-playing-box-img' alt='ảnh' src='./assets/img/songs/icon-playing.gif' />
                                 </div>) : (
                                     <div className='overview__allsong-item-left-play'>
                                         <FaPlay />

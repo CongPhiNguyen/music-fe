@@ -22,7 +22,7 @@ export default function SongComponent(props) {
                         {
                             isPlay ? (
                                 <div className='next-song__item-playing-box'>
-                                    <img className='next-song__item-playing-box-img' src='./assets/img/songs/icon-playing.gif' />
+                                    <img className='next-song__item-playing-box-img' alt='play' src='./assets/img/songs/icon-playing.gif' />
                                 </div>
                             ) : (
                                 <div className='next-song__item-play-btn !flex'>
