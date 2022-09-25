@@ -1,0 +1,130 @@
+.main-home-personal__profile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 90px;
+  height: 130px;
+}
+
+.main-home-personal__profile-img {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.main-home-personal__profile-name {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.main-home-personal__profile-vip {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  display: flex;
+}
+
+.main-home-personal__profile-vip-upgrate {
+  background-color: #dfd019;
+  color: black;
+  margin-left: 10px;
+  width: 124px;
+  height: 28px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  font-weight: 300;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.main-home-personal__profile-vip-upgrate:hover {
+  opacity: 0.8;
+}
+
+.main-home-personal__profile-vip-entercode {
+  color: white;
+  background-color: rgba(225, 225, 225, 0.1);
+  margin-left: 10px;
+  width: 124px;
+  height: 28px;
+  font-size: 1.4rem;
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  font-weight: 300;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.main-home-personal__profile-vip-entercode:hover {
+  opacity: 0.8;
+}
+
+.main-home-personal__profile-vip-option {
+  font-size: 1.4rem;
+  color: white;
+  background: rgba(225, 225, 225, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.main-home-personal__option {
+  color: white;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.main-home-personal__option-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  width: 500px;
+  height: 32px;
+  background-color: rgba(225, 225, 225, 0.1);
+  border-radius: 16px;
+}
+
+.main-home-personal__option-item:first-child {
+  margin-left: 3px;
+}
+
+.main-home-personal__option-item {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  width: 124px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.main-home-personal__option-item-active {
+  background-color: #816399;
+  color: rgb(255, 255, 255);
+}
