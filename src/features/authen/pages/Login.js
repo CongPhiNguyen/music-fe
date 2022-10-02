@@ -46,10 +46,7 @@ export default function Login() {
       <div className=" h-[100%] overflow-x-hidden overflow-y-auto">
         <Row gutter={16} className="h-[100%]">
           <Col span={0} lg={16}>
-            <img
-              src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
-              className="h-[100%] w-[100%] object-cover border-[1px] rounded-[4px]"
-            ></img>
+            <div className="bg-[url('https://media.istockphoto.com/vectors/simple-hand-drawn-notes-and-musical-clef-in-doodle-style-vector-id1269332201?k=20&m=1269332201&s=612x612&w=0&h=j_--Q-8XPzVgUb0BYImhu0URryiV7wM_g_6tnFjtEQw=')] h-[100%] w-[100%] object-contain rounded-[4px]"></div>
           </Col>
           <Col span={24} lg={8}>
             <div className="mx-[40px] h-[100%] flex flex-col justify-center">
@@ -67,6 +64,7 @@ export default function Login() {
                 autoComplete="off"
               >
                 <Form.Item
+                  labelCol={{ span: 24 }}
                   label="Username"
                   name="username"
                   rules={[
@@ -77,6 +75,7 @@ export default function Login() {
                 </Form.Item>
 
                 <Form.Item
+                  labelCol={{ span: 24 }}
                   label="Password"
                   name="password"
                   rules={[
@@ -85,6 +84,7 @@ export default function Login() {
                 >
                   <Input.Password />
                 </Form.Item>
+
                 <div className="flex justify-between mb-[16px]">
                   <Form.Item
                     name="remember"

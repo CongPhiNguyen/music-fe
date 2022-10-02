@@ -74,3 +74,34 @@ code {
 svg {
   vertical-align: baseline;
 }
+
+.ant-form-item-label {
+  font-size: 12px !important;
+}
+
+.ant-form-item-required {
+  font-size: 12px !important;
+  margin-bottom: -42px !important;
+}
+
+.ant-form-item-explain-error {
+  font-size: 12px !important;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
