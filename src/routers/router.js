@@ -5,6 +5,12 @@ const Login = React.lazy(() => import("../features/authen/pages/Login.js"))
 const Agreement = React.lazy(() =>
   import("../features/authen/pages/Agreement.js")
 )
+const ForgotPassword = React.lazy(() =>
+  import("../features/authen/pages/ForgotPassword.js")
+)
+const ResetPassword = React.lazy(() =>
+  import("../features/authen/pages/ResetPassword.js")
+)
 
 const Search = React.lazy(() => import("../features//search/Search.js"))
 const Home = React.lazy(() => import("../features//shared/pages/Home.js"))
@@ -17,7 +23,17 @@ const SpeechToText = React.lazy(() =>
 const publicRoute = [
   { path: "/sign-up", name: "SignUp", element: <SignUp /> },
   { path: "/login", name: "Login", element: <Login /> },
-  { path: "/agreement", name: "Agreement", element: <Agreement /> }
+  { path: "/agreement", name: "Agreement", element: <Agreement /> },
+  {
+    path: "/forgot-password",
+    name: "Forgot Password",
+    element: <ForgotPassword />
+  },
+  {
+    path: "/reset-password",
+    name: "Reset Password",
+    element: <ResetPassword />
+  }
 ]
 
 // Những route dùng khi đã đăng nhập

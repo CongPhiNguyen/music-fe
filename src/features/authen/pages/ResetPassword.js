@@ -16,26 +16,12 @@ import { useNavigate } from "react-router-dom"
 import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"
 
-export default function Signup() {
+export default function ResetPassword() {
   const navigate = useNavigate()
 
-  const callAPISendSignIn = (value) => {
-    axios
-      .post(API.API_ROUTE + "/user/login", { ...value })
-      .then((data) => {
-        if (!data.data.success) throw Error("Login failed")
-        message.success("Login success!!", 1)
-        cookiesUtil.set("_jwt", data.data.token)
-        navigate("/")
-      })
-      .catch((err) => {
-        console.log("err", err)
-        message.error("Login failed!!", 1)
-      })
-  }
   const onFinish = (values) => {
     console.log(values)
-    callAPISendSignIn(values)
+    navigate("/")
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -51,10 +37,10 @@ export default function Signup() {
           <Col span={24} lg={8}>
             <div className="mx-[40px] h-[100%] flex flex-col justify-center">
               <Typography className="mt-[36px] text-[24px] font-[600] mb-[14px]">
-                Welcome to P2Tunes!
+                Reset password
               </Typography>
               <Typography className="text-[15px] mb-[28px]">
-                Adventure start here!
+                Enter your password to change!
               </Typography>
               <Form
                 name="basic"
@@ -63,52 +49,6 @@ export default function Signup() {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
               >
-                <Form.Item
-                  labelCol={{ span: 24 }}
-                  label="Username"
-                  name="username"
-                  rules={[
-                    { required: true, message: "Please input your username!" }
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item
-                  labelCol={{ span: 24 }}
-                  label="Email"
-                  name="email"
-                  rules={[
-                    { required: true, message: "Please input your mail!" }
-                  ]}
-                >
-                  <div className="flex">
-                    <Input />
-                    <Button type="primary">Send OTP</Button>
-                  </div>
-                </Form.Item>
-
-                <Form.Item
-                  labelCol={{ span: 24 }}
-                  label="OTP"
-                  name="otp"
-                  rules={[
-                    { required: true, message: "Please input your otp!" }
-                  ]}
-                >
-                  <Input className="w-[calc(100%-40px)]" />
-                </Form.Item>
-
-                <Form.Item
-                  labelCol={{ span: 24 }}
-                  label="Name"
-                  name="name"
-                  rules={[
-                    { required: true, message: "Please input your name!" }
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
                 <Form.Item
                   labelCol={{ span: 24 }}
                   label="Password"
@@ -129,34 +69,10 @@ export default function Signup() {
                 >
                   <Input.Password />
                 </Form.Item>
-                <div className="my-[16px]">
-                  <Form.Item
-                    name="agreement"
-                    valuePropName="checked"
-                    rules={[
-                      {
-                        validator: (_, value) =>
-                          value
-                            ? Promise.resolve()
-                            : Promise.reject(
-                                new Error("Should accept agreement")
-                              )
-                      }
-                    ]}
-                    // {...tailFormItemLayout}
-                  >
-                    <Checkbox>
-                      I have read the{" "}
-                      <a href="/agreement" target="_blank">
-                        agreement
-                      </a>
-                    </Checkbox>
-                  </Form.Item>
-                </div>
 
-                <div className="mb-[24px]">
+                <div className="mb-[12px] mt-[20px]">
                   <Button type="primary" htmlType="submit" className="w-[100%]">
-                    Sign up
+                    Set new password
                   </Button>
                 </div>
                 <Divider plain>or</Divider>

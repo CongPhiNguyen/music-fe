@@ -95,9 +95,12 @@ export default function Login() {
                     <Checkbox>Remember me</Checkbox>
                   </Form.Item>
 
-                  <a className="login-form-forgot float-right" href="">
+                  <p
+                    className="float-right cursor-pointer text-[blue] hover:opacity-60"
+                    onClick={() => navigate("/forgot-password")}
+                  >
                     Forgot password
-                  </a>
+                  </p>
                 </div>
                 <div className="mb-[24px]">
                   <Button type="primary" htmlType="submit" className="w-[100%]">
