@@ -3,6 +3,7 @@ import React from "react";
 const SignUp = React.lazy(() => import("../features/authen/pages/Signup.js"));
 const Login = React.lazy(() => import("../features/authen/pages/Login.js"));
 
+const ZingChart = React.lazy(() => import("../features/shared/pages/ZingChart"))
 const Search = React.lazy(() => import("../features//search/Search.js"));
 const Home = React.lazy(() => import("../features//shared/pages/Home.js"));
 const Test = React.lazy(() => import("../features//search/Test.js"));
@@ -21,6 +22,7 @@ const protectedRoute = [];
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
+  { path: "/zing-chart", name: "Zing Chart", element: <ZingChart /> },
   { path: "/search", name: "Search", element: <Search /> },
   { path: "/test", name: "Test", element: <Test /> },
   { path: "/speech-2-text", name: "SpeechToText", element: <SpeechToText /> },

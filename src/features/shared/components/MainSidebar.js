@@ -34,7 +34,7 @@ export default function MainSidebar() {
                         </NavLink>
                     </li>
                     <li className='sidebar__personal-item'>
-                        <NavLink className={"link"} to={"/"}>
+                        <NavLink className={"link"} to={"/zing-chart"}>
                             <BsFillBarChartLineFill style={{ fontSize: "2rem" }} />
                             <span className="pl-4"> #zingchart</span>
                         </NavLink>
