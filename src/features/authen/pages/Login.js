@@ -43,8 +43,8 @@ export default function Login() {
   }
   return (
     <div className="page-content-container font-main h-[calc(100%-32px)] overflow-y-hidden">
-      <div className=" h-[100%] overflow-x-hidden overflow-y-auto">
-        <Row gutter={16} className="h-[100%]">
+      <div className=" h-[100%] overflow-x-hidden">
+        <Row gutter={16} className="h-[100%] overflow-y-hidden">
           <Col span={0} lg={16}>
             <div className="bg-[url('https://media.istockphoto.com/vectors/simple-hand-drawn-notes-and-musical-clef-in-doodle-style-vector-id1269332201?k=20&m=1269332201&s=612x612&w=0&h=j_--Q-8XPzVgUb0BYImhu0URryiV7wM_g_6tnFjtEQw=')] h-[100%] w-[100%] object-contain rounded-[4px]"></div>
           </Col>
