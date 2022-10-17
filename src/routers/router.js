@@ -1,4 +1,5 @@
 import React from "react"
+import SignOTP from "../features/authen/pages/SignOTP.js"
 
 const SignUp = React.lazy(() => import("../features/authen/pages/Signup.js"))
 const Login = React.lazy(() => import("../features/authen/pages/Login.js"))
@@ -33,6 +34,11 @@ const publicRoute = [
     path: "/reset-password",
     name: "Reset Password",
     element: <ResetPassword />
+  },
+  {
+    path: "/sign-otp",
+    name: "Sign OTP",
+    element: <SignOTP />
   }
 ]
 

@@ -1,4 +1,4 @@
-import React, { createRef, useRef } from "react"
+import React from "react"
 import {
   Typography,
   Button,
@@ -10,39 +10,11 @@ import {
   Col,
   Row
 } from "antd"
-import { post } from "../../../api/axios"
-import { useNavigate } from "react-router-dom"
-import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"
-import URL from "../../../api/config"
 
-export default function Signup() {
-  const navigate = useNavigate()
-
-  const onFinish = (values) => {
-    console.log(values)
-    post(URL.URL_SIGN_UP, values)
-      .then((data) => {
-        console.log("data", data)
-      })
-      .catch((err) => {
-        console.log("err", err)
-      })
-  }
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo)
-  }
-
-  const requestOTP = (email) => {
-    // console.log(inputRef.emailRef.current.input.value)
-    post(URL.URL_REQUEST_OTP, { email: email })
-      .then((data) => {
-        console.log("data", data)
-      })
-      .catch((err) => {})
-  }
-
+export default function SignOTP() {
+  const onFinish = (value) => {}
+  const onFinishFailed = (value) => {}
   return (
     <div className="page-content-container font-main h-[calc(100%-32px)] overflow-y-auto mx-[12px]">
       <div className="overflow-x-hidden overflow-y-auto">
@@ -161,7 +133,7 @@ export default function Signup() {
           </Col>
         </Row>
         {/* <div className="flex-2 overflow-hidden hidden lg:block h-[420px]"></div>
-        <div className="main-content flex-1 min-w-[340px] "></div> */}
+    <div className="main-content flex-1 min-w-[340px] "></div> */}
       </div>
     </div>
   )
