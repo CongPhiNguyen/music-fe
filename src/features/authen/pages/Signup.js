@@ -34,15 +34,6 @@ export default function Signup() {
     console.log("Failed:", errorInfo)
   }
 
-  const requestOTP = (email) => {
-    // console.log(inputRef.emailRef.current.input.value)
-    post(URL.URL_REQUEST_OTP, { email: email })
-      .then((data) => {
-        console.log("data", data)
-      })
-      .catch((err) => {})
-  }
-
   return (
     <div className="page-content-container font-main h-[calc(100%-32px)] overflow-y-auto mx-[12px]">
       <div className="overflow-x-hidden overflow-y-auto">

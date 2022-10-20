@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import {
   Typography,
   Button,
@@ -10,14 +10,40 @@ import {
   Col,
   Row
 } from "antd"
-import { GoogleOutlined } from "@ant-design/icons"
+import { post } from "../../../api/axios"
+import URL from "../../../api/config"
 
 export default function SignOTP() {
+  const [isSendingRequest, setIsSendingRequest] = useState(false)
+  const [isSendRequest, setIsSendRequest] = useState(false)
+  const [countDownVal, setCountDownVal] = useState(120)
+  const sendOTP = (email) => {
+    if (email.length === 0) {
+      message.error("The email can not be blanked")
+      return
+    }
+    setIsSendingRequest(true)
+    setIsSendRequest(true)
+    post(URL.URL_REQUEST_OTP, { email: email })
+      .then((data) => {
+        if (data.success) {
+          setIsSendingRequest(false)
+        } else {
+        }
+      })
+      .catch((err) => {
+        message.error("Email not founded")
+      })
+    //OTP return setIsSendingRequest false
+  }
   const onFinish = (value) => {}
   const onFinishFailed = (value) => {}
+
+  const emailRef = useRef()
+
   return (
     <div className="page-content-container font-main h-[calc(100%-32px)] overflow-y-auto mx-[12px]">
-      <div className="overflow-x-hidden overflow-y-auto">
+      <div className="overflow-x-hidden overflow-y-auto h-[100%]">
         <Row gutter={16} className="h-[100%] overflow-y-hidden">
           <Col span={0} lg={16}>
             <div className="bg-[url('https://media.istockphoto.com/vectors/simple-hand-drawn-notes-and-musical-clef-in-doodle-style-vector-id1269332201?k=20&m=1269332201&s=612x612&w=0&h=j_--Q-8XPzVgUb0BYImhu0URryiV7wM_g_6tnFjtEQw=')] h-[100%] w-[100%] object-contain rounded-[4px]"></div>
@@ -25,10 +51,10 @@ export default function SignOTP() {
           <Col span={24} lg={8} className="overflow-y-auto">
             <div className="mx-[40px] h-[100%] flex flex-col justify-center overflow-y-auto">
               <Typography className="mt-[36px] text-[24px] font-[600] mb-[14px]">
-                Welcome to P2Tunes!
+                Verify with OTP!
               </Typography>
               <Typography className="text-[15px] mb-[28px]">
-                Adventure start here!
+                Verify to access P2Tune!
               </Typography>
               <Form
                 name="basic"
@@ -39,95 +65,31 @@ export default function SignOTP() {
               >
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Username"
-                  name="username"
-                  rules={[
-                    { required: true, message: "Please input your username!" }
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-
-                <Form.Item
-                  labelCol={{ span: 24 }}
                   label="Email"
                   name="email"
                   rules={[
-                    { required: true, message: "Please input your mail!" }
+                    { required: true, message: "Please input your email!" }
                   ]}
                 >
                   <div className="flex">
-                    <Input />
+                    <Input ref={emailRef} />
+                    <Button
+                      type="primary"
+                      loading={isSendingRequest}
+                      onClick={() => {
+                        sendOTP(emailRef.current.input.value)
+                      }}
+                    >
+                      Send
+                    </Button>
                   </div>
                 </Form.Item>
-
-                <Form.Item
-                  labelCol={{ span: 24 }}
-                  label="Name"
-                  name="name"
-                  rules={[
-                    { required: true, message: "Please input your name!" }
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  labelCol={{ span: 24 }}
-                  label="Password"
-                  name="password"
-                  rules={[
-                    { required: true, message: "Please input your password!" }
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-                <Form.Item
-                  labelCol={{ span: 24 }}
-                  label="Repeat Password"
-                  name="repeat password"
-                  rules={[
-                    { required: true, message: "Please input your password!" }
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-                <div className="my-[16px]">
-                  <Form.Item
-                    name="agreement"
-                    valuePropName="checked"
-                    rules={[
-                      {
-                        validator: (_, value) =>
-                          value
-                            ? Promise.resolve()
-                            : Promise.reject(
-                                new Error("Should accept agreement")
-                              )
-                      }
-                    ]}
-                    // {...tailFormItemLayout}
-                  >
-                    <Checkbox>
-                      I have read the{" "}
-                      <a href="/agreement" target="_blank">
-                        agreement
-                      </a>
-                    </Checkbox>
-                  </Form.Item>
-                </div>
-
-                <div className="mb-[24px]">
+                {/* OTP Countdown*/}
+                <div className="mb-[24px] mt-[24px]">
                   <Button type="primary" htmlType="submit" className="w-[100%]">
-                    Sign up
+                    Verify
                   </Button>
                 </div>
-                <Divider plain>or</Divider>
-                <Button
-                  className="w-[100%] mb-[20px]"
-                  icon={<GoogleOutlined className="mt-[-4px]" />}
-                >
-                  Continue with Google
-                </Button>
               </Form>
             </div>
           </Col>
