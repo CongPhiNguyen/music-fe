@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   Typography,
   Button,
@@ -10,27 +10,45 @@ import {
   Col,
   Row
 } from "antd"
-import axios from "axios"
-import API from "../../../config/API.js"
 import { useNavigate } from "react-router-dom"
 import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"
+import { post } from "../../../api/axios.js"
+import URL from "../../../api/config.js"
 
 export default function Login() {
   const navigate = useNavigate()
+  const [isVerifiedAccount, setIsVerifiedAccount] = useState(true)
 
   const callAPISendSignIn = (value) => {
-    axios
-      .post(API.API_ROUTE + "/user/login", { ...value })
+    // axios
+    //   .post(API.API_ROUTE + "/user/login", { ...value })
+    //   .then((data) => {
+    //     if (!data.data.success) throw Error("Login failed")
+    //     message.success("Login success!!", 1)
+    //     cookiesUtil.set("_jwt", data.data.token)
+    //     navigate("/")
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err)
+    //     message.error("Login failed!!", 1)
+    //   })
+    post(URL.URL_SIGN_IN, value)
       .then((data) => {
-        if (!data.data.success) throw Error("Login failed")
-        message.success("Login success!!", 1)
-        cookiesUtil.set("_jwt", data.data.token)
-        navigate("/")
+        console.log("data", data)
+        if (data?.data?.success) {
+          message.success("Sign in successfully")
+          cookiesUtil.setAccessToken(data?.data?.jwt)
+          navigate("/")
+        } else {
+          if (data?.data?.message === "You account is not verified") {
+            setIsVerifiedAccount(false)
+          }
+          message.error(data?.data?.message)
+        }
       })
       .catch((err) => {
         console.log("err", err)
-        message.error("Login failed!!", 1)
       })
   }
   const onFinish = (values) => {
@@ -84,6 +102,20 @@ export default function Login() {
                 >
                   <Input.Password />
                 </Form.Item>
+                {!isVerifiedAccount && (
+                  <span className="text-[11px] mt-[-12px] text-[red]">
+                    *Your account was not verified.
+                    <span
+                      onClick={() => {
+                        navigate("/sign-otp")
+                      }}
+                      className="text-[blue] hover:opacity-60 ml-[2px] cursor-pointer"
+                    >
+                      Verify
+                    </span>{" "}
+                    your account?
+                  </span>
+                )}
 
                 <div className="flex justify-between mb-[16px]">
                   <Form.Item

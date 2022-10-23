@@ -12,23 +12,34 @@ import {
 } from "antd"
 import { post } from "../../../api/axios"
 import URL from "../../../api/config"
+import { useNavigate } from "react-router-dom"
 
 export default function SignOTP() {
+  const navigate = useNavigate()
+
   const [isSendingRequest, setIsSendingRequest] = useState(false)
   const [isSendRequest, setIsSendRequest] = useState(false)
   const [countDownVal, setCountDownVal] = useState(120)
+  const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+
   const sendOTP = (email) => {
     if (email.length === 0) {
       message.error("The email can not be blanked")
       return
     }
     setIsSendingRequest(true)
-    setIsSendRequest(true)
+
     post(URL.URL_REQUEST_OTP, { email: email })
       .then((data) => {
-        if (data.success) {
+        console.log("data", data)
+        if (data.data.success) {
           setIsSendingRequest(false)
+          setIsSendRequest(true)
         } else {
+          setIsSendingRequest(false)
+          setIsError(true)
+          setErrorMessage(data.data.message)
         }
       })
       .catch((err) => {
@@ -36,7 +47,25 @@ export default function SignOTP() {
       })
     //OTP return setIsSendingRequest false
   }
-  const onFinish = (value) => {}
+  const verifyOTP = (value) => {
+    console.log("value", value)
+    post(URL.URL_VERIFY_OTP, value)
+      .then((data) => {
+        console.log("data", data.data.message)
+        if (data.data.success) {
+          message.success("Your account was verified")
+          navigate("/login")
+        } else {
+          message.error(data?.data?.message)
+        }
+      })
+      .catch((err) => {
+        message.error("Unexpected error")
+      })
+  }
+  const onFinish = (value) => {
+    verifyOTP(value)
+  }
   const onFinishFailed = (value) => {}
 
   const emailRef = useRef()
@@ -72,10 +101,16 @@ export default function SignOTP() {
                   ]}
                 >
                   <div className="flex">
-                    <Input ref={emailRef} />
+                    <Input
+                      ref={emailRef}
+                      onChange={(value) => {
+                        setIsError(false)
+                      }}
+                    />
                     <Button
                       type="primary"
                       loading={isSendingRequest}
+                      disabled={isSendRequest}
                       onClick={() => {
                         sendOTP(emailRef.current.input.value)
                       }}
@@ -84,6 +119,25 @@ export default function SignOTP() {
                     </Button>
                   </div>
                 </Form.Item>
+                {isError && (
+                  <p className="text-[11px] text-[red] mt-[-10px]">
+                    * {errorMessage}
+                  </p>
+                )}
+                {isSendRequest && (
+                  <Form.Item
+                    labelCol={{ span: 24 }}
+                    label="Code"
+                    name="code"
+                    rules={[
+                      { required: true, message: "Please input your code!" }
+                    ]}
+                  >
+                    <div className="flex">
+                      <Input />
+                    </div>
+                  </Form.Item>
+                )}
                 {/* OTP Countdown*/}
                 <div className="mb-[24px] mt-[24px]">
                   <Button type="primary" htmlType="submit" className="w-[100%]">

@@ -1,4 +1,4 @@
-import React, { createRef, useRef } from "react"
+import React, { useState, createRef, useRef } from "react"
 import {
   Typography,
   Button,
@@ -18,12 +18,15 @@ import URL from "../../../api/config"
 
 export default function Signup() {
   const navigate = useNavigate()
+  const [isSendRequest, setIsSendRequest] = useState(false)
 
   const onFinish = (values) => {
-    console.log(values)
+    // console.log(values)
+    setIsSendRequest(true)
     post(URL.URL_SIGN_UP, values)
       .then((data) => {
         console.log("data", data)
+        navigate("/sign-otp")
       })
       .catch((err) => {
         console.log("err", err)
@@ -136,7 +139,12 @@ export default function Signup() {
                 </div>
 
                 <div className="mb-[24px]">
-                  <Button type="primary" htmlType="submit" className="w-[100%]">
+                  <Button
+                    disabled={setIsSendRequest}
+                    type="primary"
+                    htmlType="submit"
+                    className="w-[100%]"
+                  >
                     Sign up
                   </Button>
                 </div>

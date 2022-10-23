@@ -10,8 +10,6 @@ import {
   Col,
   Row
 } from "antd"
-import axios from "axios"
-import API from "../../../config/API.js"
 import { useNavigate } from "react-router-dom"
 import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"

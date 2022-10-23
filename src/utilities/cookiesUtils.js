@@ -1,4 +1,4 @@
-import Cookies from "universal-cookie";
+import Cookies from "universal-cookie"
 export const cookiesUtil = {
   set,
   get,
@@ -6,44 +6,44 @@ export const cookiesUtil = {
   getCurrentUserInfo,
   setAccessToken,
   getAccessToken,
-  setCurrentUserInfo,
-};
+  setCurrentUserInfo
+}
 
-const cookies = new Cookies();
+const cookies = new Cookies()
 
 function set(key, value) {
-  cookies.set(key, value, { path: "/" });
+  cookies.set(key, value, { path: "/" })
 }
 
 function get(key) {
-  let value = cookies.get(key);
+  let value = cookies.get(key)
   if (value) {
-    return value;
+    return value
   }
-  return null;
+  return null
 }
 
 function getCurrentUserInfo() {
-  return get("_user");
+  return get("_user")
 }
 
 function remove(key) {
-  let value = cookies.get(key);
+  let value = cookies.get(key)
   if (value) {
-    cookies.remove(key);
-    return true;
+    cookies.remove(key)
+    return true
   }
-  return false;
+  return false
 }
 
 function setAccessToken(value) {
-  cookies.set("_jwt", value);
+  cookies.set("jwt", value)
 }
 
 function getAccessToken() {
-  return cookies.get("_jwt");
+  return cookies.get("jwt")
 }
 
 function setCurrentUserInfo(value) {
-  cookies.set("_user", value);
+  cookies.set("user", value)
 }
