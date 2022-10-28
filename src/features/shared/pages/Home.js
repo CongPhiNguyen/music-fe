@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom"
 import { get } from "../../../api/axios"
 import URL from "../../../api/config"
 import { setCurrentUserInfo } from "../../authen/authenSlice"
+import MusicControl from "../components/MusicControl";
+import MainSidebar from "../components/MainSidebar";
+import NextSong from "../components/NextSong";
+import MainHome from "../components/MainHome";
+import "./Home.css"
 export default function Home() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -17,5 +22,12 @@ export default function Home() {
         console.log("err", err)
       })
   }, [])
-  return <div>Home</div>
-}
+  return <div className="w-screen h-screen home" style={{ backgroundImage: "url(./assets/img/background-theme/backroundThemes/0.svg)" }}>
+    <div className="w-full">
+      <MainSidebar></MainSidebar>
+      <MainHome></MainHome>
+      <NextSong></NextSong>
+    </div>
+    <MusicControl></MusicControl>
+  </div>;
+

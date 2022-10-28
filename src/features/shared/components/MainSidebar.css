@@ -1,0 +1,229 @@
+.MainSidebar {
+  width: 240px;
+  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #411465;
+  position: fixed;
+  top: 0;
+  bottom: calc(90px + 54px);
+  left: 0;
+}
+
+.sidebar__logo {
+  width: 240px;
+  height: 70px;
+  background-image: url("/public/assets/img/sidebar-icon/logo/logo-dark.svg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position-x: 28px;
+  background-position-y: 50%;
+}
+
+.sidebar__personal {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.sidebar__personal::after {
+  content: "";
+  height: 20px;
+  position: absolute;
+  bottom: -37px;
+  left: 0;
+  width: 240px;
+  right: 0;
+}
+.sidebar__personal-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.sidebar__personal-item {
+  color: #fff;
+  opacity: 0.8;
+  height: 40px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+  cursor: pointer;
+}
+
+.sidebar__personal-item.active {
+  background-color: rgba(225, 225, 225, 0.1);
+  border-left: 3px solid #ed2b91;
+  padding-left: calc(28px - 3px);
+}
+
+.sidebar__personal-item .link {
+  font-size: 1.3rem;
+  padding-right: 10px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar__personal-item:hover {
+  opacity: 1;
+}
+
+.sildebar__line {
+  margin: 0 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sildebar__library {
+  height: calc(100vh - 430px);
+  overflow-y: auto;
+  position: relative;
+}
+
+.sidebar__library-top-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  margin-top: 12px;
+}
+
+.sidebar__library-top-item {
+  color: #fff;
+  opacity: 0.8;
+  height: 40px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+  cursor: pointer;
+}
+
+.sidebar__library-top-item.active {
+  background-color: rgba(225, 225, 225, 0.1);
+  border-left: 3px solid #ed2b91;
+  padding-left: calc(28px - 3px);
+}
+
+.sidebar__library-top-item .link {
+  font-size: 1.3rem;
+  padding-right: 10px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar__library-top-item:hover {
+  opacity: 1;
+}
+
+.sidebar__library-center {
+  height: 120px;
+  background-image: linear-gradient(117deg, #5a4be7, #c86dd7);
+  margin: 12px calc(28px - 8px) 0 calc(28px - 8px);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.sidebar__library-center-heading {
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  font-weight: 500;
+  padding: 12px 0 6px 0;
+}
+
+.sidebar__library-center-vip {
+  color: #000;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background-color: #ffdb00;
+  padding: 6px 0;
+  margin: 0 20px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.sidebar__library-bot-title {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2rem;
+  padding: 30px 28px 10px 28px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.sidebar__library-bot-item {
+  height: 30px;
+  color: #fff;
+  opacity: 0.8;
+  height: 38px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+  cursor: pointer;
+  color: rgb(223, 221, 221);
+  position: relative;
+}
+
+.sidebar__library-bot-extra-option {
+  padding: 6px 6px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  display: none;
+}
+
+.sidebar__library-bot-item:hover {
+  opacity: 1;
+}
+
+.sidebar__library-bot-item:hover .sidebar__library-bot-extra-option {
+  display: block;
+}
+
+.sidebar__library-bot-extra-option:hover {
+  background-color: rgba(225, 225, 225, 0.1);
+}
+
+.sildebar__add-playlist {
+  height: 54px;
+  width: 240px;
+  position: fixed;
+  left: 0;
+  bottom: 90px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  padding-left: 28px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sildebar__add-playlist:hover {
+  opacity: 0.8;
+}

@@ -105,3 +105,46 @@ svg {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+/* -- css Scroll-Bar --  */
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* background */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* scrollBar */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* scrollBar on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #7b47a5;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+/* input[type="range"] {
+  font-size: 1.5rem;
+  width: 12.5em;
+}
+
+input[type="range"] {
+  color: #ef233c;
+  --thumb-height: 1.125em;
+  --track-height: 0.125em;
+  --track-color: rgba(0, 0, 0, 0.2);
+  --brightness-hover: 180%;
+  --brightness-down: 80%;
+  --clip-edges: 0.125em;
+}
+input[type="range"]:active::-moz-range-thumb {
+  cursor: grabbing;
+} */

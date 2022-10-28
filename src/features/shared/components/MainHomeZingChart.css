@@ -1,0 +1,139 @@
+.zing-chart {
+  margin: 90px 80px 0 80px;
+}
+
+.zing-chart__heading {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  padding: 20px 0;
+  margin-bottom: 30px;
+}
+
+.zing-chart__song-item {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px solid rgba(225, 225, 225, 0.1);
+}
+
+.zing-chart__song-item-left {
+  display: flex;
+  align-items: center;
+}
+
+.zingchart__item-left-stt {
+  color: rgba(74, 144, 226, 0);
+  font-size: 4rem;
+  font-weight: 700;
+  width: 50px;
+  text-align: center;
+  display: block;
+  margin: 0 6px 0 8px;
+}
+
+.zingchart__item-left-stt:nth-child(3n + 1) {
+  -webkit-text-stroke: 1.5px #4a90e2 !important;
+}
+
+.zingchart__item-left-stt:nth-child(3n + 2) {
+  -webkit-text-stroke: 1.5px #50e3c2 !important;
+}
+
+.zingchart__item-left-stt:nth-child(3n + 3) {
+  -webkit-text-stroke: 1.5px #e35050 !important;
+}
+
+.zingchart__item-left-line {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 4rem;
+  margin-right: 16px;
+}
+
+.zingchart__item-left-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  background-size: contain;
+  display: flex;
+}
+
+.zing-chart__song-item:hover {
+  background-color: rgba(225, 225, 225, 0.1);
+}
+
+.zing-chart__song-item:hover .overview__allsong-item-left-play {
+  display: flex;
+}
+
+.zing-chart__song-item:hover .overview__allsong-item-end-mv,
+.zing-chart__song-item:hover .overview__allsong-item-end-lyric,
+.zing-chart__song-item:hover .overview__allsong-item-end-more {
+  display: flex;
+}
+
+.zing-chart__song-item:hover .overview__allsong-item-end-duration {
+  display: none;
+}
+
+.zing-chart__100more {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0 80px 0;
+}
+
+.zingchart__100more-body {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-radius: 50px;
+  width: 134px;
+  height: 38px;
+  border: 1px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.zing-chart__week {
+  display: flex;
+  margin-bottom: 30px;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #fff;
+  padding: 6px 0 0 20px;
+}
+
+.zing-chart__week-vn {
+  border-radius: 16px;
+  background-color: hsla(0, 0%, 100%, 0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 12px 22px 10px;
+  margin-bottom: 40px;
+}
+
+.zing-chart__week-heading {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #fff;
+  padding: 6px 0 0 20px;
+}
+
+.zing-chart__week-item {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  border-radius: 5px;
+}
+
+.zing-chart__week-item:hover {
+  background-color: rgba(225, 225, 225, 0.1);
+}
