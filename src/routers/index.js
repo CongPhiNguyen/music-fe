@@ -1,16 +1,29 @@
-import React from "react"
-import { useSelector } from "react-redux"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Route, Routes, Navigate } from "react-router-dom"
 import routes from "./router"
 // import { useSelector } from "react-redux";
-
+import { get } from "../api/axios"
+import URL from "../api/config"
+import { setCurrentUserInfo } from "../features/authen/authenSlice"
 const Routers = () => {
+  const dispatch = useDispatch()
   const currentUserInfo = useSelector((state) => state.authen.currentUserInfo)
   console.log("currentUserInfo", currentUserInfo)
-  console.log(
-    "Object.keys(currentUserInfo) === 0",
-    Object.keys(currentUserInfo)
-  )
+  // console.log(
+  //   "Object.keys(currentUserInfo) === 0",
+  //   Object.keys(currentUserInfo)
+  // )
+  useEffect(() => {
+    get(URL.URL_REFESH)
+      .then((data) => {
+        console.log("data", data)
+        dispatch(setCurrentUserInfo({ username: data?.data?.username }))
+      })
+      .catch((err) => {
+        console.log("err", err)
+      })
+  }, [])
   return (
     <React.Suspense>
       <Routes>
