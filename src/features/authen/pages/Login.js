@@ -15,11 +15,12 @@ import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"
 import { post } from "../../../api/axios.js"
 import URL from "../../../api/config.js"
-
+import { handleLogin } from "../authenSlice"
+import { useDispatch } from "react-redux"
 export default function Login() {
   const navigate = useNavigate()
   const [isVerifiedAccount, setIsVerifiedAccount] = useState(true)
-
+  const dispatch = useDispatch()
   const callAPISendSignIn = (value) => {
     // axios
     //   .post(API.API_ROUTE + "/user/login", { ...value })
@@ -39,6 +40,7 @@ export default function Login() {
         if (data?.data?.success) {
           message.success("Sign in successfully")
           cookiesUtil.setAccessToken(data?.data?.jwt)
+          dispatch(handleLogin())
           navigate("/")
         } else {
           if (data?.data?.message === "You account is not verified") {

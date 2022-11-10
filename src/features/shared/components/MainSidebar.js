@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import "./MainSidebar.css"
 import { NavLink } from "react-router-dom"
 import { PlayCircleFilled } from "@ant-design/icons"
@@ -14,12 +14,13 @@ import { GoRadioTower } from "react-icons/go"
 import { AiTwotoneEdit } from "react-icons/ai"
 import { GrFormAdd } from "react-icons/gr"
 export default function MainSidebar() {
+  const [selected, setSelected] = useState("home")
   return (
     <div className="MainSidebar">
       <div className="sidebar__logo"></div>
       <div className="sidebar__personal">
         <ul className="sidebar__personal-list">
-          <li className="sidebar__personal-item active">
+          <li onClick={() => { setSelected("home") }} className={`sidebar__personal-item ${selected === "home" && "active"}`}>
             <NavLink className={"link"} to={"/"}>
               <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
               <span className="pl-4"> Cá Nhân</span>
@@ -37,7 +38,7 @@ export default function MainSidebar() {
               <span className="pl-4"> Theo Dõi</span>
             </NavLink>
           </li>
-          <li className="sidebar__personal-item">
+          <li onClick={() => { setSelected("zing-chart") }} className={`sidebar__personal-item ${selected === "zing-chart" && "active"}`}>
             <NavLink className={"link"} to={"/zing-chart"}>
               <BsFillBarChartLineFill style={{ fontSize: "2rem" }} />
               <span className="pl-4"> #zingchart</span>
