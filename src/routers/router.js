@@ -40,7 +40,8 @@ const publicRoute = [
     path: "/sign-otp",
     name: "Sign OTP",
     element: <SignOTP />
-  }
+  },
+  { path: "/", name: "Home", element: <Home /> }
 ]
 
 // Những route dùng khi đã đăng nhập
