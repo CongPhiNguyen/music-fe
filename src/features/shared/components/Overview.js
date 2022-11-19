@@ -81,7 +81,7 @@ const OverviewSilder = (props) => {
             }
         }, 1000)
         return () => { clearInterval(a) }
-    }, [])
+    }, [indexShow, props.songsData.length])
 
     return (<div className='overview-slider'>
         {
@@ -148,6 +148,7 @@ export default function Overview() {
                     </Col>
                     <Col span={16}>
                         <div className='overview__allsong'>
+                            <audio src='https://zingmp3.vn/api/v2/song/get/streaming?id=IWZAEC86&sig=225ea89924356138132b6f974708278c771ffa767ca47a7239bd6c46b14ab6c6d57615de6a917a96e8bbe5f6f70993d399f921958d58030ab542d40f42c6b8b2&ctime=1668874949&version=1.6.34&apiKey=88265e23d4284f25963e6eedac8fbfa3'></audio>
                             <ul className='overview__allsong-list'>
                                 {
                                     songsData.map((song, index) => {

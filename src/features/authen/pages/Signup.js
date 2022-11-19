@@ -1,10 +1,9 @@
-import React, { useState, createRef, useRef } from "react"
+import React, { useState } from "react"
 import {
   Typography,
   Button,
   Form,
   Input,
-  message,
   Checkbox,
   Divider,
   Col,
@@ -123,11 +122,11 @@ export default function Signup() {
                           value
                             ? Promise.resolve()
                             : Promise.reject(
-                                new Error("Should accept agreement")
-                              )
+                              new Error("Should accept agreement")
+                            )
                       }
                     ]}
-                    // {...tailFormItemLayout}
+                  // {...tailFormItemLayout}
                   >
                     <Checkbox>
                       I have read the{" "}

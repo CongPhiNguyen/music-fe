@@ -52,7 +52,7 @@ export default function MusicControl() {
         } else {
             dispatch(setIsPlay({ isPlay: false }))
         }
-    }, [indexSong])
+    }, [indexSong, dispatch])
 
     const handlePauseMusic = () => {
         radioRef.current.pause()
@@ -126,7 +126,7 @@ export default function MusicControl() {
         else {
             radioRef.current.volume = volumn
         }
-    }, [isMute])
+    }, [isMute, volumn])
 
     useEffect(() => {
         if (volumn === 0) {
