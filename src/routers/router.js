@@ -12,14 +12,25 @@ const ForgotPassword = React.lazy(() =>
 const ResetPassword = React.lazy(() =>
   import("../features/authen/pages/ResetPassword.js")
 )
+const Home = React.lazy(() => {
+  import("../features/shared/pages/Home.js")
+})
 
-const MainHomeZingChart = React.lazy(() => import("../features/shared/components/MainHomeZingChart"))
-const MainHome = React.lazy(() => import("../features/shared/components/MainHome"))
+const MainHomeZingChart = React.lazy(() =>
+  import("../features/shared/components/MainHomeZingChart")
+)
+const MainHome = React.lazy(() =>
+  import("../features/shared/components/MainHome")
+)
+const Interactive = React.lazy(() =>
+  import("../features/interactive/Interactive.js")
+)
 
 const mainRoute = [
   { path: "/", name: "Home", element: <MainHome /> },
+
   { path: "/home", name: "Home", element: <MainHome /> },
-  { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
+  { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> }
 ]
 
 // Những route chỉ truy xuất khi chưa đăng nhập
@@ -46,13 +57,15 @@ const publicRoute = [
 ]
 
 // Những route dùng khi đã đăng nhập
-const protectedRoute = []
+const protectedRoute = [
+  { path: "/interactive", name: "Lofi", element: <Interactive /> }
+]
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
   { path: "/", name: "Home1", element: <MainHome /> },
   { path: "/home", name: "Home", element: <MainHome /> },
-  { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
+  { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> }
 ]
 
 // Route dùng cho manager
