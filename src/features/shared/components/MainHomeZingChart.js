@@ -5,6 +5,7 @@ import { FaArrowLeft, FaArrowRight, FaSearch, FaTshirt, FaUpload, FaPlay, FaCog,
 import { useSelector, useDispatch } from 'react-redux'
 import { setCurrentSong, changeIsPlay } from '../musicSlice'
 import { Row, Col } from "antd"
+
 const ComponentSongZingChart = (props) => {
     const isPlay = useSelector(state => state.musicData.isPlay)
     const dispatch = useDispatch()

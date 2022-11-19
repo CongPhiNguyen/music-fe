@@ -11,9 +11,9 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div className="header-container">
+        {/* <div className="header-container">
           <Header />
-        </div>
+        </div> */}
         <div className="page-container overflow-y-hidden">
           <Routers />
         </div>

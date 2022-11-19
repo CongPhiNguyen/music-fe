@@ -13,13 +13,14 @@ const ResetPassword = React.lazy(() =>
   import("../features/authen/pages/ResetPassword.js")
 )
 
-const Home = React.lazy(() => import("../features//shared/pages/Home.js"))
-const Test = React.lazy(() => import("../features//search/Test.js"))
-const ZingChart = React.lazy(() => import("../features/shared/pages/ZingChart"))
-const Search = React.lazy(() => import("../features//search/Search.js"))
-const SpeechToText = React.lazy(() =>
-  import("../features//search/SpeechToText.js")
-)
+const MainHomeZingChart = React.lazy(() => import("../features/shared/components/MainHomeZingChart"))
+const MainHome = React.lazy(() => import("../features/shared/components/MainHome"))
+
+const mainRoute = [
+  { path: "/", name: "Home", element: <MainHome /> },
+  { path: "/home", name: "Home", element: <MainHome /> },
+  { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
+]
 
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
@@ -49,11 +50,9 @@ const protectedRoute = []
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
-  { path: "/zing-chart", name: "Zing Chart", element: <ZingChart /> },
-  { path: "/search", name: "Search", element: <Search /> },
-  { path: "/test", name: "Test", element: <Test /> },
-  { path: "/speech-2-text", name: "SpeechToText", element: <SpeechToText /> },
-  { path: "/", name: "Home", element: <Home /> }
+  { path: "/", name: "Home1", element: <MainHome /> },
+  { path: "/home", name: "Home", element: <MainHome /> },
+  { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
 ]
 
 // Route dùng cho manager
@@ -63,7 +62,8 @@ const routes = {
   publicRoute,
   commonRoute,
   protectedRoute,
-  managerRoute
+  managerRoute,
+  mainRoute
 }
 
 export default routes

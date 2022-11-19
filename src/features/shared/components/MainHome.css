@@ -122,3 +122,15 @@
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
 }
+
+.btn-login {
+  margin-bottom: 0;
+  color: white;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+.btn-login:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}

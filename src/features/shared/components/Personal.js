@@ -8,7 +8,7 @@ export default function Personal() {
     return (
         <div className='main-home-personal'>
             <div className='main-home-personal__profile'>
-                <img className='main-home-personal__profile-img' alt='user' src='https://scontent.fsgn5-6.fna.fbcdn.net/v/t1.6435-9/149261868_2662651750692098_1649444713054646857_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=4qEHkg4TpyYAX_AbTfW&_nc_ht=scontent.fsgn5-6.fna&oh=00_AT-qa1HN260fand9ODHVY5VkTK8kVdzODazbopBjZGmjbg&oe=635417F3' />
+                <img className='main-home-personal__profile-img' alt='user' src='https://scontent.fsgn5-6.fna.fbcdn.net/v/t1.6435-9/149261868_2662651750692098_1649444713054646857_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=LSzUChwDjT4AX-WGg-s&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfCCrlQoK8zVDkBqmbU5-XeTNE8fdiW35vB-1CyurlIumw&oe=63947933' />
                 <span className='main-home-personal__profile-name'>Lương Thiện Phước</span>
                 <div className='main-home-personal__profile-vip'>
                     <span className='main-home-personal__profile-vip-upgrate'>Nâng cấp vip</span>
