@@ -12,9 +12,7 @@ const ForgotPassword = React.lazy(() =>
 const ResetPassword = React.lazy(() =>
   import("../features/authen/pages/ResetPassword.js")
 )
-const Home = React.lazy(() => {
-  import("../features/shared/pages/Home.js")
-})
+
 
 const MainHomeZingChart = React.lazy(() =>
   import("../features/shared/components/MainHomeZingChart")
@@ -53,7 +51,6 @@ const publicRoute = [
     name: "Sign OTP",
     element: <SignOTP />
   },
-  { path: "/", name: "Home", element: <Home /> }
 ]
 
 // Những route dùng khi đã đăng nhập
