@@ -2,6 +2,8 @@ import { useState, useContext } from "react"
 import { StoreContext } from "../../../store"
 import "./Header.scss"
 import Logo from "../../../assets/images/logo.png"
+import Night from "../../../assets/images/night.png"
+import Day from "../../../assets/images/day.webp"
 
 const MENU_SETTING = [
   {
@@ -76,11 +78,7 @@ const Header = () => {
     <div className="px-[48px] flex items-center justify-between z-50">
       <div>
         {/* Logo */}
-        <img
-          className="object-cover h-[100px] w-[178px]"
-          src={Logo}
-          alt="logo"
-        />
+        <img className="object-contain h-[80px]" src={Logo} alt="logo" />
       </div>
       <div className="flex items-center h-full gap-[16px] ">
         {/* Toggle Weather */}
@@ -99,25 +97,21 @@ const Header = () => {
             className={`absolute top-[6px] w-[17px] h-[17px] bg-[] ${
               toggled ? "left-[8px]" : "right-[8px]"
             }`}
-            src={
-              toggled
-                ? "https://lofi.co/static/media/night.5e06c080aafe377b5acdc9d515f8def6.svg"
-                : "https://lofi.co/static/media/day.d259f96b006901d75223f789f5835736.svg"
-            }
+            src={toggled ? Night : Day}
             alt="iconWeather"
           />
         </button>
-        <div className="hidden md:flex items-center cursor-pointer gap-[8px] bg-gradient-to-l px-[16px] py-[5px] rounded-[8px] from-[#e18660e6] to-[#f4ca5de6]">
+        {/* <div className="hidden md:flex items-center cursor-pointer gap-[8px] bg-gradient-to-l px-[16px] py-[5px] rounded-[8px] from-[#e18660e6] to-[#f4ca5de6]">
           <h3 className="text-[32px] leading-[36px]">🚀</h3>
           <p className="font-bold leading-[18px] text-white text-[14px]">
             Access +20 scenes
             <br />& more with premium
           </p>
         </div>
-        <button className="text-white bg-[#ffffff40] hover:opacity-60 transition-opacity ease-in delay-100 font-[500] px-[16px] py-[6px] text-[14px] rounded-[8px]">
-          Sign up
-        </button>
-        <img
+        <button className="text-white bg-[#ffffff40] hover:opacity-60 transition-opacity ease-in delay-100 font-[500] px-[16px] py-[6px] text-[14px] rounded-[8px]"> */}
+        {/* Sign up */}
+        {/* </button> */}
+        {/* <img
           src="https://lofi.co/icons/share.svg"
           alt="iconMenu"
           className="mt-[6px] cursor-pointer hover:opacity-60 transition-opacity ease-in delay-100"
@@ -136,20 +130,20 @@ const Header = () => {
             className="mt-[6px] cursor-pointer hover:opacity-60 transition-opacity ease-in delay-100"
           />
           {/* Setting Menu */}
-          {openMenu && (
-            <div className="z-40 absolute top-[40px] left-[-90px] w-[170px] rounded-[8px] overflow-hidden bg-[#070707] text-white">
-              {MENU_SETTING.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex gap-[16px] px-[14px] py-[7px] hover:bg-[#f3a952] cursor-pointer"
-                >
-                  <img src={item.icon} alt="iconSetting" />
-                  <p className="text-[14px] font-[500]">{item.title}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {openMenu && (
+          <div className="z-40 absolute top-[40px] left-[-90px] w-[170px] rounded-[8px] overflow-hidden bg-[#070707] text-white">
+            {MENU_SETTING.map((item, index) => (
+              <div
+                key={index}
+                className="flex gap-[16px] px-[14px] py-[7px] hover:bg-[#f3a952] cursor-pointer"
+              >
+                <img src={item.icon} alt="iconSetting" />
+                <p className="text-[14px] font-[500]">{item.title}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {/* </div> */}
       </div>
     </div>
   )
