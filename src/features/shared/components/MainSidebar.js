@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import "./MainSidebar.css"
 import { NavLink } from "react-router-dom"
 import { PlayCircleFilled } from "@ant-design/icons"
