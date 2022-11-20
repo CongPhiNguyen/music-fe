@@ -20,25 +20,39 @@ export default function MainSidebar() {
       <div className="sidebar__logo"></div>
       <div className="sidebar__personal">
         <ul className="sidebar__personal-list">
-          <li onClick={() => { setSelected("home") }} className={`sidebar__personal-item ${selected === "home" && "active"}`}>
+          <li
+            onClick={() => {
+              setSelected("home")
+            }}
+            className={`sidebar__personal-item ${
+              selected === "home" && "active"
+            }`}
+          >
             <NavLink className={"link"} to={"/"}>
               <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
               <span className="pl-4"> Cá Nhân</span>
             </NavLink>
           </li>
           <li className="sidebar__personal-item">
-            <NavLink className={"link"} to={"/"}>
+            <NavLink className={"link"} to={"/home"}>
               <FaCompactDisc style={{ fontSize: "2.2rem" }} />
               <span className="pl-4"> Khám Phá</span>
             </NavLink>
           </li>
           <li className="sidebar__personal-item">
-            <NavLink className={"link"} to={"/"}>
+            <NavLink className={"link"} to={"/home"}>
               <FaListAlt style={{ fontSize: "2rem" }} />
               <span className="pl-4"> Theo Dõi</span>
             </NavLink>
           </li>
-          <li onClick={() => { setSelected("zing-chart") }} className={`sidebar__personal-item ${selected === "zing-chart" && "active"}`}>
+          <li
+            onClick={() => {
+              setSelected("zing-chart")
+            }}
+            className={`sidebar__personal-item ${
+              selected === "zing-chart" && "active"
+            }`}
+          >
             <NavLink className={"link"} to={"/zing-chart"}>
               <BsFillBarChartLineFill style={{ fontSize: "2rem" }} />
               <span className="pl-4"> #zingchart</span>

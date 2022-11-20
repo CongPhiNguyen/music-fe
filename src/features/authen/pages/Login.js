@@ -41,7 +41,7 @@ export default function Login() {
           message.success("Sign in successfully")
           cookiesUtil.setAccessToken(data?.data?.jwt)
           dispatch(handleLogin())
-          navigate("/")
+          navigate("/home")
         } else {
           if (data?.data?.message === "You account is not verified") {
             setIsVerifiedAccount(false)
