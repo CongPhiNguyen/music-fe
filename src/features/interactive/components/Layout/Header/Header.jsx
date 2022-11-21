@@ -4,6 +4,7 @@ import "./Header.scss"
 import Logo from "../../../assets/images/logo.png"
 import Night from "../../../assets/images/night.png"
 import Day from "../../../assets/images/day.webp"
+import { useNavigate } from "react-router-dom"
 
 const MENU_SETTING = [
   {
@@ -41,6 +42,7 @@ const MENU_SETTING = [
 ]
 
 const Header = () => {
+  const navigate = useNavigate()
   // Handle Toggle Weather
   const valueCT = useContext(StoreContext)
   const toggled = valueCT.toggled
@@ -76,9 +78,12 @@ const Header = () => {
 
   return (
     <div className="px-[48px] flex items-center justify-between z-50">
-      <div>
+      <div className="flex" onClick={() => navigate("/")}>
         {/* Logo */}
-        <img className="object-contain h-[80px]" src={Logo} alt="logo" />
+        <img className="object-contain h-[60px]" src={Logo} alt="logo" />
+        <p className="text-[#fff] ml-[10px] mt-[16px] text-[600] text-[20px]">
+          P2Tune
+        </p>
       </div>
       <div className="flex items-center h-full gap-[16px] ">
         {/* Toggle Weather */}

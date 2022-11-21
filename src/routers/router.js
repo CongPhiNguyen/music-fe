@@ -1,5 +1,6 @@
 import React from "react"
 import SignOTP from "../features/authen/pages/SignOTP.js"
+import Test from "../features/test/Test.js"
 
 const SignUp = React.lazy(() => import("../features/authen/pages/Signup.js"))
 const Login = React.lazy(() => import("../features/authen/pages/Login.js"))
@@ -12,9 +13,10 @@ const ForgotPassword = React.lazy(() =>
 const ResetPassword = React.lazy(() =>
   import("../features/authen/pages/ResetPassword.js")
 )
-const Home = React.lazy(() => {
-  import("../features/shared/pages/Home.js")
-})
+
+// const Home = React.lazy(() => {
+//   import("../features/shared/pages/Home.js")
+// })
 
 const MainHomeZingChart = React.lazy(() =>
   import("../features/shared/components/MainHomeZingChart")
@@ -28,7 +30,6 @@ const Interactive = React.lazy(() =>
 
 const mainRoute = [
   { path: "/", name: "Home", element: <MainHome /> },
-
   { path: "/home", name: "Home", element: <MainHome /> },
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> }
 ]
@@ -52,13 +53,13 @@ const publicRoute = [
     path: "/sign-otp",
     name: "Sign OTP",
     element: <SignOTP />
-  },
-  { path: "/", name: "Home", element: <Home /> }
+  }
 ]
 
 // Những route dùng khi đã đăng nhập
 const protectedRoute = [
-  { path: "/interactive", name: "Lofi", element: <Interactive /> }
+  { path: "/interactive", name: "Lofi", element: <Interactive /> },
+  { path: "/test", name: "Test", element: <Test /> }
 ]
 
 // route dùng cho mọi trường hợp

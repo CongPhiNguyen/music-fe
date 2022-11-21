@@ -10,7 +10,7 @@ import {
   Col,
   Row
 } from "antd"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"
 import { post } from "../../../api/axios.js"
@@ -130,7 +130,7 @@ export default function Login() {
                   </Form.Item>
 
                   <p
-                    className="float-right cursor-pointer text-[blue] hover:opacity-60"
+                    className="float-right cursor-pointer text-[blue] hover:opacity-60 text-[14px]"
                     onClick={() => navigate("/forgot-password")}
                   >
                     Forgot password
@@ -141,6 +141,10 @@ export default function Login() {
                     Login
                   </Button>
                 </div>
+                <p className="text-[14px]">
+                  Don't have an account?{" "}
+                  <NavLink to="/sign-up">Sign up</NavLink>
+                </p>
                 <Divider plain>or</Divider>
                 <Button
                   className="w-[100%] mb-[20px]"

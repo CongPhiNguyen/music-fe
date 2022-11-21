@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import "./MainSidebar.css"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { PlayCircleFilled } from "@ant-design/icons"
 import {
   FaCompactDisc,
@@ -9,15 +9,31 @@ import {
   FaBuromobelexperte,
   FaPhotoVideo
 } from "react-icons/fa"
-import { BsFillBarChartLineFill, BsFillStarFill } from "react-icons/bs"
+import {
+  BsFillBarChartLineFill,
+  BsFillStarFill,
+  BsFillUmbrellaFill
+} from "react-icons/bs"
 import { GoRadioTower } from "react-icons/go"
 import { AiTwotoneEdit } from "react-icons/ai"
 import { GrFormAdd } from "react-icons/gr"
+import { SiTestinglibrary } from "react-icons/si"
+
 export default function MainSidebar() {
+  const navigate = useNavigate()
   const [selected, setSelected] = useState("home")
+
   return (
     <div className="MainSidebar">
-      <div className="sidebar__logo"></div>
+      <div
+        className="sidebar__logo flex mt-[10px] "
+        onClick={() => navigate("/")}
+      >
+        <img src="/logo.png" alt="" className="w-[40px] ml-[20px] h-[40px]" />
+        <p className="text-[#fff] ml-[10px] mt-[6px] text-[600] text-[20px]">
+          P2Tune
+        </p>
+      </div>
       <div className="sidebar__personal">
         <ul className="sidebar__personal-list">
           <li
@@ -33,18 +49,18 @@ export default function MainSidebar() {
               <span className="pl-4"> Cá Nhân</span>
             </NavLink>
           </li>
-          <li className="sidebar__personal-item">
+          {/* <li className="sidebar__personal-item">
             <NavLink className={"link"} to={"/home"}>
               <FaCompactDisc style={{ fontSize: "2.2rem" }} />
               <span className="pl-4"> Khám Phá</span>
             </NavLink>
-          </li>
-          <li className="sidebar__personal-item">
+          </li> */}
+          {/* <li className="sidebar__personal-item">
             <NavLink className={"link"} to={"/home"}>
               <FaListAlt style={{ fontSize: "2rem" }} />
               <span className="pl-4"> Theo Dõi</span>
             </NavLink>
-          </li>
+          </li> */}
           <li
             onClick={() => {
               setSelected("zing-chart")
@@ -58,12 +74,24 @@ export default function MainSidebar() {
               <span className="pl-4"> #zingchart</span>
             </NavLink>
           </li>
-          <li className="sidebar__personal-item">
+          <li className="sidebar__library-top-item">
+            <NavLink className={"link"} to={"/interactive"}>
+              <BsFillUmbrellaFill style={{ fontSize: "2.2rem" }} />
+              <span className="pl-4">Interactive</span>
+            </NavLink>
+          </li>
+          <li className="sidebar__library-top-item">
+            <NavLink className={"link"} to={"/test"}>
+              <SiTestinglibrary style={{ fontSize: "2.2rem" }} />
+              <span className="pl-4">Test</span>
+            </NavLink>
+          </li>
+          {/* <li className="sidebar__personal-item">
             <NavLink className={"link"} to={"/"}>
               <GoRadioTower style={{ fontSize: "2.2rem" }} />
               <span className="pl-4"> Radio</span>
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="sildebar__line"></div>
@@ -96,12 +124,12 @@ export default function MainSidebar() {
             </li>
           </ul>
         </div>
-        <div className="sidebar__library-center">
+        {/* <div className="sidebar__library-center">
           <span className="sidebar__library-center-heading">
             Nghe nhạc không quảng cáo cùng kho nhạc VIP
           </span>
           <span className="sidebar__library-center-vip">Nâng cấp vip</span>
-        </div>
+        </div> */}
         <div className="sidebar__library-bot">
           <div className="sidebar__library-bot-title">PLAY LIST</div>
           <div className="sidebar__library-bot-item">
