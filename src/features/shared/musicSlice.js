@@ -6,7 +6,8 @@ const initialState = {
       background: './assets/img/songs/0.webp',
       name: 'Anh Đã Lạc Vào',
       singer: 'Green, Đại Mèo Remix',
-      pathSong: './assets/music/list-song/0.mp3',
+      // pathSong: './assets/music/list-song/0.mp3',
+      pathSong: "https://mp3-s1-m-zmp3.zmdcdn.me/b64fa99ef1da188441cb/8350285309253299135?authen=exp=1669884291~acl=/b64fa99ef1da188441cb/*~hmac=8cce4d79ac49467c99a5b864a6f97fec",
       duration: '04:27',
     },
     {

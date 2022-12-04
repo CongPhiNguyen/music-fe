@@ -1,17 +1,16 @@
-import React, { useState, createRef, useRef } from "react"
+import React, { useState } from "react"
 import {
   Typography,
   Button,
   Form,
   Input,
-  message,
   Checkbox,
   Divider,
   Col,
   Row
 } from "antd"
 import { post } from "../../../api/axios"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"
 import URL from "../../../api/config"
@@ -148,6 +147,9 @@ export default function Signup() {
                     Sign up
                   </Button>
                 </div>
+                <p className="text-[14px]">
+                  Already have an account? <NavLink to="/login">Login</NavLink>
+                </p>
                 <Divider plain>or</Divider>
                 <Button
                   className="w-[100%] mb-[20px]"

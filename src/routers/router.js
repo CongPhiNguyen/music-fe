@@ -1,5 +1,6 @@
 import React from "react"
 import SignOTP from "../features/authen/pages/SignOTP.js"
+import Test from "../features/test/Test.js"
 
 const SignUp = React.lazy(() => import("../features/authen/pages/Signup.js"))
 const Login = React.lazy(() => import("../features/authen/pages/Login.js"))
@@ -13,13 +14,22 @@ const ResetPassword = React.lazy(() =>
   import("../features/authen/pages/ResetPassword.js")
 )
 
-const MainHomeZingChart = React.lazy(() => import("../features/shared/components/MainHomeZingChart"))
-const MainHome = React.lazy(() => import("../features/shared/components/MainHome"))
+const MainHomeZingChart = React.lazy(() =>
+  import("../features/shared/components/MainHomeZingChart")
+)
+const MainHome = React.lazy(() =>
+  import("../features/shared/components/MainHome")
+)
+const Interactive = React.lazy(() =>
+  import("../features/interactive/Interactive.js")
+)
+const Search = React.lazy(() => import("../features/shared/pages/Search"))
 
 const mainRoute = [
   { path: "/", name: "Home", element: <MainHome /> },
   { path: "/home", name: "Home", element: <MainHome /> },
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
+  { path: "/search", name: "Home", element: <Search /> }
 ]
 
 // Những route chỉ truy xuất khi chưa đăng nhập
@@ -41,18 +51,21 @@ const publicRoute = [
     path: "/sign-otp",
     name: "Sign OTP",
     element: <SignOTP />
-  },
-  { path: "/", name: "Home", element: <Home /> }
+  }
 ]
 
 // Những route dùng khi đã đăng nhập
-const protectedRoute = []
+const protectedRoute = [
+  { path: "/interactive", name: "Lofi", element: <Interactive /> },
+  { path: "/test", name: "Test", element: <Test /> }
+]
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
   { path: "/", name: "Home1", element: <MainHome /> },
   { path: "/home", name: "Home", element: <MainHome /> },
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
+  { path: "/search", name: "Home", element: <Search /> }
 ]
 
 // Route dùng cho manager

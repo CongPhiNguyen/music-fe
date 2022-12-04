@@ -1,15 +1,13 @@
 import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Route, Routes } from "react-router-dom"
 import routes from "./router"
-// import { useSelector } from "react-redux";
 import { get } from "../api/axios"
 import URL from "../api/config"
 import { setCurrentUserInfo, handleLogin } from "../features/authen/authenSlice"
 import Layout from "../features/shared/pages/Layout"
 const Routers = () => {
   const dispatch = useDispatch()
-  const currentUserInfo = useSelector((state) => state.authen.currentUserInfo)
   useEffect(() => {
     get(URL.URL_REFESH)
       .then((data) => {
@@ -20,7 +18,7 @@ const Routers = () => {
       .catch((err) => {
         console.log("err", err)
       })
-  }, [])
+  }, [dispatch])
   return (
     <React.Suspense>
       <Routes>

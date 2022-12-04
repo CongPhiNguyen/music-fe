@@ -8,16 +8,6 @@
   left: 0;
 }
 
-.sidebar__logo {
-  width: 240px;
-  height: 70px;
-  background-image: url("/public/assets/img/sidebar-icon/logo/logo-dark.svg");
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-position-x: 28px;
-  background-position-y: 50%;
-}
-
 .sidebar__personal {
   margin-bottom: 15px;
   position: relative;
