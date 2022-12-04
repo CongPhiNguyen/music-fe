@@ -70,8 +70,8 @@ export default function Test() {
     <div>
       Nguyễn Công Phi
       <div className="flex items-center gap-[20px]">
-        <p>{currentSong.src}</p>
-        <audio loop src={currentSong.src} ref={audioRef}></audio>
+        <p>{currentSong?.src}</p>
+        <audio loop src={currentSong?.src} ref={audioRef}></audio>
         <Button>
           Prev
           <img
