@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./MainHome.css"
 import "./MainHomeZingChart.css"
 import "../pages/ZingChart.css"
-import { FaArrowLeft, FaArrowRight, FaSearch, FaTshirt, FaUpload, FaPlay, FaCog, FaPhotoVideo, FaMicrophone, FaHeart, FaEllipsisH } from "react-icons/fa"
+import { FaPhotoVideo, FaMicrophone, FaHeart, FaEllipsisH } from "react-icons/fa"
 import { useSelector, useDispatch } from 'react-redux'
 import { setCurrentSong, changeIsPlay } from '../musicSlice'
 import { Row, Col } from "antd"
@@ -175,7 +175,6 @@ export default function MainHomeZingChart() {
             await axios.get("http://localhost:5050/api/v1/user/test")
                 .then(res => {
                     console.log(res.data)
-
                 })
                 .catch(err => {
                     console.log(err)

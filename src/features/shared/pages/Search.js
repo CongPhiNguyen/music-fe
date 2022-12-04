@@ -17,6 +17,7 @@ export default function Search() {
                 .then(res => {
                     console.log(res)
                     setSongs(res.data.data.data.songs)
+
                 })
                 .catch(err => {
                     console.log(err)
