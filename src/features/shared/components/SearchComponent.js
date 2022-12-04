@@ -1,18 +1,54 @@
 import axios from 'axios'
 import React from 'react'
 import { FaPhotoVideo, FaMicrophone, FaHeart, FaEllipsisH, FaPlay } from "react-icons/fa"
-
+import { MdPostAdd } from "react-icons/md"
+import { useDispatch } from 'react-redux'
+import { addSongAndPlay, addSong } from '../musicSlice'
+import { Moment } from 'moment/moment'
 import "./SearchComponent.css"
 const ComponentMusic = ({ song, key }) => {
+    const dispatch = useDispatch()
 
-    const handleClickListenMusic = (id) => {
+    const handleClickAddMusic = (id) => {
         axios.get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
             .then(res => {
-                console.log(res)
+
+                const songSlice = {
+                    background: song.thumbnail,
+                    name: song.title,
+                    singer: song.artistsNames,
+                    pathSong: res.data.detail.data[128],
+                    duration: song.duration,
+                }
+                dispatch(addSong({ song: songSlice }))
             })
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const handleClickListenMusic = (id) => {
+        axios.get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+            .then(res => {
+
+                const songSlice = {
+                    background: song.thumbnail,
+                    name: song.title,
+                    singer: song.artistsNames,
+                    pathSong: res.data.detail.data[128],
+                    duration: song.duration,
+                }
+                dispatch(addSongAndPlay({ song: songSlice }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const convertTime = (duration) => {
+        var hours = Math.floor(duration / 60);
+        var minutes = duration % 60;
+        return hours + ":" + minutes;
     }
 
     return (
@@ -29,15 +65,15 @@ const ComponentMusic = ({ song, key }) => {
                     </span>
                 </div>
             </div>
-            {/* <div className='overview__allsong-item-center'>
-                <span>123</span>
-            </div> */}
+            <div className='overview__allsong-item-center'>
+                <span>{convertTime(song.duration)}</span>
+            </div>
             <div className='overview__allsong-item-end'>
                 <span className='overview__allsong-item-end-tym !text-white'>
                     <FaPhotoVideo />
                 </span>
-                <span className='overview__allsong-item-end-tym !text-white'>
-                    <FaMicrophone />
+                <span onClick={() => handleClickAddMusic(song.encodeId)} className='overview__allsong-item-end-tym !text-white'>
+                    <MdPostAdd />
                 </span>
                 <span onClick={() => handleClickListenMusic(song.encodeId)} className='overview__allsong-item-end-tym !text-white'>
                     <FaPlay />

@@ -4,8 +4,8 @@ import { FaStopwatch, FaEllipsisH } from "react-icons/fa"
 import SongComponent from './SongComponent'
 import { useSelector } from 'react-redux'
 export default function NextSong() {
-    const songsData = useSelector(state => state.musicData.songsData)
-    const indexSong = useSelector(state => state.musicData.indexSong)
+    const songsData = useSelector(state => state.musicData?.songsData)
+    const indexSong = useSelector(state => state.musicData?.indexSong)
 
     return (
         <div className='next-song'>
@@ -28,7 +28,7 @@ export default function NextSong() {
             <div className='next-song__box'>
                 <div className='next-song__list'>
                     {
-                        songsData.map((song, index) => {
+                        songsData?.map((song, index) => {
                             if (indexSong !== null) {
                                 if (index <= indexSong) {
                                     if (index === indexSong) {
@@ -46,7 +46,7 @@ export default function NextSong() {
                 <div className='next-song__last'>
                     <h3 className='next-song__last-heading'>Tiếp theo</h3>
                     {
-                        indexSong !== null && songsData.map((song, index) => {
+                        indexSong !== null && songsData?.map((song, index) => {
                             if (index > indexSong) {
                                 return (<SongComponent song={song} index={index} isActive={false}></SongComponent>)
                             } else return null

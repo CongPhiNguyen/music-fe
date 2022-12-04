@@ -133,10 +133,18 @@ export const musicDataSlice = createSlice({
     },
     setIsPlay: (state, action) => {
       state.isPlay = action.payload.isPlay
+    },
+    addSong: (state, action) => {
+      state.songsData.push(action.payload.song)
+    },
+    addSongAndPlay: (state, action) => {
+      state.songsData.push(action.payload.song)
+      state.indexSong = state.songsData.length - 1
+      state.isPlay = true
     }
   },
 });
 
-export const { setCurrentSong, changeIsPlay, setIsPlay } = musicDataSlice.actions;
+export const { setCurrentSong, changeIsPlay, setIsPlay, addSongAndPlay, addSong } = musicDataSlice.actions;
 
 export default musicDataSlice.reducer;
