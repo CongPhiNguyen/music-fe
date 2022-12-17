@@ -145,6 +145,7 @@
   font-weight: 500;
   display: flex;
   width: 300px;
+  padding-left: 50px;
   cursor: default;
 }
 

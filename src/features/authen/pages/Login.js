@@ -36,11 +36,10 @@ export default function Login() {
     //   })
     post(URL.URL_SIGN_IN, value)
       .then((data) => {
-        console.log("data", data)
         if (data?.data?.success) {
           message.success("Sign in successfully")
           cookiesUtil.setAccessToken(data?.data?.jwt)
-          dispatch(handleLogin())
+          dispatch(handleLogin({ info: data?.data?.data }))
           navigate("/home")
         } else {
           if (data?.data?.message === "You account is not verified") {
@@ -54,7 +53,6 @@ export default function Login() {
       })
   }
   const onFinish = (values) => {
-    console.log(values)
     callAPISendSignIn(values)
   }
 

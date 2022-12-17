@@ -10,14 +10,10 @@ export default function Search() {
     const param = useParams()
     const [songs, setSongs] = useState(null)
     useEffect(() => {
-        console.log(param)
-        console.log(location)
         const fetchApiSearch = async () => {
             axios.get(`http://localhost:5050/api/v1/zing/search` + location.search)
                 .then(res => {
-                    console.log(res)
                     setSongs(res.data.data.data.songs)
-
                 })
                 .catch(err => {
                     console.log(err)

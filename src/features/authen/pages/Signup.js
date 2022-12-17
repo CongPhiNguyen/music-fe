@@ -29,7 +29,6 @@ export default function Signup() {
     setIsSendRequest(true)
     post(URL.URL_SIGN_UP, values)
       .then((data) => {
-        console.log("data", data)
         navigate("/sign-otp")
       })
       .catch((err) => {

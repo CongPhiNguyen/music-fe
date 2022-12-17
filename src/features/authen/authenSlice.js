@@ -12,8 +12,9 @@ export const authenSlice = createSlice({
     setCurrentUserInfo: (state, action) => {
       state.currentUserInfo = action.payload;
     },
-    handleLogin: (state) => {
+    handleLogin: (state, action) => {
       state.isLogin = true
+      state.currentUserInfo = action.payload.info
     },
     handleLogout: (state) => {
       state.isLogin = false

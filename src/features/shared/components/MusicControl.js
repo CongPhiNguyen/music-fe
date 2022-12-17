@@ -146,27 +146,6 @@ export default function MusicControl() {
     setIsRedo(!isRedo)
   }
 
-  useEffect(() => {
-    if (isMute) {
-      radioRef.current.volume = 0
-    } else {
-      radioRef.current.volume = volumn
-    }
-  }, [isMute, volumn])
-
-  useEffect(() => {
-    if (volumn === 0) {
-      setIsMute(true)
-    } else {
-      setIsMute(false)
-    }
-  }, [volumn])
-
-  const handleChangeVolumn = (e) => {
-    radioRef.current.volume = e.target.value
-    setVolumn(e.target.value)
-  }
-
   return (
     <div className="music-control">
       <Row>
@@ -258,7 +237,7 @@ export default function MusicControl() {
               <input
                 onChange={handleChangeMusic}
                 id="progress"
-                class="music-control__center-progress-input"
+                className="music-control__center-progress-input"
                 type="range"
                 value={percent}
                 step="1"
@@ -274,35 +253,7 @@ export default function MusicControl() {
         <Col span={6}>
           <div className="music-control-right">
             <FaPhotoVideo className="music-control__right-action-option"></FaPhotoVideo>
-            {/* <FaMicrophone className="music-control__right-action-option"></FaMicrophone> */}
-            <FiDownload
-              className="music-control__right-action-option"
-              onClick={() => {
-                console.log(songsData[indexSong].pathSong)
-                // function downloadBlob(blob, filename) {
-                //   var a = document.createElement("a")
-                //   a.download = songsData[indexSong].pathSong
-                //   a.href = blob
-                //   document.body.appendChild(a)
-                //   a.click()
-                //   a.remove()
-                // }
-                // // console.log(JSON.stringify(songsData[indexSong].pathSong))
-                // axios
-                //   .get(songsData[indexSong].pathSong, {
-                //     mode: "no-cors"
-                //   })
-                //   .then((data) => {
-                //     console.log("data", data)
-                //   })
-                //   .then((response) => response.blob())
-                //   .then((blob) => {
-                //     let blobUrl = window.URL.createObjectURL(blob)
-                //     downloadBlob(blobUrl, "Phi")
-                //   })
-                //   .catch((e) => console.error(e))
-              }}
-            />
+            <FaMicrophone className="music-control__right-action-option"></FaMicrophone>
             <BiSquare className="music-control__right-action-option"></BiSquare>
             {isMute ? (
               <BsFillVolumeMuteFill
