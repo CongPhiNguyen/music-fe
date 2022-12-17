@@ -1,14 +1,15 @@
 import axios from 'axios'
 import React from 'react'
-import { FaPhotoVideo, FaMicrophone, FaHeart, FaEllipsisH, FaPlay } from "react-icons/fa"
+import { FaPhotoVideo, FaHeart, FaEllipsisH, FaPlay } from "react-icons/fa"
 import { MdPostAdd } from "react-icons/md"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addSongAndPlay, addSong } from '../musicSlice'
-import { Moment } from 'moment/moment'
+
 import "./SearchComponent.css"
 const ComponentMusic = ({ song, key }) => {
-    const dispatch = useDispatch()
+    const username = useSelector(state => state.authen.currentUserInfo.username)
 
+    const dispatch = useDispatch()
     const handleClickAddMusic = (id) => {
         axios.get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
             .then(res => {
@@ -20,7 +21,7 @@ const ComponentMusic = ({ song, key }) => {
                     pathSong: res.data.detail.data[128],
                     duration: song.duration,
                 }
-                dispatch(addSong({ song: songSlice }))
+                dispatch(addSong({ song: songSlice, username }))
             })
             .catch(err => {
                 console.log(err)
@@ -30,7 +31,11 @@ const ComponentMusic = ({ song, key }) => {
     const handleClickListenMusic = (id) => {
         axios.get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
             .then(res => {
-
+                console.log(res.data.lyric.data.file)
+                console.log(JSON.parse(res.data.lyric.data.file))
+                fetch(res.data.lyric.data.file)
+                    .then(result => { console.log(result) })
+                    .catch(err => { console.log(err) })
                 const songSlice = {
                     background: song.thumbnail,
                     name: song.title,
@@ -38,7 +43,7 @@ const ComponentMusic = ({ song, key }) => {
                     pathSong: res.data.detail.data[128],
                     duration: song.duration,
                 }
-                dispatch(addSongAndPlay({ song: songSlice }))
+                dispatch(addSongAndPlay({ song: songSlice, username }))
             })
             .catch(err => {
                 console.log(err)

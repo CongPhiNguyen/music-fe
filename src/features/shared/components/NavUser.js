@@ -13,7 +13,6 @@ export default function NavUser() {
     const isLogin = useSelector((state) => state.authen.isLogin)
     const dispatch = useDispatch()
     const handleSearch = () => {
-
         navigate(`/search?search=${search}`)
     }
     return (
@@ -31,7 +30,7 @@ export default function NavUser() {
                     <div onClick={handleSearch} className='main-home__header-search-icon cursor-pointer'>
                         <FaSearch></FaSearch>
                     </div>
-                    <input onKeyDown={(e) => { if (e.key === "Enter") { handleSearch() } }} value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Nhập tên bài hát, nghệ sĩ hoặc MV . . ." type="text" class="main-home__header-search-input"></input>
+                    <input onKeyDown={(e) => { if (e.key === "Enter") { handleSearch() } }} value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Nhập tên bài hát, nghệ sĩ hoặc MV . . ." type="text" className="main-home__header-search-input"></input>
                 </div>
                 <div className='main-home__header-right'>
                     <div className='main-home__header-right-darkmode'>

@@ -1,69 +1,150 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import "./Overview.css"
-import { FaChevronRight, FaUpload, FaPhotoVideo, FaMicrophone, FaHeart, FaEllipsisH, FaPlay, FaPlus, FaTimes, FaRandom } from "react-icons/fa"
+import { FaChevronRight, FaUpload, FaPhotoVideo, FaHeart, FaEllipsisH, FaPlay, FaPlus, FaTimes, FaRandom } from "react-icons/fa"
+import { MdPostAdd } from "react-icons/md"
 import { Col, Row } from 'antd';
-import { setCurrentSong, changeIsPlay } from '../musicSlice';
+import { setCurrentSong, changeIsPlay, addSongAndPlay, addSong } from '../musicSlice';
+import axios from 'axios';
 
-function ComponentSong(props) {
-    const isPlay = useSelector(state => state.musicData.isPlay)
+function ComponentSong({ song }) {
+    // const isPlay = useSelector(state => state.musicData.isPlay)
+    // const dispatch = useDispatch()
+    // const handleClickNextSong = () => {
+    //     if (!props.isActive) {
+    //         dispatch(setCurrentSong({ index: props.index }))
+    //     }
+    // }
+    // return (<li className={`overview__allsong-item ${props.isActive && "overview__allsong-item-active"}`}>
+    //     <div className='overview__allsong-item-left'>
+    //         <div className='overview__allsong-item-left-box' style={{ backgroundImage: `url(${props.song.background})` }}>
+    //             {
+    //                 props.isActive ? (
+    //                     <div onClick={() => { dispatch(changeIsPlay()) }}>
+    //                         {
+    //                             isPlay ? (<div className='overview__allsong-item-left-playing'>
+    //                                 <img className='next-song__item-playing-box-img' alt='ảnh' src='./assets/img/songs/icon-playing.gif' />
+    //                             </div>) : (
+    //                                 <div className='overview__allsong-item-left-play'>
+    //                                     <FaPlay />
+    //                                 </div>
+    //                             )
+    //                         }
+    //                     </div>
+    //                 ) : (
+    //                     <div onClick={handleClickNextSong} className='overview__allsong-item-left-play hover'>
+    //                         <FaPlay />
+    //                     </div>
+    //                 )
+    //             }
+
+    //         </div>
+    //         <div className='overview__allsong-item-body'>
+    //             <h3 className='overview__allsong-item-body-name'>
+    //                 {props.song.name}
+    //             </h3>
+    //             <span className='overview__allsong-item-body-singer'>
+    //                 {props.song.singer}
+    //             </span>
+    //         </div>
+    //     </div>
+    //     <div className='overview__allsong-item-center'>
+    //         <span>{props.song.name} (Remix)</span>
+    //     </div>
+    //     <div className='overview__allsong-item-end'>
+    //         <span className='overview__allsong-item-end-mv'>
+    //             <FaPhotoVideo />
+    //         </span>
+    //         <span className='overview__allsong-item-end-lyric'>
+    //             <FaMicrophone />
+    //         </span>
+    //         <span className='overview__allsong-item-end-tym'>
+    //             <FaHeart />
+    //         </span>
+    //         <span className='overview__allsong-item-end-duration'>
+    //             {props.song.duration}
+    //         </span>
+    //         <span className='overview__allsong-item-end-more'>
+    //             <FaEllipsisH></FaEllipsisH>
+    //         </span>
+    //     </div>
+    // </li>)
+    const username = useSelector(state => state.authen.currentUserInfo.username)
+
     const dispatch = useDispatch()
-    const handleClickNextSong = () => {
-        if (!props.isActive) {
-            dispatch(setCurrentSong({ index: props.index }))
-        }
-    }
-    return (<li className={`overview__allsong-item ${props.isActive && "overview__allsong-item-active"}`}>
-        <div className='overview__allsong-item-left'>
-            <div className='overview__allsong-item-left-box' style={{ backgroundImage: `url(${props.song.background})` }}>
-                {
-                    props.isActive ? (
-                        <div onClick={() => { dispatch(changeIsPlay()) }}>
-                            {
-                                isPlay ? (<div className='overview__allsong-item-left-playing'>
-                                    <img className='next-song__item-playing-box-img' alt='ảnh' src='./assets/img/songs/icon-playing.gif' />
-                                </div>) : (
-                                    <div className='overview__allsong-item-left-play'>
-                                        <FaPlay />
-                                    </div>
-                                )
-                            }
-                        </div>
-                    ) : (
-                        <div onClick={handleClickNextSong} className='overview__allsong-item-left-play hover'>
-                            <FaPlay />
-                        </div>
-                    )
-                }
 
+    const handleClickAddMusic = (id) => {
+        axios.get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+            .then(res => {
+
+                const songSlice = {
+                    background: song.thumbnail,
+                    name: song.title,
+                    singer: song.artistsNames,
+                    pathSong: res.data.detail.data[128],
+                    duration: song.duration,
+                }
+                dispatch(addSong({ song: songSlice, username }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const handleClickListenMusic = (id) => {
+        axios.get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+            .then(res => {
+
+                const songSlice = {
+                    background: song.thumbnail,
+                    name: song.title,
+                    singer: song.artistsNames,
+                    pathSong: res.data.detail.data[128],
+                    duration: song.duration,
+                }
+                dispatch(addSongAndPlay({ song: songSlice, username }))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+    const convertTime = (duration) => {
+        var hours = Math.floor(duration / 60);
+        var minutes = duration % 60;
+        return hours + ":" + minutes;
+    }
+
+    return (<li className={`overview__allsong-item `}>
+        <div className='overview__allsong-item-left'>
+            <div className='overview__allsong-item-left-box' style={{ backgroundImage: `url(${song.thumbnail})` }}>
             </div>
             <div className='overview__allsong-item-body'>
                 <h3 className='overview__allsong-item-body-name'>
-                    {props.song.name}
+                    {song.title}
                 </h3>
                 <span className='overview__allsong-item-body-singer'>
-                    {props.song.singer}
+                    {song.artistsNames}
                 </span>
             </div>
         </div>
         <div className='overview__allsong-item-center'>
-            <span>{props.song.name} (Remix)</span>
+            <span>{convertTime(song.duration)}</span>
         </div>
         <div className='overview__allsong-item-end'>
-            <span className='overview__allsong-item-end-mv'>
+            <span className='overview__allsong-item-end-tym !text-white'>
                 <FaPhotoVideo />
             </span>
-            <span className='overview__allsong-item-end-lyric'>
-                <FaMicrophone />
+            <span onClick={() => handleClickAddMusic(song.encodeId)} className='overview__allsong-item-end-tym !text-white !text-3xl'>
+                <MdPostAdd />
+            </span>
+            <span onClick={() => handleClickListenMusic(song.encodeId)} className='overview__allsong-item-end-tym !text-white !text-2xl'>
+                <FaPlay />
             </span>
             <span className='overview__allsong-item-end-tym'>
                 <FaHeart />
             </span>
-            <span className='overview__allsong-item-end-duration'>
-                {props.song.duration}
-            </span>
-            <span className='overview__allsong-item-end-more'>
-                <FaEllipsisH></FaEllipsisH>
+            <span className='overview__allsong-item-end-tym !text-[white]'>
+                <FaEllipsisH />
             </span>
         </div>
     </li>)
@@ -72,43 +153,86 @@ function ComponentSong(props) {
 const OverviewSilder = (props) => {
     const [indexShow, setIndexShow] = useState(0);
 
+    // useEffect(() => {
+    //     let a = setInterval(() => {
+    //         if (props.songsData.length - 1 === indexShow) {
+    //             setIndexShow(0)
+    //         } else {
+    //             setIndexShow(prev => prev + 1)
+    //         }
+    //     }, 1000)
+    //     return () => { clearInterval(a) }
+    // }, [indexShow, props.songsData.length])
+
+    // return (<div className='overview-slider'>
+    //     {
+    //         props.songsData.map((song, index) => {
+    //             if (indexShow === props.songsData.length - 2) {
+    //                 if (index === indexShow) {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
+    //                 } else if (index === props.songsData.length - 1) {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
+    //                 } else {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
+    //                 }
+    //             } else if (indexShow === props.songsData.length - 1) {
+    //                 if (index === indexShow) {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
+    //                 } else if (index === 0) {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
+    //                 } else {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
+    //                 }
+    //             } else {
+    //                 if (index === indexShow) {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
+    //                 } else if (index === indexShow + 1) {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
+    //                 } else {
+    //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
+    //                 }
+    //             }
+    //         })
+    //     }
+    // </div>)
+
     useEffect(() => {
         let a = setInterval(() => {
-            if (props.songsData.length - 1 === indexShow) {
+            if (props.songsRandom.length - 1 === indexShow) {
                 setIndexShow(0)
             } else {
                 setIndexShow(prev => prev + 1)
             }
         }, 1000)
         return () => { clearInterval(a) }
-    }, [indexShow, props.songsData.length])
+    }, [indexShow, props.songsRandom.length])
 
     return (<div className='overview-slider'>
         {
-            props.songsData.map((song, index) => {
-                if (indexShow === props.songsData.length - 2) {
+            props.songsRandom.map((song, index) => {
+                if (indexShow === props.songsRandom.length - 2) {
                     if (index === indexShow) {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
                     } else if (index === props.songsData.length - 1) {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
                     } else {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
                     }
                 } else if (indexShow === props.songsData.length - 1) {
                     if (index === indexShow) {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
                     } else if (index === 0) {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
                     } else {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
                     }
                 } else {
                     if (index === indexShow) {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
                     } else if (index === indexShow + 1) {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
                     } else {
-                        return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
+                        return (<img key={index} src={song.thumbnailM} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
                     }
                 }
             })
@@ -118,6 +242,17 @@ const OverviewSilder = (props) => {
 
 
 export default function Overview() {
+    const [songsRandom, setSongsRandom] = useState(null)
+    useEffect(() => {
+        axios.get(`http://localhost:5050/api/v1/zing/get-random-song-list`)
+            .then(res => {
+                setSongsRandom(res.data.data)
+            })
+            .catch(err => {
+                console.log(err.message)
+            })
+    }, [])
+
     const songsData = useSelector(state => state.musicData.songsData)
     const indexSong = useSelector(state => state.musicData.indexSong)
     return (
@@ -144,26 +279,31 @@ export default function Overview() {
                 </div>
                 <Row className='mt-1'>
                     <Col span={8}>
-                        <OverviewSilder songsData={songsData}></OverviewSilder>
+                        {
+                            songsRandom && (<OverviewSilder songsRandom={songsRandom} songsData={songsData}></OverviewSilder>)
+                        }
+
                     </Col>
                     <Col span={16}>
                         <div className='overview__allsong'>
-                            <audio src='https://zingmp3.vn/api/v2/song/get/streaming?id=IWZAEC86&sig=225ea89924356138132b6f974708278c771ffa767ca47a7239bd6c46b14ab6c6d57615de6a917a96e8bbe5f6f70993d399f921958d58030ab542d40f42c6b8b2&ctime=1668874949&version=1.6.34&apiKey=88265e23d4284f25963e6eedac8fbfa3'></audio>
-                            <ul className='overview__allsong-list'>
-                                {
-                                    songsData.map((song, index) => {
-                                        if (indexSong !== null) {
-                                            if (index === indexSong) {
-                                                return (<ComponentSong key={index} index={index} song={song} isActive={true}></ComponentSong>)
+                            {
+                                songsRandom && (<ul className='overview__allsong-list'>
+                                    {
+                                        songsRandom.map((song, index) => {
+                                            if (indexSong !== null) {
+                                                if (index === indexSong) {
+                                                    return (<ComponentSong key={index} index={index} song={song} isActive={true}></ComponentSong>)
+                                                } else {
+                                                    return (<ComponentSong key={index} index={index} song={song} isActive={false}></ComponentSong>)
+                                                }
                                             } else {
                                                 return (<ComponentSong key={index} index={index} song={song} isActive={false}></ComponentSong>)
                                             }
-                                        } else {
-                                            return (<ComponentSong key={index} index={index} song={song} isActive={false}></ComponentSong>)
-                                        }
-                                    })
-                                }
-                            </ul>
+                                        })
+                                    }
+                                </ul>)
+                            }
+
                         </div>
                     </Col>
                 </Row>
@@ -204,7 +344,7 @@ export default function Overview() {
                                             <FaEllipsisH />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img" style={{ backgroundImage: "url(./assets/img/playlist/1.webp)" }}>
+                                    <div className="overview-option-playlist__item-img" style={{ backgroundImage: "url(./assets/img/playlist/1.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-playlist__item-content'>
@@ -231,7 +371,7 @@ export default function Overview() {
                                             <FaEllipsisH />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img" style={{ backgroundImage: "url(./assets/img/playlist/2.webp)" }}>
+                                    <div className="overview-option-playlist__item-img" style={{ backgroundImage: "url(./assets/img/playlist/2.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-playlist__item-content'>
@@ -258,7 +398,7 @@ export default function Overview() {
                                             <FaEllipsisH />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img" style={{ backgroundImage: "url(./assets/img/playlist/3.webp)" }}>
+                                    <div className="overview-option-playlist__item-img" style={{ backgroundImage: "url(./assets/img/playlist/3.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-playlist__item-content'>
@@ -296,11 +436,11 @@ export default function Overview() {
                                             <FaPlay />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img overview-option-mv__item-img " style={{ backgroundImage: "url(./assets/img/mv/1.webp)" }}>
+                                    <div className="overview-option-playlist__item-img overview-option-mv__item-img " style={{ backgroundImage: "url(./assets/img/mv/1.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-mv__content'>
-                                    <img src="./assets/img/mv/icon1.jpg" alt="thanh hung" class="overview-option-mv__content-img" />
+                                    <img src="./assets/img/mv/icon1.jpg" alt="thanh hung" className="overview-option-mv__content-img" />
                                     <div className='overview-option-mv__content-name'>
                                         <div className='overview-option-playlist__item-content-name'>
                                             Replay
@@ -320,11 +460,11 @@ export default function Overview() {
                                             <FaPlay />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img overview-option-mv__item-img " style={{ backgroundImage: "url(./assets/img/mv/2.webp)" }}>
+                                    <div className="overview-option-playlist__item-img overview-option-mv__item-img " style={{ backgroundImage: "url(./assets/img/mv/2.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-mv__content'>
-                                    <img src="./assets/img/mv/icon2.jpg" alt="thanh hung" class="overview-option-mv__content-img" />
+                                    <img src="./assets/img/mv/icon2.jpg" alt="thanh hung" className="overview-option-mv__content-img" />
                                     <div className='overview-option-mv__content-name'>
                                         <div className='overview-option-playlist__item-content-name'>
                                             Replay
@@ -344,11 +484,11 @@ export default function Overview() {
                                             <FaPlay />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img overview-option-mv__item-img " style={{ backgroundImage: "url(./assets/img/mv/3.webp)" }}>
+                                    <div className="overview-option-playlist__item-img overview-option-mv__item-img " style={{ backgroundImage: "url(./assets/img/mv/3.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-mv__content'>
-                                    <img src="./assets/img/mv/icon3.jpg" alt="thanh hung" class="overview-option-mv__content-img" />
+                                    <img src="./assets/img/mv/icon3.jpg" alt="thanh hung" className="overview-option-mv__content-img" />
                                     <div className='overview-option-mv__content-name'>
                                         <div className='overview-option-playlist__item-content-name'>
                                             Replay
@@ -386,7 +526,7 @@ export default function Overview() {
                                             <FaPlay />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-singer__content'>
@@ -413,7 +553,7 @@ export default function Overview() {
                                             <FaPlay />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-singer__content'>
@@ -440,7 +580,7 @@ export default function Overview() {
                                             <FaPlay />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-singer__content'>
@@ -467,7 +607,7 @@ export default function Overview() {
                                             <FaPlay />
                                         </div>
                                     </div>
-                                    <div class="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
                                     </div>
                                 </div>
                                 <div className='overview-option-singer__content'>

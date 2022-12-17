@@ -15,7 +15,6 @@ export default function Header() {
       : `${navItem} text-[black]`
   }
   const currentUserInfo = useSelector((state) => state.authen.currentUserInfo)
-  console.log("currentUserInfo", currentUserInfo)
   return (
     <div className="p-[0.2rem] border-[1px] flex justify-between overflow-hidden h-[42px]">
       <div className="left-nav">

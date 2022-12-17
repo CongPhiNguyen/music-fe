@@ -8,6 +8,7 @@ import { setCurrentSong, changeIsPlay } from '../musicSlice'
 export default function SongComponent(props) {
     const dispatch = useDispatch()
     const isPlay = useSelector(state => state.musicData.isPlay)
+
     const handleClickNextSong = () => {
         if (!props.isActive) {
             dispatch(setCurrentSong({ index: props.index }))

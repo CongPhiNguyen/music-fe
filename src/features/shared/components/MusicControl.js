@@ -189,7 +189,7 @@ export default function MusicControl() {
                                 {currentTimeMusic}
                             </span>
                             <audio onTimeUpdate={handleTimeUpdate} ref={radioRef} id="audio" src={indexSong !== null && songsData[indexSong].pathSong}></audio>
-                            <input onChange={handleChangeMusic} id="progress" class="music-control__center-progress-input" type="range" value={percent} step="1" min="0" max="100" />
+                            <input onChange={handleChangeMusic} id="progress" className="music-control__center-progress-input" type="range" value={percent} step="1" min="0" max="100" />
                             <span className='music-control__center-progress-time-end'>
                                 {indexSong !== null && songsData[indexSong].duration}
                             </span>

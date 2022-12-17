@@ -18,7 +18,6 @@ export default function ResetPassword() {
   const navigate = useNavigate()
 
   const onFinish = (values) => {
-    console.log(values)
     navigate("/")
   }
 

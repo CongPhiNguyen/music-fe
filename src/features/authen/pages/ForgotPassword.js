@@ -19,7 +19,6 @@ export default function Login() {
   const navigate = useNavigate()
 
   const onFinish = (values) => {
-    console.log(values)
     navigate("/reset-password")
   }
 

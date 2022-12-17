@@ -19,21 +19,20 @@ export default function Personal() {
         <div className="main-home-personal__profile-vip">
           {/* <span className='main-home-personal__profile-vip-upgrate'>Nâng cấp vip</span> */}
           {/* <span className='main-home-personal__profile-vip-entercode'>Nâng cấp vip</span> */}
-          <span className="main-home-personal__profile-vip-option">
+          {/* <span className="main-home-personal__profile-vip-option">
             <FaEllipsisH></FaEllipsisH>
-          </span>
+          </span> */}
         </div>
       </div>
-      .
+
       <div className="main-home-personal__option">
         <ul className="main-home-personal__option-list">
           <li
             onClick={() => {
               setOption("tongquan")
             }}
-            className={`main-home-personal__option-item ${
-              option === "tongquan" && "main-home-personal__option-item-active"
-            } `}
+            className={`main-home-personal__option-item ${option === "tongquan" && "main-home-personal__option-item-active"
+              } `}
           >
             Tổng quan
           </li>
@@ -41,9 +40,8 @@ export default function Personal() {
             onClick={() => {
               setOption("baihat")
             }}
-            className={`main-home-personal__option-item ${
-              option === "baihat" && "main-home-personal__option-item-active"
-            } `}
+            className={`main-home-personal__option-item ${option === "baihat" && "main-home-personal__option-item-active"
+              } `}
           >
             Bài hát
           </li>
@@ -51,9 +49,8 @@ export default function Personal() {
             onClick={() => {
               setOption("playlist")
             }}
-            className={`main-home-personal__option-item ${
-              option === "playlist" && "main-home-personal__option-item-active"
-            } `}
+            className={`main-home-personal__option-item ${option === "playlist" && "main-home-personal__option-item-active"
+              } `}
           >
             PlayList
           </li>
@@ -61,9 +58,8 @@ export default function Personal() {
             onClick={() => {
               setOption("nghesi")
             }}
-            className={`main-home-personal__option-item ${
-              option === "nghesi" && "main-home-personal__option-item-active"
-            } `}
+            className={`main-home-personal__option-item ${option === "nghesi" && "main-home-personal__option-item-active"
+              } `}
           >
             Nghệ sĩ
           </li>

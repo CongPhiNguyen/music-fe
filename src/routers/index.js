@@ -11,9 +11,8 @@ const Routers = () => {
   useEffect(() => {
     get(URL.URL_REFESH)
       .then((data) => {
-        console.log("data", data)
         dispatch(setCurrentUserInfo({ username: data?.data?.username }))
-        dispatch(handleLogin())
+        dispatch(handleLogin({ info: data?.data?.data }))
       })
       .catch((err) => {
         console.log("err", err)

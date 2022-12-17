@@ -24,7 +24,6 @@ export default function Signup() {
     setIsSendRequest(true)
     post(URL.URL_SIGN_UP, values)
       .then((data) => {
-        console.log("data", data)
         navigate("/sign-otp")
       })
       .catch((err) => {
@@ -122,11 +121,11 @@ export default function Signup() {
                           value
                             ? Promise.resolve()
                             : Promise.reject(
-                                new Error("Should accept agreement")
-                              )
+                              new Error("Should accept agreement")
+                            )
                       }
                     ]}
-                    // {...tailFormItemLayout}
+                  // {...tailFormItemLayout}
                   >
                     <Checkbox>
                       I have read the{" "}

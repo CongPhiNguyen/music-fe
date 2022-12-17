@@ -217,3 +217,35 @@
 .sildebar__add-playlist:hover {
   opacity: 0.8;
 }
+
+.modal-create-playlist .ant-modal-content {
+  border-radius: 8px;
+  background-color: #411465;
+}
+
+.modal-create-playlist .ant-modal-header {
+  background-color: #411465;
+}
+
+.modal-create-playlist .ant-modal-title {
+  color: white;
+}
+
+.btn-create {
+  padding: 5px 20px;
+  font-size: 1.4rem;
+  border-radius: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  background-color: #ed2b91;
+}
+
+.btn-create.cancel {
+  margin-left: 10px;
+  background-color: #d9d9d933;
+}
+
+.btn-create:hover {
+  opacity: 0.8;
+}

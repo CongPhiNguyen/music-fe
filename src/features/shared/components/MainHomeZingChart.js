@@ -78,7 +78,6 @@ import NavUser from './NavUser'
 // }
 
 const ComponentSongZingChart = (props) => {
-    console.log(props.song)
     const isPlay = useSelector(state => state.musicData.isPlay)
     const dispatch = useDispatch()
     const handleClickNextSong = () => {
@@ -154,7 +153,6 @@ export default function MainHomeZingChart() {
         const fetAPI = async () => {
             await axios.get("http://localhost:5050/api/v1/user/top10")
                 .then(res => {
-                    console.log(res.data)
                     setMusicOutstanding(res.data.data[0].items.map((item => {
                         return item.artists
                     })).flat())
@@ -183,9 +181,7 @@ export default function MainHomeZingChart() {
         fetAPI()
     }, [])
 
-    useEffect(() => {
-        console.log(musicOutstanding)
-    }, [musicOutstanding])
+
 
     const songsData = useSelector(state => state.musicData.songsData)
     const indexSong = useSelector(state => state.musicData.indexSong)
