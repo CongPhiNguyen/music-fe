@@ -36,10 +36,10 @@ export default function Login() {
           <Col span={24} lg={8}>
             <div className="mx-[40px] h-[100%] flex flex-col justify-center">
               <Typography className="mt-[36px] text-[24px] font-[600] mb-[14px]">
-                Forgot Password?
+                Quên mật khẩu?
               </Typography>
               <Typography className="text-[15px] mb-[28px]">
-                Enter your email and the OTP to proceed
+                Nhập email của bạn và mã OTP được gửi về để tiếp tục
               </Typography>
               <Form
                 name="basic"
@@ -50,15 +50,18 @@ export default function Login() {
               >
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Username or Email"
+                  label="Tên đăng nhập hoặc mật khẩu"
                   name="findString"
                   rules={[
-                    { required: true, message: "Please input your mail!" }
+                    {
+                      required: true,
+                      message: "Tên đăng nhập hoặc mật khẩu không được để trống"
+                    }
                   ]}
                 >
                   <div className="flex">
                     <Input />
-                    <Button type="primary">Send OTP</Button>
+                    <Button type="primary">Gửi OTP</Button>
                   </div>
                 </Form.Item>
 
@@ -67,7 +70,7 @@ export default function Login() {
                   label="OTP"
                   name="otp"
                   rules={[
-                    { required: true, message: "Please input your otp!" }
+                    { required: true, message: "Mã OTP không được để trống" }
                   ]}
                 >
                   <Input className="w-[calc(100%-40px)]" />
@@ -78,12 +81,12 @@ export default function Login() {
                     className="cursor-pointer text-[blue] hover:opacity-60"
                     onClick={() => navigate("/login")}
                   >
-                    &lsaquo; Back to login
+                    &lsaquo; Trở về đăng nhập
                   </p>
                 </div>
                 <div className="mb-[24px]">
                   <Button type="primary" htmlType="submit" className="w-[100%]">
-                    Proceed
+                    Tiếp tục
                   </Button>
                 </div>
               </Form>

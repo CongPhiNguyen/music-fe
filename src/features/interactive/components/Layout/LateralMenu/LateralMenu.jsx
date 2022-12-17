@@ -132,7 +132,7 @@ const LateralMenu = () => {
           </div>
           <div className="border-b-[2px] border-solid border-[#fff3] absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
         </div>
-        <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
+        {/* <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
           <button
             className={`w-[70px] h-[70px] outline-none z-10 overflow-hidden transition-all duration-150 ease-in-out  ${
               playlist
@@ -148,7 +148,7 @@ const LateralMenu = () => {
             />
           </button>
           <div className="border-b-[2px] border-solid border-[#fff3] absolute bottom-0 h-[100%] left-[24px] top-0 w-[50px] pointer-events-none"></div>
-        </div>
+        </div> */}
         <div className="w-[100px] h-[70px] flex justify-center items-center relative cursor-pointer">
           <button
             className={`w-[70px] h-[70px] z-10 outline-none overflow-hidden transition-all duration-150 ease-in-out  ${
@@ -276,7 +276,7 @@ const LateralMenu = () => {
             </h4>
           </div>
           <div>
-            <div className="flex items-center justify-between py-[8px]">
+            {/* <div className="flex items-center justify-between py-[8px]">
               <p className="text-[14px] text-white opacity-40">City traffic</p>
               <div>
                 <ReactAudioPlayer
@@ -293,7 +293,7 @@ const LateralMenu = () => {
                   onChange={handleChangeTraffic}
                 />
               </div>
-            </div>
+            </div> */}
             <div className="flex items-center justify-between py-[8px]">
               <p className="text-[14px] text-white opacity-40">City rain</p>
               <div>
@@ -333,7 +333,7 @@ const LateralMenu = () => {
         </div>
       </div>
       {/* Playlist */}
-      <div
+      {/* <div
         className={`absolute top-[26%] right-[90px] w-[360px] rounded-[24px] z-10 overflow-hidden bg-[#070707] ${
           playlist ? "" : "hidden"
         }`}
@@ -372,7 +372,7 @@ const LateralMenu = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* ChangeSet */}
       <div
         className={` absolute top-[7%] right-[90px] w-[350px] max-h-[632px] rounded-[24px] z-[-1]  bg-[#070707] ${
@@ -392,7 +392,7 @@ const LateralMenu = () => {
               alt="bookcafe"
             />
           </div>
-          <div className="my-[16px] cursor-pointer bg-[#0005] relative">
+          {/* <div className="my-[16px] cursor-pointer bg-[#0005] relative">
             <div className="flex flex-col h-[60px] justify-center absolute right-[-3%] top-[4px] w-[60px] z-40">
               <div>
                 <img src={images.premium} alt="premium" />
@@ -415,8 +415,8 @@ const LateralMenu = () => {
               src="./assets/img/changeset/chill.png"
               alt="chill"
             />
-          </div>
-          <div className="my-[16px] cursor-pointer bg-[#0005] relative">
+          </div> */}
+          {/* <div className="my-[16px] cursor-pointer bg-[#0005] relative">
             <div className="flex flex-col h-[60px] justify-center absolute right-[-3%] top-[4px] w-[60px] z-40">
               <div>
                 <img src={images.premium} alt="premium" />
@@ -451,7 +451,7 @@ const LateralMenu = () => {
               src="./assets/img/changeset/lofidesk.png"
               alt="lofidesk"
             />
-          </div>
+          </div> */}
         </div>
       </div>
       {/* Productivity */}

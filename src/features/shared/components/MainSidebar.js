@@ -30,7 +30,7 @@ export default function MainSidebar() {
         onClick={() => navigate("/")}
       >
         <img src="/logo.png" alt="" className="w-[40px] ml-[20px] h-[40px]" />
-        <p className="text-[#fff] ml-[10px] mt-[6px] text-[600] text-[20px]">
+        <p className="text-[#fff] ml-[10px] mt-[6px] text-[600] text-[20px] hover:cursor-pointer">
           P2Tune
         </p>
       </div>
@@ -95,7 +95,7 @@ export default function MainSidebar() {
         </ul>
       </div>
       <div className="sildebar__line"></div>
-      <div className="sildebar__library">
+      {/* <div className="sildebar__library">
         <div className="sidebar__library-top">
           <ul className="sidebar__library-top-list">
             <li className="sidebar__library-top-item">
@@ -130,34 +130,34 @@ export default function MainSidebar() {
           </span>
           <span className="sidebar__library-center-vip">Nâng cấp vip</span>
         </div> */}
-        <div className="sidebar__library-bot">
-          <div className="sidebar__library-bot-title">PLAY LIST</div>
-          <div className="sidebar__library-bot-item">
-            Play list 1
-            <span className="sidebar__library-bot-extra-option">
-              <AiTwotoneEdit />
-            </span>
-          </div>
-          <div className="sidebar__library-bot-item">
-            Play list 2
-            <span className="sidebar__library-bot-extra-option">
-              <AiTwotoneEdit />
-            </span>
-          </div>
-          <div className="sidebar__library-bot-item">
-            Play list 3
-            <span className="sidebar__library-bot-extra-option">
-              <AiTwotoneEdit />
-            </span>
-          </div>
-          <div className="sidebar__library-bot-item">
-            Play list 4
-            <span className="sidebar__library-bot-extra-option">
-              <AiTwotoneEdit />
-            </span>
-          </div>
+      <div className="sidebar__library-bot">
+        <div className="sidebar__library-bot-title">PLAY LIST</div>
+        <div className="sidebar__library-bot-item">
+          Play list 1
+          <span className="sidebar__library-bot-extra-option">
+            <AiTwotoneEdit />
+          </span>
+        </div>
+        <div className="sidebar__library-bot-item">
+          Play list 2
+          <span className="sidebar__library-bot-extra-option">
+            <AiTwotoneEdit />
+          </span>
+        </div>
+        <div className="sidebar__library-bot-item">
+          Play list 3
+          <span className="sidebar__library-bot-extra-option">
+            <AiTwotoneEdit />
+          </span>
+        </div>
+        <div className="sidebar__library-bot-item">
+          Play list 4
+          <span className="sidebar__library-bot-extra-option">
+            <AiTwotoneEdit />
+          </span>
         </div>
       </div>
+      {/* </div> */}
       <div className="sildebar__add-playlist">
         <GrFormAdd
           style={{ color: "white", fontSize: "2rem", background: "white" }}

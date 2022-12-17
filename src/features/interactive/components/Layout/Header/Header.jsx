@@ -81,7 +81,7 @@ const Header = () => {
       <div className="flex" onClick={() => navigate("/")}>
         {/* Logo */}
         <img className="object-contain h-[60px]" src={Logo} alt="logo" />
-        <p className="text-[#fff] ml-[10px] mt-[16px] text-[600] text-[20px]">
+        <p className="text-[#fff] ml-[10px] mt-[16px] text-[600] text-[20px] hover:cursor-pointer">
           P2Tune
         </p>
       </div>

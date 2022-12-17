@@ -7,7 +7,8 @@ import {
   Checkbox,
   Divider,
   Col,
-  Row
+  Row,
+  message
 } from "antd"
 import { post } from "../../../api/axios"
 import { NavLink, useNavigate } from "react-router-dom"
@@ -20,7 +21,11 @@ export default function Signup() {
   const [isSendRequest, setIsSendRequest] = useState(false)
 
   const onFinish = (values) => {
-    // console.log(values)
+    console.log(values)
+    if (values.repeatPassword !== values.password) {
+      message.error("Mật khẩu và mật khẩu nhập lại chưa đúng")
+      return
+    }
     setIsSendRequest(true)
     post(URL.URL_SIGN_UP, values)
       .then((data) => {
@@ -46,10 +51,10 @@ export default function Signup() {
           <Col span={24} lg={8} className="overflow-y-auto">
             <div className="mx-[40px] h-[100%] flex flex-col justify-center overflow-y-auto">
               <Typography className="mt-[36px] text-[24px] font-[600] mb-[14px]">
-                Welcome to P2Tunes!
+                Chào mừng đến với P2Tunes!
               </Typography>
               <Typography className="text-[15px] mb-[28px]">
-                Adventure start here!
+                Hành trình trải nghiệm bắt đầu tại đây!
               </Typography>
               <Form
                 name="basic"
@@ -60,7 +65,7 @@ export default function Signup() {
               >
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Username"
+                  label="Tên đăng nhập"
                   name="username"
                   rules={[
                     { required: true, message: "Please input your username!" }
@@ -84,7 +89,7 @@ export default function Signup() {
 
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Name"
+                  label="Họ và tên"
                   name="name"
                   rules={[
                     { required: true, message: "Please input your name!" }
@@ -94,20 +99,23 @@ export default function Signup() {
                 </Form.Item>
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Password"
+                  label="Mật khẩu"
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" }
+                    { required: true, message: "Mật khẩu không được để trống" }
                   ]}
                 >
                   <Input.Password />
                 </Form.Item>
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Repeat Password"
-                  name="repeat password"
+                  label="Nhập lại mật khẩu"
+                  name="repeatPassword"
                   rules={[
-                    { required: true, message: "Please input your password!" }
+                    {
+                      required: true,
+                      message: "Mật khẩu xác nhận không được để trông"
+                    }
                   ]}
                 >
                   <Input.Password />
@@ -122,16 +130,16 @@ export default function Signup() {
                           value
                             ? Promise.resolve()
                             : Promise.reject(
-                                new Error("Should accept agreement")
+                                new Error("Bạn phải đồng ý để tiếp tục")
                               )
                       }
                     ]}
                     // {...tailFormItemLayout}
                   >
                     <Checkbox>
-                      I have read the{" "}
+                      Tôi đã đọc và đồng ý với các{" "}
                       <a href="/agreement" target="_blank">
-                        agreement
+                        điều khoản
                       </a>
                     </Checkbox>
                   </Form.Item>
@@ -144,11 +152,11 @@ export default function Signup() {
                     htmlType="submit"
                     className="w-[100%]"
                   >
-                    Sign up
+                    Đăng ký
                   </Button>
                 </div>
                 <p className="text-[14px]">
-                  Already have an account? <NavLink to="/login">Login</NavLink>
+                  Bạn đã có tài khoản? <NavLink to="/login">Đăng nhập</NavLink>
                 </p>
                 <Divider plain>or</Divider>
                 <Button

@@ -80,10 +80,10 @@ export default function SignOTP() {
           <Col span={24} lg={8} className="overflow-y-auto">
             <div className="mx-[40px] h-[100%] flex flex-col justify-center overflow-y-auto">
               <Typography className="mt-[36px] text-[24px] font-[600] mb-[14px]">
-                Verify with OTP!
+                Xác thực với OTP!
               </Typography>
               <Typography className="text-[15px] mb-[28px]">
-                Verify to access P2Tune!
+                Xác thực để truy cập P2Tune!
               </Typography>
               <Form
                 name="basic"

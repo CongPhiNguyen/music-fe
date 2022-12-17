@@ -71,10 +71,10 @@ export default function Login() {
           <Col span={24} lg={8}>
             <div className="mx-[40px] h-[100%] flex flex-col justify-center">
               <Typography className="mt-[36px] text-[24px] font-[600] mb-[14px]">
-                Welcome to P2Tunes!
+                Chào mừng đến với P2Tunes!
               </Typography>
               <Typography className="text-[15px] mb-[28px]">
-                Please sign-in to your account and start the adventure
+                Đăng nhập và bắt đầu hành trình khám phá
               </Typography>
               <Form
                 name="basic"
@@ -85,10 +85,13 @@ export default function Login() {
               >
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Username"
+                  label="Tên đăng nhập"
                   name="username"
                   rules={[
-                    { required: true, message: "Please input your username!" }
+                    {
+                      required: true,
+                      message: "Tên đăng nhập không được để trống."
+                    }
                   ]}
                 >
                   <Input />
@@ -96,26 +99,26 @@ export default function Login() {
 
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Password"
+                  label="Mật khẩu"
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" }
+                    { required: true, message: "Mật khẩu không được để trống" }
                   ]}
                 >
                   <Input.Password />
                 </Form.Item>
                 {!isVerifiedAccount && (
                   <span className="text-[11px] mt-[-12px] text-[red]">
-                    *Your account was not verified.
+                    *Tài khoản của bạn chưa được xác thực.
                     <span
                       onClick={() => {
                         navigate("/sign-otp")
                       }}
                       className="text-[blue] hover:opacity-60 ml-[2px] cursor-pointer"
                     >
-                      Verify
+                      Xác thực
                     </span>{" "}
-                    your account?
+                    tài khoản
                   </span>
                 )}
 
@@ -126,32 +129,32 @@ export default function Login() {
                     noStyle
                     className="float-left"
                   >
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox>Ghi nhớ đăng nhập</Checkbox>
                   </Form.Item>
 
                   <p
                     className="float-right cursor-pointer text-[blue] hover:opacity-60 text-[14px]"
                     onClick={() => navigate("/forgot-password")}
                   >
-                    Forgot password
+                    Quên mật khẩu
                   </p>
                 </div>
                 <div className="mb-[24px]">
                   <Button type="primary" htmlType="submit" className="w-[100%]">
-                    Login
+                    Đăng nhập
                   </Button>
                 </div>
                 <p className="text-[14px]">
-                  Don't have an account?{" "}
-                  <NavLink to="/sign-up">Sign up</NavLink>
+                  Bạn chưa có tài khoản?{" "}
+                  <NavLink to="/sign-up">Đăng ký</NavLink>
                 </p>
-                <Divider plain>or</Divider>
+                {/* <Divider plain>or</Divider>
                 <Button
                   className="w-[100%] mb-[20px]"
                   icon={<GoogleOutlined className="mt-[-4px]" />}
                 >
                   Continue with Google
-                </Button>
+                </Button> */}
               </Form>
             </div>
           </Col>

@@ -35,10 +35,10 @@ export default function ResetPassword() {
           <Col span={24} lg={8}>
             <div className="mx-[40px] h-[100%] flex flex-col justify-center">
               <Typography className="mt-[36px] text-[24px] font-[600] mb-[14px]">
-                Reset password
+                Thay đổi password
               </Typography>
               <Typography className="text-[15px] mb-[28px]">
-                Enter your password to change!
+                Nhập mật khẩu mới để thay đổi!
               </Typography>
               <Form
                 name="basic"
@@ -49,20 +49,26 @@ export default function ResetPassword() {
               >
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Password"
+                  label="Mật khẩu mới"
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" }
+                    {
+                      required: true,
+                      message: "Mật khẩu mới không được để trống"
+                    }
                   ]}
                 >
                   <Input.Password />
                 </Form.Item>
                 <Form.Item
                   labelCol={{ span: 24 }}
-                  label="Repeat Password"
-                  name="repeat password"
+                  label="Nhập lại mật khẩu"
+                  name="repeatPassword"
                   rules={[
-                    { required: true, message: "Please input your password!" }
+                    {
+                      required: true,
+                      message: "Mật khẩu nhập lại không được để trống"
+                    }
                   ]}
                 >
                   <Input.Password />
@@ -70,16 +76,16 @@ export default function ResetPassword() {
 
                 <div className="mb-[12px] mt-[20px]">
                   <Button type="primary" htmlType="submit" className="w-[100%]">
-                    Set new password
+                    Đặt lại mật khẩu
                   </Button>
                 </div>
-                <Divider plain>or</Divider>
+                {/* <Divider plain>or</Divider>
                 <Button
                   className="w-[100%] mb-[20px]"
                   icon={<GoogleOutlined className="mt-[-4px]" />}
                 >
                   Continue with Google
-                </Button>
+                </Button> */}
               </Form>
             </div>
           </Col>

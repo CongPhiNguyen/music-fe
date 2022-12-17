@@ -5,6 +5,9 @@ import ReactJson from "react-json-view"
 import { chill, jazzy, sleep } from "../interactive/data/dataSong"
 import { StoreContext } from "../interactive/store"
 import { Button } from "antd"
+
+import Reactpip from "react-picture-in-picture"
+
 export default function Test() {
   const [data, setData] = useState([])
   const valueCT = useContext(StoreContext)
@@ -13,6 +16,8 @@ export default function Test() {
   const [playing, setPlaying] = useState(false)
   const audioRef = useRef()
   const volumeSong = valueCT.volumeSong
+  const [active, setActive] = useState(false)
+
   useEffect(() => {
     axios
       .get("http://localhost:5050/api/v1/zing/get-top-and-stream")
@@ -71,6 +76,7 @@ export default function Test() {
       Nguyễn Công Phi
       <div className="flex items-center gap-[20px]">
         <p>{currentSong?.src}</p>
+
         <audio loop src={currentSong?.src} ref={audioRef}></audio>
         <Button>
           Prev
@@ -88,6 +94,7 @@ export default function Test() {
             <img src="./assets/img/player/play.svg" alt="" />
           )}
         </Button>
+
         <Button>
           Next
           <img
@@ -97,6 +104,16 @@ export default function Test() {
           />
         </Button>
       </div>
+      {/* <Reactpip isActive={active}>
+        <source src="https://vnso-zn-24-tf-mp3-s1-m-zmp3.zmdcdn.me/60eddb53d2173b496206/2640798336767445849?authen=exp=1670307944~acl=/60eddb53d2173b496206/*~hmac=f234a1c943e32b9018bf3f375855ad46" />
+      </Reactpip>
+      <button onClick={() => setActive(!active)}>
+        Toggle Picture in Picture
+      </button> */}
+      <video
+        controls
+        src="https://vnso-zn-24-tf-mp3-s1-m-zmp3.zmdcdn.me/60eddb53d2173b496206/2640798336767445849?authen=exp=1670307944~acl=/60eddb53d2173b496206/*~hmac=f234a1c943e32b9018bf3f375855ad46"
+      ></video>
     </div>
   )
 }
