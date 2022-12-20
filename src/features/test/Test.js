@@ -7,6 +7,7 @@ import { StoreContext } from "../interactive/store"
 import { Button } from "antd"
 
 import Reactpip from "react-picture-in-picture"
+import Test2 from "./components/Test2"
 
 export default function Test() {
   const [data, setData] = useState([])
@@ -71,6 +72,7 @@ export default function Test() {
     }
     setPlaying(true)
   }
+
   return (
     <div>
       Nguyễn Công Phi
@@ -114,6 +116,7 @@ export default function Test() {
         controls
         src="https://vnso-zn-24-tf-mp3-s1-m-zmp3.zmdcdn.me/60eddb53d2173b496206/2640798336767445849?authen=exp=1670307944~acl=/60eddb53d2173b496206/*~hmac=f234a1c943e32b9018bf3f375855ad46"
       ></video>
+      <Test2 />
     </div>
   )
 }

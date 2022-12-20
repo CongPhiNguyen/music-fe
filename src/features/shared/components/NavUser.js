@@ -22,6 +22,7 @@ export default function NavUser() {
   const handleSearch = () => {
     navigate(`/search?search=${search}`)
   }
+  useSelector((state) => console.log(state))
   return (
     <div>
       <div className="main-home__header-wrapper">
@@ -55,15 +56,15 @@ export default function NavUser() {
             ></input>
           </div>
           <div className="main-home__header-right">
-            <div className="main-home__header-right-darkmode">
+            {/* <div className="main-home__header-right-darkmode">
               <FaTshirt></FaTshirt>
-            </div>
-            <div className="main-home__header-right-darkmode">
+            </div> */}
+            {/* <div className="main-home__header-right-darkmode">
               <FaUpload></FaUpload>
-            </div>
-            <div className="main-home__header-right-darkmode">
+            </div> */}
+            {/* <div className="main-home__header-right-darkmode">
               <FaCog></FaCog>
-            </div>
+            </div> */}
             {isLogin ? (
               <>
                 <div
@@ -79,7 +80,7 @@ export default function NavUser() {
                 <div className="main-home__header-right-user">
                   <img
                     alt="user"
-                    src="https://scontent.fsgn5-6.fna.fbcdn.net/v/t1.6435-9/149261868_2662651750692098_1649444713054646857_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=LSzUChwDjT4AX-WGg-s&_nc_ht=scontent.fsgn5-6.fna&oh=00_AfCCrlQoK8zVDkBqmbU5-XeTNE8fdiW35vB-1CyurlIumw&oe=63947933"
+                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                   />
                 </div>
               </>
@@ -98,7 +99,7 @@ export default function NavUser() {
           </div>
         </div>
       </div>
-      <div className="main-home__header-search">
+      {/* <div className="main-home__header-search">
         <div
           onClick={handleSearch}
           className="main-home__header-search-icon cursor-pointer"
@@ -159,7 +160,7 @@ export default function NavUser() {
             </p>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   )
 }

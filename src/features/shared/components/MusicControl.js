@@ -146,6 +146,11 @@ export default function MusicControl() {
     setIsRedo(!isRedo)
   }
 
+  const handleChangeVolumn = (e) => {
+    radioRef.current.volume = e.target.value
+    setVolumn(e.target.value)
+  }
+
   return (
     <div className="music-control">
       <Row>
@@ -178,13 +183,13 @@ export default function MusicControl() {
               </span>
             </div>
             <div className="music-control__left-action">
-              <div className="music-control__left-action-tym-box">
+              {/* <div className="music-control__left-action-tym-box">
                 <AiOutlineHeart className="music-control__left-action-tym-none" />
                 <AiFillHeart className="music-control__left-action-tym" />
-              </div>
-              <div className="music-control__left-action-tym-box">
+              </div> */}
+              {/* <div className="music-control__left-action-tym-box">
                 <FaEllipsisH className="music-control__left-action-option"></FaEllipsisH>
-              </div>
+              </div> */}
             </div>
           </div>
         </Col>
@@ -252,8 +257,8 @@ export default function MusicControl() {
         </Col>
         <Col span={6}>
           <div className="music-control-right">
-            <FaPhotoVideo className="music-control__right-action-option"></FaPhotoVideo>
-            <FaMicrophone className="music-control__right-action-option"></FaMicrophone>
+            {/* <FaPhotoVideo className="music-control__right-action-option"></FaPhotoVideo> */}
+            {/* <FaMicrophone className="music-control__right-action-option"></FaMicrophone> */}
             <BiSquare className="music-control__right-action-option"></BiSquare>
             {isMute ? (
               <BsFillVolumeMuteFill

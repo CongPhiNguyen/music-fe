@@ -5,7 +5,7 @@ import Player from "./components/Layout/Player/Player"
 import LateralMenu from "./components/Layout/LateralMenu/LateralMenu"
 import { useContext } from "react"
 import { StoreContext } from "./store"
-
+import Session from "./new-component/Session"
 export default function Interactive() {
   const valueCT = useContext(StoreContext)
   const enter = valueCT.enter
@@ -15,6 +15,7 @@ export default function Interactive() {
       {enter ? <BookCafe /> : <Home />}
       <LateralMenu />
       <Player />
+      <Session></Session>
     </div>
   )
 }

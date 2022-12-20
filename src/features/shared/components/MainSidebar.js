@@ -61,6 +61,14 @@ export default function MainSidebar() {
       })
       .then((res) => {
         setNamePlayList("Enter name playlist here")
+        axios
+          .get(`http://localhost:5050/api/v1/playlist/${username}`)
+          .then((res) => {
+            dispatch(setPlaylists({ playlists: res.data.playlists }))
+          })
+          .catch((err) => {
+            message.error(err.message)
+          })
       })
       .catch((err) => {
         message.error(err.message)
@@ -125,7 +133,7 @@ export default function MainSidebar() {
             >
               <NavLink className={"link"} to={"/zing-chart"}>
                 <BsFillBarChartLineFill style={{ fontSize: "2rem" }} />
-                <span className="pl-4"> #zingchart</span>
+                <span className="pl-4"> Bảng xếp hạng</span>
               </NavLink>
             </li>
             <li className="sidebar__library-top-item">
@@ -134,12 +142,12 @@ export default function MainSidebar() {
                 <span className="pl-4">Interactive</span>
               </NavLink>
             </li>
-            <li className="sidebar__library-top-item">
+            {/* <li className="sidebar__library-top-item">
               <NavLink className={"link"} to={"/test"}>
                 <SiTestinglibrary style={{ fontSize: "2.2rem" }} />
                 <span className="pl-4">Test</span>
               </NavLink>
-            </li>
+            </li> */}
             {/* <li className="sidebar__personal-item">
             <NavLink className={"link"} to={"/"}>
               <GoRadioTower style={{ fontSize: "2.2rem" }} />
