@@ -1,17 +1,23 @@
 import { useContext, useEffect, useRef, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { chill, jazzy, sleep } from "../../../data/dataSong"
+import { changeSong, setPlaying } from "../../../interactiveSlice"
 import { StoreContext } from "../../../store"
 
 const Player = () => {
+  const dispatch = useDispatch()
   const valueCT = useContext(StoreContext)
   const song = valueCT.song
-  const [currentSong, setCurrentSong] = useState(song[0])
-  const [playing, setPlaying] = useState(false)
+  // const [currentSong, setCurrentSong] = useState(song[0])
   const audioRef = useRef()
   const volumeSong = valueCT.volumeSong
-
+  useEffect(() => {
+    dispatch(changeSong(song[0]))
+  }, [song])
+  const currentSong = useSelector((state) => state.interactive.currentSong)
+  const playing = useSelector((state) => state.interactive.isPlaying)
   const handlePlay = () => {
-    setPlaying((s) => !s)
+    dispatch(setPlaying(!playing))
   }
   useEffect(() => {
     if (playing) {
@@ -21,36 +27,34 @@ const Player = () => {
     }
     audioRef.current.volume = volumeSong / 100
   })
-  useEffect(() => {
-    setCurrentSong(song[0])
-  }, [song])
 
   const handleClickPrev = () => {
     const index = song.findIndex((x) => x.name == currentSong.name)
     if (index == 0) {
-      setCurrentSong(song[song.length - 1])
+      dispatch(changeSong(song[song.length - 1]))
     } else {
-      setCurrentSong(song[index - 1])
+      dispatch(changeSong(song[index - 1]))
     }
-    setPlaying(true)
+    dispatch(setPlaying(true))
   }
+
   const handleClickNext = () => {
     const index = song.findIndex((x) => x.name == currentSong.name)
     if (index == song.length - 1) {
-      setCurrentSong(song[0])
+      dispatch(changeSong(song[0]))
     } else {
-      setCurrentSong(song[index + 1])
+      dispatch(changeSong(song[index + 1]))
     }
-    setPlaying(true)
+    dispatch(setPlaying(true))
   }
 
   return (
     <div className="flex items-center">
       <div className="absolute bottom-[4%] left-[10%] text-[20px] font-[600] text-white">
-        {currentSong.name}
+        {currentSong?.name}
       </div>
       <div className="absolute flex items-center justify-center bottom-[4%] z-50 w-full">
-        <audio loop src={currentSong.src} ref={audioRef}></audio>
+        <audio loop src={currentSong?.src} ref={audioRef}></audio>
         <div className="flex items-center gap-[20px]">
           <button className="w-[36px] h-[36px]">
             <img
