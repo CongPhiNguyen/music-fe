@@ -16,6 +16,7 @@ import {
 import { useTimer } from "react-timer-hook"
 import { useDispatch } from "react-redux"
 import { changeSong, setPlaying } from "../interactiveSlice"
+import ConcreteSession from "./ConcreteSession"
 
 const { Paragraph } = Typography
 
@@ -54,6 +55,8 @@ export default function SessionItem(props) {
   const [currentSecond, setCurrentSecond] = useState(0)
   const [fixFirstTime, setFixFirstTime] = useState(true)
   const [api, contextHolder] = notification.useNotification()
+  const [lastTimeDuration, setLastTimeDuration] = useState(0)
+  const [estimateEndTime, setEstimateEndTime] = useState(new Date())
 
   const openNotification = () => {
     api.open({
@@ -75,7 +78,21 @@ export default function SessionItem(props) {
     dispatch(setPlaying(true))
   }
 
-  console.log("props", props)
+  const handlePlay = () => {
+    setIsPause(false)
+    const time = new Date()
+    const secondsTranfer =
+      (Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds)) * 1000
+    setEstimateEndTime(new Date(time.getTime() + secondsTranfer))
+    resume()
+  }
+
+  const handlePause = () => {
+    setIsPause(true)
+    pause()
+  }
+
+  // console.log("props", props)
   return (
     <div className="mb-[12px]">
       {contextHolder}
@@ -96,8 +113,7 @@ export default function SessionItem(props) {
               color="#fff"
               size={32}
               onClick={() => {
-                setIsPause(true)
-                pause()
+                handlePause()
               }}
             />
           ) : (
@@ -105,8 +121,7 @@ export default function SessionItem(props) {
               color="#fff"
               size={32}
               onClick={() => {
-                setIsPause(false)
-                resume()
+                handlePlay()
               }}
             />
           )}
@@ -180,6 +195,12 @@ export default function SessionItem(props) {
                     Number(currentMinute) * 60 +
                     Number(currentSecond)
                 )
+                setLastTimeDuration(
+                  Number(currentHour) * 3600 +
+                    Number(currentMinute) * 60 +
+                    Number(currentSecond)
+                )
+
                 // setExpiryTimestamp(
                 //   time +
                 //     Number(currentHour) * 3600 +
@@ -211,6 +232,17 @@ export default function SessionItem(props) {
           </Popconfirm>
         )}
       </div>
+      <ConcreteSession
+        name={props.name}
+        lastTimeDuration={lastTimeDuration}
+        hours={Number(hours)}
+        minutes={Number(minutes)}
+        seconds={Number(seconds)}
+        estimateEndTime={estimateEndTime}
+        isPause={isPause}
+        handlePause={handlePause}
+        handlePlay={handlePlay}
+      />
     </div>
   )
 }

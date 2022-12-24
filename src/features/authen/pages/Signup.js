@@ -157,13 +157,13 @@ export default function Signup() {
                 <p className="text-[14px]">
                   Bạn đã có tài khoản? <NavLink to="/login">Đăng nhập</NavLink>
                 </p>
-                <Divider plain>or</Divider>
+                {/* <Divider plain>or</Divider>
                 <Button
                   className="w-[100%] mb-[20px]"
                   icon={<GoogleOutlined className="mt-[-4px]" />}
                 >
                   Continue with Google
-                </Button>
+                </Button> */}
               </Form>
             </div>
           </Col>

@@ -4,6 +4,8 @@ import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"
 import { BsFillPlayCircleFill, BsFillPauseCircleFill } from "react-icons/bs"
 import { BiEditAlt, BiSave } from "react-icons/bi"
 import SessionItem from "./SessionItem"
+import Draggable from "react-draggable"
+
 export default function Session() {
   const [isPause, setIsPause] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
@@ -59,7 +61,7 @@ export default function Session() {
         className="!w-[100%] !bg-[#070707] !text-[#FFF] !rounded-[12px]"
         onClick={() => {
           setTimerList((prev) => {
-            return [...prev, { id: prev.length, name: String(prev.length) }]
+            return [...prev, { id: prev.length, name: String("New Session") }]
           })
         }}
       >

@@ -21,6 +21,9 @@ export const interactiveSlice = createSlice({
     },
     setPlaying: (state, action) => {
       state.isPlaying = action.payload
+    },
+    setCurrenstSession: (state, action) => {
+      state.currentSession = action.payload
     }
   }
 })
