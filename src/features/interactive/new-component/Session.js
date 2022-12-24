@@ -18,6 +18,21 @@ export default function Session() {
       })
     })
   }
+
+  const changeName = (nameChange, indexChangeName) => {
+    setTimerList((prev) => {
+      return prev.map((val, index) => {
+        if (index == indexChangeName) {
+          return {
+            ...val,
+            name: nameChange
+          }
+        }
+        return val
+      })
+    })
+  }
+
   return (
     <div className="px-[40px] bg-[#070707] w-[320px] ml-[20px] rounded-[24px]">
       <Typography.Title className="!text-[#fff] !text-[20px] pt-[14px]">
@@ -25,19 +40,27 @@ export default function Session() {
       </Typography.Title>
       {/* Session item */}
       <div className="mt-[16px] mb-[12px]">
-        {timerList.map((val, index) => (
-          <SessionItem
-            removeSession={() => {
-              console.log("index", index)
-              removeSession(index)
-            }}
-          />
-        ))}
+        {timerList.map((val, index) => {
+          console.log(val)
+          return (
+            <SessionItem
+              removeSession={() => {
+                // console.log("index", index)
+                removeSession(index)
+              }}
+              id={val.id}
+              name={val.name}
+              changeName={(nameChange) => changeName(nameChange, index)}
+            />
+          )
+        })}
       </div>
       <Button
         className="!w-[100%] !bg-[#070707] !text-[#FFF] !rounded-[12px]"
         onClick={() => {
-          setTimerList((prev) => [...prev, ""])
+          setTimerList((prev) => {
+            return [...prev, { id: prev.length, name: String(prev.length) }]
+          })
         }}
       >
         Thêm session

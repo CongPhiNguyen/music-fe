@@ -12,9 +12,12 @@ import {
   message,
   Popconfirm
 } from "antd"
+
 import { useTimer } from "react-timer-hook"
 import { useDispatch } from "react-redux"
 import { changeSong, setPlaying } from "../interactiveSlice"
+
+const { Paragraph } = Typography
 
 export default function SessionItem(props) {
   const dispatch = useDispatch()
@@ -55,11 +58,12 @@ export default function SessionItem(props) {
   const openNotification = () => {
     api.open({
       message: "Thời gian đã kết thúc",
-      description: "Thời gian đã kết thúc",
+      description: `Thời gian của bạn để ${props.name} đã kết thúc`,
       className: "custom-class",
       style: {
         width: 600
-      }
+      },
+      duration: 0
     })
     // Mở một bài nhạc khác lên
     dispatch(
@@ -71,10 +75,20 @@ export default function SessionItem(props) {
     dispatch(setPlaying(true))
   }
 
-  // console.log(isRunning)
+  console.log("props", props)
   return (
     <div className="mb-[12px]">
       {contextHolder}
+      <Paragraph
+        editable={{
+          onChange: (value) => {
+            props.changeName(value)
+          }
+        }}
+        className="!text-[#fff] !text-[16px] !mb-[0px]"
+      >
+        {props?.name}
+      </Paragraph>
       <div className="border-[1px] border-[#fff] w-[100%] h-[50px] rounded-[10px] p-[6px] flex">
         <div className="mr-[12px]">
           {!isEdit ? null : !isPause ? (
@@ -178,22 +192,24 @@ export default function SessionItem(props) {
             />
           )}
         </div>
-        <Popconfirm
-          placement="topLeft"
-          title={"Xóa session"}
-          description={"Bạn có muốn xóa session này?"}
-          onConfirm={() => {
-            props.removeSession()
-          }}
-          okText="Yes"
-          cancelText="No"
-        >
-          <AiOutlineDelete
-            color="#fff"
-            size={24}
-            className="!mt-[4px] !ml-[4px]"
-          />
-        </Popconfirm>
+        {isPause && (
+          <Popconfirm
+            placement="topLeft"
+            title={"Xóa session"}
+            description={"Bạn có muốn xóa session này?"}
+            onConfirm={() => {
+              props.removeSession()
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <AiOutlineDelete
+              color="#fff"
+              size={24}
+              className="!mt-[4px] !ml-[4px]"
+            />
+          </Popconfirm>
+        )}
       </div>
     </div>
   )
