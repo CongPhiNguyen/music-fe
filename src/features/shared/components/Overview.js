@@ -23,71 +23,8 @@ import {
 import axios from "axios"
 
 function ComponentSong({ song }) {
-  // const isPlay = useSelector(state => state.musicData.isPlay)
-  // const dispatch = useDispatch()
-  // const handleClickNextSong = () => {
-  //     if (!props.isActive) {
-  //         dispatch(setCurrentSong({ index: props.index }))
-  //     }
-  // }
-  // return (<li className={`overview__allsong-item ${props.isActive && "overview__allsong-item-active"}`}>
-  //     <div className='overview__allsong-item-left'>
-  //         <div className='overview__allsong-item-left-box' style={{ backgroundImage: `url(${props.song.background})` }}>
-  //             {
-  //                 props.isActive ? (
-  //                     <div onClick={() => { dispatch(changeIsPlay()) }}>
-  //                         {
-  //                             isPlay ? (<div className='overview__allsong-item-left-playing'>
-  //                                 <img className='next-song__item-playing-box-img' alt='ảnh' src='./assets/img/songs/icon-playing.gif' />
-  //                             </div>) : (
-  //                                 <div className='overview__allsong-item-left-play'>
-  //                                     <FaPlay />
-  //                                 </div>
-  //                             )
-  //                         }
-  //                     </div>
-  //                 ) : (
-  //                     <div onClick={handleClickNextSong} className='overview__allsong-item-left-play hover'>
-  //                         <FaPlay />
-  //                     </div>
-  //                 )
-  //             }
-
-  //         </div>
-  //         <div className='overview__allsong-item-body'>
-  //             <h3 className='overview__allsong-item-body-name'>
-  //                 {props.song.name}
-  //             </h3>
-  //             <span className='overview__allsong-item-body-singer'>
-  //                 {props.song.singer}
-  //             </span>
-  //         </div>
-  //     </div>
-  //     <div className='overview__allsong-item-center'>
-  //         <span>{props.song.name} (Remix)</span>
-  //     </div>
-  //     <div className='overview__allsong-item-end'>
-  //         <span className='overview__allsong-item-end-mv'>
-  //             <FaPhotoVideo />
-  //         </span>
-  //         <span className='overview__allsong-item-end-lyric'>
-  //             <FaMicrophone />
-  //         </span>
-  //         <span className='overview__allsong-item-end-tym'>
-  //             <FaHeart />
-  //         </span>
-  //         <span className='overview__allsong-item-end-duration'>
-  //             {props.song.duration}
-  //         </span>
-  //         <span className='overview__allsong-item-end-more'>
-  //             <FaEllipsisH></FaEllipsisH>
-  //         </span>
-  //     </div>
-  // </li>)
   const username = useSelector((state) => state.authen.currentUserInfo.username)
-
   const dispatch = useDispatch()
-
   const handleClickAddMusic = (id) => {
     axios
       .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
@@ -175,49 +112,6 @@ function ComponentSong({ song }) {
 
 const OverviewSilder = (props) => {
   const [indexShow, setIndexShow] = useState(0)
-
-  // useEffect(() => {
-  //     let a = setInterval(() => {
-  //         if (props.songsData.length - 1 === indexShow) {
-  //             setIndexShow(0)
-  //         } else {
-  //             setIndexShow(prev => prev + 1)
-  //         }
-  //     }, 1000)
-  //     return () => { clearInterval(a) }
-  // }, [indexShow, props.songsData.length])
-
-  // return (<div className='overview-slider'>
-  //     {
-  //         props.songsData.map((song, index) => {
-  //             if (indexShow === props.songsData.length - 2) {
-  //                 if (index === indexShow) {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
-  //                 } else if (index === props.songsData.length - 1) {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
-  //                 } else {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
-  //                 }
-  //             } else if (indexShow === props.songsData.length - 1) {
-  //                 if (index === indexShow) {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
-  //                 } else if (index === 0) {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
-  //                 } else {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
-  //                 }
-  //             } else {
-  //                 if (index === indexShow) {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-first" />)
-  //                 } else if (index === indexShow + 1) {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-second" />)
-  //                 } else {
-  //                     return (<img key={index} src={song.background} alt="anh slider" className="option-all__song-slider-img option-all__song-slider-img-third" />)
-  //                 }
-  //             }
-  //         })
-  //     }
-  // </div>)
 
   useEffect(() => {
     let a = setInterval(() => {
@@ -422,7 +316,7 @@ export default function Overview() {
           </Col>
         </Row>
       </div>
-      {/* <div className="overview-option-playlist mb-2">
+      <div className="overview-option-playlist mb-2">
         <div className="overview-option-song__heading flex">
           <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
             Playlist
@@ -648,103 +542,9 @@ export default function Overview() {
             </Col>
           </Row>
         </ul>
-        {/* <ul className="overview-option-playlist__list">
-          <Row gutter={[16, 16]}>
-            <Col span={8}>
-              <li className="overview-option-playlist__item cursor-pointer">
-                <div className="overview-option-playlist__item-img-wrapper">
-                  <div className="overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper">
-                    <div className="overview-option-playlist__item-img-wrapper-action-2">
-                      <FaPlay />
-                    </div>
-                  </div>
-                  <div
-                    className="overview-option-playlist__item-img overview-option-mv__item-img "
-                    style={{ backgroundImage: "url(./assets/img/mv/1.webp)" }}
-                  ></div>
-                </div>
-                <div className="overview-option-mv__content">
-                  <img
-                    src="./assets/img/mv/icon1.jpg"
-                    alt="thanh hung"
-                    className="overview-option-mv__content-img"
-                  />
-                  <div className="overview-option-mv__content-name">
-                    <div className="overview-option-playlist__item-content-name">
-                      Replay
-                    </div>
-                    <div className="overview-option-playlist__item-content-name1">
-                      Lương Thiện Phước
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </Col>
-            <Col span={8}>
-              <li className="overview-option-playlist__item cursor-pointer">
-                <div className="overview-option-playlist__item-img-wrapper">
-                  <div className="overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper">
-                    <div className="overview-option-playlist__item-img-wrapper-action-2">
-                      <FaPlay />
-                    </div>
-                  </div>
-                  <div
-                    className="overview-option-playlist__item-img overview-option-mv__item-img "
-                    style={{ backgroundImage: "url(./assets/img/mv/2.webp)" }}
-                  ></div>
-                </div>
-                <div className="overview-option-mv__content">
-                  <img
-                    src="./assets/img/mv/icon2.jpg"
-                    alt="thanh hung"
-                    className="overview-option-mv__content-img"
-                  />
-                  <div className="overview-option-mv__content-name">
-                    <div className="overview-option-playlist__item-content-name">
-                      Replay
-                    </div>
-                    <div className="overview-option-playlist__item-content-name1">
-                      Lương Thiện Phước
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </Col>
-            <Col span={8}>
-              <li className="overview-option-playlist__item cursor-pointer">
-                <div className="overview-option-playlist__item-img-wrapper">
-                  <div className="overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper">
-                    <div className="overview-option-playlist__item-img-wrapper-action-2">
-                      <FaPlay />
-                    </div>
-                  </div>
-                  <div
-                    className="overview-option-playlist__item-img overview-option-mv__item-img "
-                    style={{ backgroundImage: "url(./assets/img/mv/3.webp)" }}
-                  ></div>
-                </div>
-                <div className="overview-option-mv__content">
-                  <img
-                    src="./assets/img/mv/icon3.jpg"
-                    alt="thanh hung"
-                    className="overview-option-mv__content-img"
-                  />
-                  <div className="overview-option-mv__content-name">
-                    <div className="overview-option-playlist__item-content-name">
-                      Replay
-                    </div>
-                    <div className="overview-option-playlist__item-content-name1">
-                      Lương Thiện Phước
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </Col>
-          </Row>
-        </ul> */}
-      {/* </div>  */}
+      </div>
       <div className="overview-option-singer">
-        {/* <div className="overview-option-song__heading flex">
+        <div className="overview-option-song__heading flex">
           <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
             Nghệ Sĩ
           </h3>
@@ -756,120 +556,119 @@ export default function Overview() {
               </div>
             </div>
           </div>
-        </div> */}
-        {/* <ul className='overview-option-playlist__list'>
-                    <Row gutter={[16, 16]}>
-                        <Col span={6}>
-                            <li className='overview-option-playlist__item cursor-pointer'>
-                                <div className='overview-option-playlist__item-img-wrapper singer'>
-                                    <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                                        <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                                            <FaPlay />
-                                        </div>
-                                    </div>
-                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                                    </div>
-                                </div>
-                                <div className='overview-option-singer__content'>
-                                    <div className='overview-option-playlist__item-content-name'>
-                                        Replay
-                                    </div>
-                                    <div className='overview-option-playlist__item-content-name1'>
-                                        Lương Thiện Phước
-                                    </div>
-                                    <div className='overview-option-singer__content-profile'>
-                                        <div className='overview-option-singer__content-profile-icon'>
-                                            <FaRandom />
-                                        </div>
-                                        <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </Col>
-                        <Col span={6}>
-                            <li className='overview-option-playlist__item cursor-pointer'>
-                                <div className='overview-option-playlist__item-img-wrapper singer'>
-                                    <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                                        <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                                            <FaPlay />
-                                        </div>
-                                    </div>
-                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                                    </div>
-                                </div>
-                                <div className='overview-option-singer__content'>
-                                    <div className='overview-option-playlist__item-content-name'>
-                                        Replay
-                                    </div>
-                                    <div className='overview-option-playlist__item-content-name1'>
-                                        Lương Thiện Phước
-                                    </div>
-                                    <div className='overview-option-singer__content-profile'>
-                                        <div className='overview-option-singer__content-profile-icon'>
-                                            <FaRandom />
-                                        </div>
-                                        <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </Col>
-                        <Col span={6}>
-                            <li className='overview-option-playlist__item cursor-pointer'>
-                                <div className='overview-option-playlist__item-img-wrapper singer'>
-                                    <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                                        <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                                            <FaPlay />
-                                        </div>
-                                    </div>
-                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                                    </div>
-                                </div>
-                                <div className='overview-option-singer__content'>
-                                    <div className='overview-option-playlist__item-content-name'>
-                                        Replay
-                                    </div>
-                                    <div className='overview-option-playlist__item-content-name1'>
-                                        Lương Thiện Phước
-                                    </div>
-                                    <div className='overview-option-singer__content-profile'>
-                                        <div className='overview-option-singer__content-profile-icon'>
-                                            <FaRandom />
-                                        </div>
-                                        <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </Col>
-                        <Col span={6}>
-                            <li className='overview-option-playlist__item cursor-pointer'>
-                                <div className='overview-option-playlist__item-img-wrapper singer'>
-                                    <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                                        <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                                            <FaPlay />
-                                        </div>
-                                    </div>
-                                    <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                                    </div>
-                                </div>
-                                <div className='overview-option-singer__content'>
-                                    <div className='overview-option-playlist__item-content-name'>
-                                        Replay
-                                    </div>
-                                    <div className='overview-option-playlist__item-content-name1'>
-                                        Lương Thiện Phước
-                                    </div>
-                                    <div className='overview-option-singer__content-profile'>
-                                        <div className='overview-option-singer__content-profile-icon'>
-                                            <FaRandom />
-                                        </div>
-                                        <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </Col>
-
-                    </Row>
-                </ul> */}
+        </div>
+        <ul className='overview-option-playlist__list'>
+          <Row gutter={[16, 16]}>
+            <Col span={6}>
+              <li className='overview-option-playlist__item cursor-pointer'>
+                <div className='overview-option-playlist__item-img-wrapper singer'>
+                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
+                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
+                      <FaPlay />
+                    </div>
+                  </div>
+                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                  </div>
+                </div>
+                <div className='overview-option-singer__content'>
+                  <div className='overview-option-playlist__item-content-name'>
+                    Replay
+                  </div>
+                  <div className='overview-option-playlist__item-content-name1'>
+                    Lương Thiện Phước
+                  </div>
+                  <div className='overview-option-singer__content-profile'>
+                    <div className='overview-option-singer__content-profile-icon'>
+                      <FaRandom />
+                    </div>
+                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
+                  </div>
+                </div>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li className='overview-option-playlist__item cursor-pointer'>
+                <div className='overview-option-playlist__item-img-wrapper singer'>
+                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
+                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
+                      <FaPlay />
+                    </div>
+                  </div>
+                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                  </div>
+                </div>
+                <div className='overview-option-singer__content'>
+                  <div className='overview-option-playlist__item-content-name'>
+                    Replay
+                  </div>
+                  <div className='overview-option-playlist__item-content-name1'>
+                    Lương Thiện Phước
+                  </div>
+                  <div className='overview-option-singer__content-profile'>
+                    <div className='overview-option-singer__content-profile-icon'>
+                      <FaRandom />
+                    </div>
+                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
+                  </div>
+                </div>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li className='overview-option-playlist__item cursor-pointer'>
+                <div className='overview-option-playlist__item-img-wrapper singer'>
+                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
+                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
+                      <FaPlay />
+                    </div>
+                  </div>
+                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                  </div>
+                </div>
+                <div className='overview-option-singer__content'>
+                  <div className='overview-option-playlist__item-content-name'>
+                    Replay
+                  </div>
+                  <div className='overview-option-playlist__item-content-name1'>
+                    Lương Thiện Phước
+                  </div>
+                  <div className='overview-option-singer__content-profile'>
+                    <div className='overview-option-singer__content-profile-icon'>
+                      <FaRandom />
+                    </div>
+                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
+                  </div>
+                </div>
+              </li>
+            </Col>
+            <Col span={6}>
+              <li className='overview-option-playlist__item cursor-pointer'>
+                <div className='overview-option-playlist__item-img-wrapper singer'>
+                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
+                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
+                      <FaPlay />
+                    </div>
+                  </div>
+                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
+                  </div>
+                </div>
+                <div className='overview-option-singer__content'>
+                  <div className='overview-option-playlist__item-content-name'>
+                    Replay
+                  </div>
+                  <div className='overview-option-playlist__item-content-name1'>
+                    Lương Thiện Phước
+                  </div>
+                  <div className='overview-option-singer__content-profile'>
+                    <div className='overview-option-singer__content-profile-icon'>
+                      <FaRandom />
+                    </div>
+                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
+                  </div>
+                </div>
+              </li>
+            </Col>
+          </Row>
+        </ul>
       </div>
     </div>
   )

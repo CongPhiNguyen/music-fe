@@ -23,13 +23,15 @@ const MainHome = React.lazy(() =>
 const Interactive = React.lazy(() =>
   import("../features/interactive/Interactive.js")
 )
+const SingerPage = React.lazy(() => import("../features/shared/pages/SingerPage"))
 const Search = React.lazy(() => import("../features/shared/pages/Search"))
 
 const mainRoute = [
   { path: "/", name: "Home", element: <MainHome /> },
   { path: "/home", name: "Home", element: <MainHome /> },
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
-  { path: "/search", name: "Home", element: <Search /> }
+  { path: "/search", name: "Home", element: <Search /> },
+  { path: "/singer", name: "Singer", element: <SingerPage /> },
 ]
 
 // Những route chỉ truy xuất khi chưa đăng nhập
@@ -65,7 +67,8 @@ const commonRoute = [
   { path: "/", name: "Home1", element: <MainHome /> },
   { path: "/home", name: "Home", element: <MainHome /> },
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
-  { path: "/search", name: "Home", element: <Search /> }
+  { path: "/search", name: "Home", element: <Search /> },
+  { path: "/singer", name: "Singer", element: <SingerPage /> },
 ]
 
 // Route dùng cho manager

@@ -79,9 +79,8 @@ export default function MusicControl() {
   const formatTime = (number) => {
     const minutes = Math.floor(number / 60)
     const seconds = Math.floor(number - minutes * 60)
-    return `${minutes < 10 ? "0" + minutes : minutes}:${
-      seconds < 10 ? "0" + seconds : seconds
-    }`
+    return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds
+      }`
   }
 
   const handleTimeUpdate = () => {
@@ -151,6 +150,12 @@ export default function MusicControl() {
     setVolumn(e.target.value)
   }
 
+  const convertTime = (duration) => {
+    var hours = Math.floor(duration / 60)
+    var minutes = duration % 60
+    return hours + ":" + minutes
+  }
+
   return (
     <div className="music-control">
       <Row>
@@ -163,9 +168,8 @@ export default function MusicControl() {
               <div
                 ref={cdThumbAnimate}
                 style={{
-                  backgroundImage: `url('${
-                    indexSong !== null && songsData[indexSong].background
-                  }')`
+                  backgroundImage: `url('${indexSong !== null && songsData[indexSong].background
+                    }')`
                 }}
                 className={`music-control__left-img `}
               ></div>
@@ -250,7 +254,7 @@ export default function MusicControl() {
                 max="100"
               />
               <span className="music-control__center-progress-time-end">
-                {indexSong !== null && songsData[indexSong].duration}
+                {indexSong !== null && convertTime(songsData[indexSong].duration)}
               </span>
             </div>
           </div>

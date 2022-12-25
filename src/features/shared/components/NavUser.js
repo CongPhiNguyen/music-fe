@@ -22,7 +22,6 @@ export default function NavUser() {
   const handleSearch = () => {
     navigate(`/search?search=${search}`)
   }
-  useSelector((state) => console.log(state))
   return (
     <div>
       <div className="main-home__header-wrapper">
