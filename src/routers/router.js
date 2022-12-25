@@ -24,6 +24,7 @@ const Interactive = React.lazy(() =>
   import("../features/interactive/Interactive.js")
 )
 const SingerPage = React.lazy(() => import("../features/shared/pages/SingerPage"))
+const SongPage = React.lazy(() => import("../features/shared/pages/SongPage.js"))
 const Search = React.lazy(() => import("../features/shared/pages/Search"))
 
 const mainRoute = [
@@ -69,6 +70,7 @@ const commonRoute = [
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
   { path: "/search", name: "Home", element: <Search /> },
   { path: "/singer", name: "Singer", element: <SingerPage /> },
+  { path: "/song", name: "Song", element: <SongPage /> }
 ]
 
 // Route dùng cho manager

@@ -4,8 +4,7 @@ import "./Overview.css"
 import {
   FaChevronRight,
   FaUpload,
-  FaPhotoVideo,
-  FaHeart,
+  FaEye,
   FaEllipsisH,
   FaPlay,
   FaPlus,
@@ -15,14 +14,14 @@ import {
 import { MdPostAdd } from "react-icons/md"
 import { Col, Row } from "antd"
 import {
-  setCurrentSong,
-  changeIsPlay,
   addSongAndPlay,
   addSong
 } from "../musicSlice"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 function ComponentSong({ song }) {
+  const navigate = useNavigate()
   const username = useSelector((state) => state.authen.currentUserInfo.username)
   const dispatch = useDispatch()
   const handleClickAddMusic = (id) => {
@@ -34,7 +33,8 @@ function ComponentSong({ song }) {
           name: song.title,
           singer: song.artistsNames,
           pathSong: res.data.detail.data[128],
-          duration: song.duration
+          duration: song.duration,
+          id
         }
         dispatch(addSong({ song: songSlice, username }))
       })
@@ -52,7 +52,8 @@ function ComponentSong({ song }) {
           name: song.title,
           singer: song.artistsNames,
           pathSong: res.data.detail.data[128],
-          duration: song.duration
+          duration: song.duration,
+          id
         }
         dispatch(addSongAndPlay({ song: songSlice, username }))
       })
@@ -60,6 +61,7 @@ function ComponentSong({ song }) {
         console.log(err)
       })
   }
+
   const convertTime = (duration) => {
     var hours = Math.floor(duration / 60)
     var minutes = duration % 60
@@ -102,8 +104,8 @@ function ComponentSong({ song }) {
         {/* <span className="overview__allsong-item-end-tym">
           {/* <FaHeart />
         </span> */}
-        <span className="overview__allsong-item-end-tym !text-[white]">
-          <FaEllipsisH />
+        <span onClick={() => navigate(`/song?id=${song.encodeId}`)} className="overview__allsong-item-end-tym !text-[white]">
+          <FaEye />
         </span>
       </div>
     </li>

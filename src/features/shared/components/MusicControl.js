@@ -57,8 +57,10 @@ export default function MusicControl() {
   useEffect(() => {
     if (isPlay) {
       cdThumb.current.play()
+      radioRef.current.play()
     } else {
       cdThumb.current.pause()
+      radioRef.current.pause()
     }
   }, [isPlay])
 
@@ -67,6 +69,9 @@ export default function MusicControl() {
       dispatch(setIsPlay({ isPlay: true }))
       radioRef.current.play()
     } else {
+      console.log("here")
+      setCurrentTimeMusic("00:00")
+      setPercent(0)
       dispatch(setIsPlay({ isPlay: false }))
     }
   }, [indexSong, dispatch])
@@ -235,7 +240,7 @@ export default function MusicControl() {
             </div>
             <div className="music-control__center-progress">
               <span className="music-control__center-progress-time-start">
-                {currentTimeMusic}
+                {indexSong !== null ? currentTimeMusic : "00:00"}
               </span>
               <audio
                 onTimeUpdate={handleTimeUpdate}
@@ -248,7 +253,7 @@ export default function MusicControl() {
                 id="progress"
                 className="music-control__center-progress-input"
                 type="range"
-                value={percent}
+                value={indexSong === null ? 0 : percent}
                 step="1"
                 min="0"
                 max="100"

@@ -27,10 +27,10 @@ export default function NavUser() {
       <div className="main-home__header-wrapper">
         <div className="main-home__header">
           <div className="main-home__header-undo">
-            <div className="main-home__header-undo-icon">
+            <div onClick={() => navigate(-1)} className="main-home__header-undo-icon">
               <FaArrowLeft></FaArrowLeft>
             </div>
-            <div className="main-home__header-undo-icon">
+            <div onClick={() => navigate(1)} className="main-home__header-undo-icon">
               <FaArrowRight></FaArrowRight>
             </div>
           </div>

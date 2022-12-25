@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./ZingChart.css"
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { get } from "../../../api/axios"
 import "./SingerPage.css"
 import NavUser from '../components/NavUser'
@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux"
 import {
     FaEllipsisH,
     FaPlay,
+    FaEye
 } from "react-icons/fa"
 import { MdPostAdd } from "react-icons/md"
 import {
@@ -201,6 +202,7 @@ const OverviewSilder = (props) => {
 function ComponentSong({ song }) {
     const username = useSelector((state) => state.authen.currentUserInfo.username)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const handleClickAddMusic = (id) => {
         axios
             .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
@@ -210,7 +212,8 @@ function ComponentSong({ song }) {
                     name: song.title,
                     singer: song.artistsNames,
                     pathSong: res.data.detail.data[128],
-                    duration: song.duration
+                    duration: song.duration,
+                    id
                 }
                 dispatch(addSong({ song: songSlice, username }))
             })
@@ -228,7 +231,8 @@ function ComponentSong({ song }) {
                     name: song.title,
                     singer: song.artistsNames,
                     pathSong: res.data.detail.data[128],
-                    duration: song.duration
+                    duration: song.duration,
+                    id
                 }
                 dispatch(addSongAndPlay({ song: songSlice, username }))
             })
@@ -272,8 +276,8 @@ function ComponentSong({ song }) {
                 >
                     <FaPlay />
                 </span>
-                <span className="overview__allsong-item-end-tym !text-[white]">
-                    <FaEllipsisH />
+                <span onClick={() => navigate(`/song?id=${song.encodeId}`)} className="overview__allsong-item-end-tym !text-[white]">
+                    <FaEye />
                 </span>
             </div>
         </li>
