@@ -232,6 +232,7 @@ export default function SessionItem(props) {
           </Popconfirm>
         )}
       </div>
+
       <ConcreteSession
         name={props.name}
         lastTimeDuration={lastTimeDuration}
@@ -240,8 +241,12 @@ export default function SessionItem(props) {
         seconds={Number(seconds)}
         estimateEndTime={estimateEndTime}
         isPause={isPause}
-        handlePause={handlePause}
-        handlePlay={handlePlay}
+        handlePause={() => {
+          handlePause()
+        }}
+        handlePlay={() => {
+          handlePlay()
+        }}
       />
     </div>
   )

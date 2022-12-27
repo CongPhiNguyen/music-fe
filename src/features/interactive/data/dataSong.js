@@ -12,6 +12,18 @@ export const chill = [
     src: "https://res.cloudinary.com/phiroud321/video/upload/v1671894595/Music/B%C3%A0i_h%C3%A1t_ca_t%E1%BB%A5ng_n%E1%BB%97i_c%C3%B4_%C4%91%C6%A1n_bkisdn.mp3"
   },
   {
+    name: "Tự tâm",
+    src: "https://res.cloudinary.com/phiroud321/video/upload/v1671961962/Music/T%E1%BB%B1_T%C3%A2m_kvrcwv.mp3"
+  },
+  {
+    name: "0.2s - Cúc Tịnh Y",
+    src: "https://res.cloudinary.com/phiroud321/video/upload/v1671989289/Music/0.2s_Kh%C3%B4ng_Ch%E1%BA%A5m_Hai_Gi%C3%A2y_aighdk.mp3"
+  },
+  {
+    name: "Dễ đến dễ đi",
+    src: "https://res.cloudinary.com/phiroud321/video/upload/v1671989297/Music/D%E1%BB%85_%C4%91%E1%BA%BFn_d%E1%BB%85_%C4%91i_-_C%C3%BAc_T%E1%BB%8Bnh_Y_jcygo0.mp3"
+  },
+  {
     name: "Formant - Regret",
     src: "./assets/audio/song/chill/Formant - Regret.mp3"
   },
