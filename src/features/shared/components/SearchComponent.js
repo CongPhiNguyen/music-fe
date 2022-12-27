@@ -19,7 +19,8 @@ const ComponentMusic = ({ song, key }) => {
           name: song.title,
           singer: song.artistsNames,
           pathSong: res.data.detail.data[128],
-          duration: song.duration
+          duration: song.duration,
+          id
         }
         dispatch(addSong({ song: songSlice, username }))
       })
@@ -32,8 +33,6 @@ const ComponentMusic = ({ song, key }) => {
     axios
       .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
-        console.log(res.data.lyric.data.file)
-        console.log(JSON.parse(res.data.lyric.data.file))
         fetch(res.data.lyric.data.file)
           .then((result) => {
             console.log(result)
@@ -46,7 +45,8 @@ const ComponentMusic = ({ song, key }) => {
           name: song.title,
           singer: song.artistsNames,
           pathSong: res.data.detail.data[128],
-          duration: song.duration
+          duration: song.duration,
+          id
         }
         dispatch(addSongAndPlay({ song: songSlice, username }))
       })

@@ -57,8 +57,10 @@ export default function MusicControl() {
   useEffect(() => {
     if (isPlay) {
       cdThumb.current.play()
+      radioRef.current.play()
     } else {
       cdThumb.current.pause()
+      radioRef.current.pause()
     }
   }, [isPlay])
 
@@ -67,6 +69,9 @@ export default function MusicControl() {
       dispatch(setIsPlay({ isPlay: true }))
       radioRef.current.play()
     } else {
+      console.log("here")
+      setCurrentTimeMusic("00:00")
+      setPercent(0)
       dispatch(setIsPlay({ isPlay: false }))
     }
   }, [indexSong, dispatch])
@@ -79,9 +84,8 @@ export default function MusicControl() {
   const formatTime = (number) => {
     const minutes = Math.floor(number / 60)
     const seconds = Math.floor(number - minutes * 60)
-    return `${minutes < 10 ? "0" + minutes : minutes}:${
-      seconds < 10 ? "0" + seconds : seconds
-    }`
+    return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds
+      }`
   }
 
   const handleTimeUpdate = () => {
@@ -151,6 +155,12 @@ export default function MusicControl() {
     setVolumn(e.target.value)
   }
 
+  const convertTime = (duration) => {
+    var hours = Math.floor(duration / 60)
+    var minutes = duration % 60
+    return hours + ":" + minutes
+  }
+
   return (
     <div className="music-control">
       <Row>
@@ -163,9 +173,8 @@ export default function MusicControl() {
               <div
                 ref={cdThumbAnimate}
                 style={{
-                  backgroundImage: `url('${
-                    indexSong !== null && songsData[indexSong].background
-                  }')`
+                  backgroundImage: `url('${indexSong !== null && songsData[indexSong].background
+                    }')`
                 }}
                 className={`music-control__left-img `}
               ></div>
@@ -231,7 +240,7 @@ export default function MusicControl() {
             </div>
             <div className="music-control__center-progress">
               <span className="music-control__center-progress-time-start">
-                {currentTimeMusic}
+                {indexSong !== null ? currentTimeMusic : "00:00"}
               </span>
               <audio
                 onTimeUpdate={handleTimeUpdate}
@@ -244,13 +253,13 @@ export default function MusicControl() {
                 id="progress"
                 className="music-control__center-progress-input"
                 type="range"
-                value={percent}
+                value={indexSong === null ? 0 : percent}
                 step="1"
                 min="0"
                 max="100"
               />
               <span className="music-control__center-progress-time-end">
-                {indexSong !== null && songsData[indexSong].duration}
+                {indexSong !== null && convertTime(songsData[indexSong].duration)}
               </span>
             </div>
           </div>

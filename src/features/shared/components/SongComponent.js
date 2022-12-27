@@ -1,18 +1,36 @@
 import React from 'react'
-import { FaEllipsisH } from "react-icons/fa"
+import { FaEllipsisH, FaEye, FaTrash } from "react-icons/fa"
 import { AiOutlineHeart } from "react-icons/ai"
 import { BsPlayFill } from "react-icons/bs"
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentSong, changeIsPlay } from '../musicSlice'
-
+import { setCurrentSong, changeIsPlay, setCurrentSongAndUpdate, removeSong } from '../musicSlice'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 export default function SongComponent(props) {
     const dispatch = useDispatch()
     const isPlay = useSelector(state => state.musicData.isPlay)
-
+    const songsData = useSelector((state) => state.musicData?.songsData)
+    const username = useSelector((state) => state.authen.currentUserInfo.username)
+    const navigate = useNavigate()
     const handleClickNextSong = () => {
+
         if (!props.isActive) {
-            dispatch(setCurrentSong({ index: props.index }))
+            const song = songsData.find((_, index) => index === props.index)
+            axios
+                .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${song.id}`)
+                .then((res) => {
+                    const pathSong = res.data.detail.data[128]
+                    dispatch(setCurrentSongAndUpdate({ pathSong, index: props.index, username }))
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
+    }
+
+    const handleRemoveSong = () => {
+        console.log("123")
+        dispatch(removeSong({ index: props.index }))
     }
 
     return (
@@ -49,11 +67,11 @@ export default function SongComponent(props) {
                 </span>
             </div>
             <div className='next-song__item-action'>
-                <span className='next-song__item-action-heart'>
-                    <AiOutlineHeart />
+                <span onClick={() => navigate(`/song?id=${props.song.id}`)} className='next-song__item-action-heart'>
+                    <FaEye />
                 </span>
-                <span className='next-song__item-action-dot'>
-                    <FaEllipsisH />
+                <span onClick={handleRemoveSong} className='next-song__item-action-dot'>
+                    <FaTrash />
                 </span>
             </div>
         </div>

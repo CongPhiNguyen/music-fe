@@ -18,6 +18,60 @@ export const musicDataSlice = createSlice({
   name: "musicData",
   initialState,
   reducers: {
+    removeSong: (state, action) => {
+      if (state.selected === "HEARD_RECENTLY") {
+        state.heardRecently = state.heardRecently.filter((song, index) => index !== action.payload.index)
+        state.songsData = state.heardRecently
+        localStorage.setItem("songdata", JSON.stringify(state.songsData))
+        if (state.indexSong === action.payload.index) {
+          state.indexSong = null
+          state.isPlay = false
+        }
+      }
+    },
+    setCurrentSongAndUpdate: (state, action) => {
+      if (
+        action.payload.index > -1 &&
+        action.payload.index < state.songsData.length
+      ) {
+        if (state.selected === "HEARD_RECENTLY") {
+          state.songsData = state.songsData.map((song, index) => {
+            if (index === action.payload.index) {
+              song.pathSong = action.payload.pathSong
+            }
+            return song
+          })
+          state.heardRecently = state.songsData
+          localStorage.setItem("songdata", JSON.stringify(state.songsData))
+          state.indexSong = action?.payload?.index
+        } else {
+          state.selectedPlaylist = {
+            ...state.selectedPlaylist,
+            songs: state.selectedPlaylist.songs.map((song, index) => {
+              if (index === action.payload.index) {
+                song.pathSong = action.payload.pathSong
+                state.heardRecently.push(song)
+                localStorage.setItem("songdata", JSON.stringify(state.heardRecently))
+              }
+              return song
+            })
+          }
+          state.songsData = state.selectedPlaylist.songs
+          state.playlists = state.playlists.map(playlist => {
+            if (playlist._id === state.selectedPlaylist._id) {
+              return state.selectedPlaylist
+            }
+            return playlist
+          })
+          axios.post("http://localhost:5050/api/v1/playlist/update-playlist", {
+            songs: state.songsData,
+            username: action.payload.username,
+            playlistId: state.selectedPlaylist._id
+          })
+          state.indexSong = action?.payload?.index
+        }
+      }
+    },
     setCurrentSong: (state, action) => {
       if (
         action.payload.index > -1 &&
@@ -128,7 +182,9 @@ export const {
   addSong,
   setPlaylists,
   changeSelected,
-  selectedPlaylistFunct
+  selectedPlaylistFunct,
+  setCurrentSongAndUpdate,
+  removeSong
 } = musicDataSlice.actions
 
 export default musicDataSlice.reducer
