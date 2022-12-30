@@ -22,7 +22,6 @@ export default function Personal() {
           </span> */}
         </div>
       </div>
-
       <div className="main-home-personal__option">
         {/* <ul className="main-home-personal__option-list">
           <li

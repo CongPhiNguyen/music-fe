@@ -173,7 +173,7 @@ export default function MusicControl() {
               <div
                 ref={cdThumbAnimate}
                 style={{
-                  backgroundImage: `url('${indexSong !== null && songsData[indexSong].background
+                  backgroundImage: `url('${indexSong !== null && songsData[indexSong]?.background
                     }')`
                 }}
                 className={`music-control__left-img `}
@@ -182,12 +182,12 @@ export default function MusicControl() {
             <div className="music-control__left-content flex flex-col">
               <span className="music-control__left-content-song">
                 {indexSong !== null
-                  ? songsData[indexSong].name
+                  ? songsData[indexSong]?.name
                   : "Chọn bài hát"}
               </span>
               <span className="music-control__left-content-singer">
                 {indexSong !== null
-                  ? songsData[indexSong].singer
+                  ? songsData[indexSong]?.singer
                   : "Chọn bài hát"}
               </span>
             </div>
