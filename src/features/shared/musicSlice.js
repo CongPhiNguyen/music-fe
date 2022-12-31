@@ -18,6 +18,14 @@ export const musicDataSlice = createSlice({
   name: "musicData",
   initialState,
   reducers: {
+    removePlaylist: (state, action) => {
+      if (state.selectedPlaylist?.playlistName === action.payload.playlistName) {
+        state.selectedPlaylist = null
+        state.indexSong = null
+        state.isPlay = false
+      }
+      state.playlists = state.playlists.filter(playlist => playlist.playlistName !== action.payload.playlistName)
+    },
     removeSong: (state, action) => {
       if (state.selected === "HEARD_RECENTLY") {
         state.heardRecently = state.heardRecently.filter((song, index) => index !== action.payload.index)
@@ -87,28 +95,33 @@ export const musicDataSlice = createSlice({
     },
     addSong: (state, action) => {
       if (state.selected === "HEARD_RECENTLY") {
+        state.songsData = state.songsData.filter(song => song.id !== action.payload.song.id)
         state.songsData.push(action.payload.song)
         state.heardRecently = state.songsData
         localStorage.setItem("songdata", JSON.stringify(state.songsData))
       } else {
         if (state.selectedPlaylist) {
+          state.songsData = state.songsData.filter(song => song.id !== action.payload.song.id)
+          state.songsData.push(action.payload.song)
           axios.post("http://localhost:5050/api/v1/playlist/add-song", {
-            song: action.payload.song,
+            song: state.songsData,
             username: action.payload.username,
             playlistName: state.selectedPlaylist.playlistName
           })
-          state.songsData.push(action.payload.song)
+
+          state.heardRecently = state.heardRecently.filter(song => song.id !== action.payload.song.id)
           state.heardRecently.push(action.payload.song)
           localStorage.setItem("songdata", JSON.stringify(state.heardRecently))
           state.playlists = state.playlists.map((value) => {
             if (value._id === state.selectedPlaylist) {
-              value.songs.push(action.payload.song)
+              value.songs = state.songsData
             }
             return value
           })
-          state.selectedPlaylist.songs.push(action.payload.song)
+          state.selectedPlaylist = state.songsData
         } else {
           state.selected = "HEARD_RECENTLY"
+          state.heardRecently = state.heardRecently.filter(song => song.id !== action.payload.song.id)
           state.heardRecently.push(action.payload.song)
           state.songsData = state.heardRecently
           localStorage.setItem("songdata", JSON.stringify(state.songsData))
@@ -117,28 +130,32 @@ export const musicDataSlice = createSlice({
     },
     addSongAndPlay: (state, action) => {
       if (state.selected === "HEARD_RECENTLY") {
+        state.songsData = state.songsData.filter(song => song.id !== action.payload.song.id)
         state.songsData.push(action.payload.song)
         state.heardRecently = state.songsData
         localStorage.setItem("songdata", JSON.stringify(state.songsData))
       } else {
         if (state.selectedPlaylist) {
+          state.songsData = state.songsData.filter(song => song.id !== action.payload.song.id)
+          state.songsData.push(action.payload.song)
           axios.post("http://localhost:5050/api/v1/playlist/add-song", {
-            song: action.payload.song,
+            songs: state.songsData,
             username: action.payload.username,
             playlistName: state.selectedPlaylist.playlistName
           })
-          state.songsData.push(action.payload.song)
+          state.heardRecently = state.heardRecently.filter(song => song.id !== action.payload.song.id)
           state.heardRecently.push(action.payload.song)
           localStorage.setItem("songdata", JSON.stringify(state.heardRecently))
           state.playlists = state.playlists.map((value) => {
             if (value._id === state.selectedPlaylist) {
-              value.songs.push(action.payload.song)
+              value.songs = state.songsData
             }
             return value
           })
-          state.selectedPlaylist.songs.push(action.payload.song)
+          state.selectedPlaylist = state.songsData
         } else {
           state.selected = "HEARD_RECENTLY"
+          state.heardRecently = state.heardRecently.filter(song => song.id !== action.payload.song.id)
           state.heardRecently.push(action.payload.song)
           state.songsData = state.heardRecently
           localStorage.setItem("songdata", JSON.stringify(state.songsData))
@@ -184,7 +201,8 @@ export const {
   changeSelected,
   selectedPlaylistFunct,
   setCurrentSongAndUpdate,
-  removeSong
+  removeSong,
+  removePlaylist
 } = musicDataSlice.actions
 
 export default musicDataSlice.reducer

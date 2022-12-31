@@ -226,11 +226,14 @@ const OverviewSilder = (props) => {
 
 export default function Overview() {
   const [songsRandom, setSongsRandom] = useState(null)
+  const [home, setHome] = useState(null)
+  const navigate = useNavigate()
   useEffect(() => {
     axios
       .get(`http://localhost:5050/api/v1/zing/get-random-song-list`)
       .then((res) => {
         setSongsRandom(res.data.data)
+        setHome(res.data.home.data.items)
       })
       .catch((err) => {
         console.log(err.message)
@@ -318,7 +321,7 @@ export default function Overview() {
           </Col>
         </Row>
       </div>
-      <div className="overview-option-playlist mb-2">
+      {/* <div className="overview-option-playlist mb-2">
         <div className="overview-option-song__heading flex">
           <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
             Playlist
@@ -437,8 +440,8 @@ export default function Overview() {
             </Col>
           </Row>
         </ul>
-      </div>
-      <div className="overview-option-mv mb-2">
+      </div> */}
+      {/* <div className="overview-option-mv mb-2">
         <div className="overview-option-song__heading flex">
           <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">MV</h3>
           <div className="overview-option-song__right ml-[auto] flex items-center">
@@ -544,134 +547,121 @@ export default function Overview() {
             </Col>
           </Row>
         </ul>
-      </div>
-      <div className="overview-option-singer">
-        <div className="overview-option-song__heading flex">
-          <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
-            Nghệ Sĩ
-          </h3>
-          <div className="overview-option-song__right ml-[auto] flex items-center">
-            <div className="overview-option-song__right-more-list">
-              <span>Tất cả</span>
-              <div>
-                <FaChevronRight></FaChevronRight>
-              </div>
-            </div>
+      </div> */}
+      {
+        home && (
+          <div className="overview-option-singer">
+            <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] ">
+              {home[11].title}
+            </h1>
+            {
+              home[11].items.map((theme, key) => (
+                <React.Fragment key={key}>
+                  <div className="overview-option-song__heading flex">
+                    <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
+                      {theme.title}
+                    </h3>
+                    <div className="overview-option-song__right ml-[auto] flex items-center">
+                      <div className="overview-option-song__right-more-list">
+                        <span>Tất cả</span>
+                        <div>
+                          <FaChevronRight></FaChevronRight>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ul className='overview-option-playlist__list'>
+                    <Row gutter={[16, 16]}>
+                      {
+                        theme.artists.map((artist, key) => (
+                          <Col key={key} span={6}>
+                            <li className='overview-option-playlist__item cursor-pointer'>
+                              <div onClick={() => navigate(`/singer?id=${artist.alias}`)} className='overview-option-playlist__item-img-wrapper singer'>
+                                <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
+                                  <div className='overview-option-playlist__item-img-wrapper-action-2'>
+                                    <FaEye />
+                                  </div>
+                                </div>
+                                <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: `url(${artist.thumbnailM})` }}>
+                                </div>
+                              </div>
+                              <div className='overview-option-singer__content'>
+                                <div className='overview-option-playlist__item-content-name'>
+                                  {artist.name}
+                                </div>
+                                <div className='overview-option-playlist__item-content-name1'>
+                                  {artist.totalFollow} follow
+                                </div>
+                              </div>
+                            </li>
+                          </Col>
+                        ))
+                      }
+                    </Row>
+                  </ul>
+                </React.Fragment>
+              ))
+            }
           </div>
-        </div>
-        <ul className='overview-option-playlist__list'>
-          <Row gutter={[16, 16]}>
-            <Col span={6}>
-              <li className='overview-option-playlist__item cursor-pointer'>
-                <div className='overview-option-playlist__item-img-wrapper singer'>
-                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                      <FaPlay />
+        )
+      }
+      {
+        home && (
+          <div className="overview-option-singer">
+            <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] ">
+              {home[2].title}
+            </h1>
+            {
+              home[2].items.map((theme, key) => (
+                <React.Fragment key={key}>
+                  <div className="overview-option-song__heading flex">
+                    <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
+                      {theme.title}
+                    </h3>
+                    <div className="overview-option-song__right ml-[auto] flex items-center">
+                      <div className="overview-option-song__right-more-list">
+                        <span>Tất cả</span>
+                        <div>
+                          <FaChevronRight></FaChevronRight>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                  </div>
-                </div>
-                <div className='overview-option-singer__content'>
-                  <div className='overview-option-playlist__item-content-name'>
-                    Replay
-                  </div>
-                  <div className='overview-option-playlist__item-content-name1'>
-                    Lương Thiện Phước
-                  </div>
-                  <div className='overview-option-singer__content-profile'>
-                    <div className='overview-option-singer__content-profile-icon'>
-                      <FaRandom />
-                    </div>
-                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                  </div>
-                </div>
-              </li>
-            </Col>
-            <Col span={6}>
-              <li className='overview-option-playlist__item cursor-pointer'>
-                <div className='overview-option-playlist__item-img-wrapper singer'>
-                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                      <FaPlay />
-                    </div>
-                  </div>
-                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                  </div>
-                </div>
-                <div className='overview-option-singer__content'>
-                  <div className='overview-option-playlist__item-content-name'>
-                    Replay
-                  </div>
-                  <div className='overview-option-playlist__item-content-name1'>
-                    Lương Thiện Phước
-                  </div>
-                  <div className='overview-option-singer__content-profile'>
-                    <div className='overview-option-singer__content-profile-icon'>
-                      <FaRandom />
-                    </div>
-                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                  </div>
-                </div>
-              </li>
-            </Col>
-            <Col span={6}>
-              <li className='overview-option-playlist__item cursor-pointer'>
-                <div className='overview-option-playlist__item-img-wrapper singer'>
-                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                      <FaPlay />
-                    </div>
-                  </div>
-                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                  </div>
-                </div>
-                <div className='overview-option-singer__content'>
-                  <div className='overview-option-playlist__item-content-name'>
-                    Replay
-                  </div>
-                  <div className='overview-option-playlist__item-content-name1'>
-                    Lương Thiện Phước
-                  </div>
-                  <div className='overview-option-singer__content-profile'>
-                    <div className='overview-option-singer__content-profile-icon'>
-                      <FaRandom />
-                    </div>
-                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                  </div>
-                </div>
-              </li>
-            </Col>
-            <Col span={6}>
-              <li className='overview-option-playlist__item cursor-pointer'>
-                <div className='overview-option-playlist__item-img-wrapper singer'>
-                  <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                    <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                      <FaPlay />
-                    </div>
-                  </div>
-                  <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: "url(./assets/img/singer/1.webp)" }}>
-                  </div>
-                </div>
-                <div className='overview-option-singer__content'>
-                  <div className='overview-option-playlist__item-content-name'>
-                    Replay
-                  </div>
-                  <div className='overview-option-playlist__item-content-name1'>
-                    Lương Thiện Phước
-                  </div>
-                  <div className='overview-option-singer__content-profile'>
-                    <div className='overview-option-singer__content-profile-icon'>
-                      <FaRandom />
-                    </div>
-                    <span className='pl-2 uppercase font-bold'>Góc nhạc</span>
-                  </div>
-                </div>
-              </li>
-            </Col>
-          </Row>
-        </ul>
-      </div>
+                  <ul className='overview-option-playlist__list'>
+                    <Row gutter={[16, 16]}>
+                      {
+                        theme.artists.map((artist, key) => (
+                          <Col key={key} span={6}>
+                            <li className='overview-option-playlist__item cursor-pointer'>
+                              <div onClick={() => navigate(`/singer?id=${artist.alias}`)} className='overview-option-playlist__item-img-wrapper singer'>
+                                <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
+                                  <div className='overview-option-playlist__item-img-wrapper-action-2'>
+                                    <FaEye />
+                                  </div>
+                                </div>
+                                <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: `url(${artist.thumbnailM})` }}>
+                                </div>
+                              </div>
+                              <div className='overview-option-singer__content'>
+                                <div className='overview-option-playlist__item-content-name'>
+                                  {artist.name}
+                                </div>
+                                <div className='overview-option-playlist__item-content-name1'>
+                                  {artist.totalFollow} follow
+                                </div>
+                              </div>
+                            </li>
+                          </Col>
+                        ))
+                      }
+                    </Row>
+                  </ul>
+                </React.Fragment>
+              ))
+            }
+          </div>
+        )
+      }
     </div>
   )
 }

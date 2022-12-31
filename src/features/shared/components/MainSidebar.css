@@ -6,6 +6,7 @@
   top: 0;
   bottom: calc(90px + 54px);
   left: 0;
+  overflow-y: scroll;
 }
 
 .sidebar__personal {
@@ -183,6 +184,10 @@
   right: 10px;
   bottom: 0;
   display: none;
+}
+
+.sidebar__library-bot-extra-option.trash {
+  right: 35px;
 }
 
 .sidebar__library-bot-item:hover {
