@@ -30,7 +30,7 @@ export default function MusicControl() {
   const indexSong = useSelector((state) => state.musicData.indexSong)
   const cdThumbAnimate = useRef()
   const cdThumb = useRef()
-  const [volumn, setVolumn] = useState(0)
+  const [volumn, setVolumn] = useState(100)
   const [isMute, setIsMute] = useState(false)
   const [percent, setPercent] = useState(0)
   const [currentTimeMusic, setCurrentTimeMusic] = useState("00:00")
@@ -84,8 +84,9 @@ export default function MusicControl() {
   const formatTime = (number) => {
     const minutes = Math.floor(number / 60)
     const seconds = Math.floor(number - minutes * 60)
-    return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds
-      }`
+    return `${minutes < 10 ? "0" + minutes : minutes}:${
+      seconds < 10 ? "0" + seconds : seconds
+    }`
   }
 
   const handleTimeUpdate = () => {
@@ -173,8 +174,9 @@ export default function MusicControl() {
               <div
                 ref={cdThumbAnimate}
                 style={{
-                  backgroundImage: `url('${indexSong !== null && songsData[indexSong].background
-                    }')`
+                  backgroundImage: `url('${
+                    indexSong !== null && songsData[indexSong].background
+                  }')`
                 }}
                 className={`music-control__left-img `}
               ></div>
@@ -259,7 +261,8 @@ export default function MusicControl() {
                 max="100"
               />
               <span className="music-control__center-progress-time-end">
-                {indexSong !== null && convertTime(songsData[indexSong].duration)}
+                {indexSong !== null &&
+                  convertTime(songsData[indexSong].duration)}
               </span>
             </div>
           </div>
