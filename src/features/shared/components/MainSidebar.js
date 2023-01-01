@@ -7,7 +7,9 @@ import {
   BsFillBarChartLineFill,
   BsFillStarFill,
   BsFillUmbrellaFill
+
 } from "react-icons/bs"
+import { MdHome } from "react-icons/md"
 import { FaTrash } from "react-icons/fa"
 import { Divider, message, Radio, Typography } from "antd"
 import { GoRadioTower } from "react-icons/go"
@@ -28,7 +30,7 @@ export default function MainSidebar() {
   )
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [selected, setSelected] = useState("home")
+  const [selected, setSelected] = useState("personal")
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [namePlaylist, setNamePlayList] = useState("Enter name playlist here")
   useEffect(() => {
@@ -117,9 +119,10 @@ export default function MainSidebar() {
           <ul className="sidebar__personal-list">
             <li
               onClick={() => {
-                setSelected("home")
+                setSelected("personal")
+                navigate("/")
               }}
-              className={`sidebar__personal-item ${selected === "home" && "active"
+              className={`sidebar__personal-item ${selected === "personal" && "active"
                 }`}
             >
               <NavLink className={"link"} to={"/"}>
@@ -129,7 +132,21 @@ export default function MainSidebar() {
             </li>
             <li
               onClick={() => {
+                setSelected("home")
+                navigate("/home")
+              }}
+              className={`sidebar__personal-item ${selected === "home" && "active"
+                }`}
+            >
+              <NavLink className={"link"} to={"/home"}>
+                <MdHome style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Home</span>
+              </NavLink>
+            </li>
+            <li
+              onClick={() => {
                 setSelected("zing-chart")
+                navigate("/zing-chart")
               }}
               className={`sidebar__personal-item ${selected === "zing-chart" && "active"
                 }`}
