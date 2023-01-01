@@ -6,26 +6,38 @@ import liveLabel from "../assets/live-label.svg"
 import "../Radio.scss"
 import {
   setInfoSongPlayer,
-  setIsPlay,
   setIsRadioPlay,
   setPlaylistId,
   setPlaylistRandom,
   setPlaylistSong,
-  setSrcRadio
+  setSrcRadio,
+  setIsRadioCurrent
 } from "../audioSlice"
+
+import { setIsPlay } from "../../shared/musicSlice"
 
 function RadioChannel({ data }) {
   const dispatch = useDispatch()
   const songInfo = useSelector((state) => state.audio.infoSongPlayer)
   const isRadioPlay = useSelector((state) => state.audio.isRadioPlay)
+  const isPlayMusic = useSelector((state) => state.musicData.isPlay)
   const handlePlayRadio = (data) => {
-    // dispatch(setSrcRadio(data?.streaming))
-    // dispatch(setInfoSongPlayer(data))
+    // console.log("data", data)
+    dispatch(setSrcRadio(data?.streaming))
+    dispatch(setInfoSongPlayer(data))
     dispatch(setIsRadioPlay(true))
-    // dispatch(setIsPlay(false))
+    dispatch(setIsPlay({ isPlay: false }))
+    dispatch(setIsRadioCurrent(true))
     // dispatch(setPlaylistSong([]))
     // dispatch(setPlaylistRandom([]))
     // dispatch(setPlaylistId(""))
+  }
+
+  const classThumb = () => {
+    if (isPlayMusic) return "thumb"
+    if (isRadioPlay && songInfo.encodeId === data?.encodeId)
+      return "thumb playing"
+    else return "thumb"
   }
 
   return (
@@ -37,40 +49,52 @@ function RadioChannel({ data }) {
       />
       <div className="content">
         <div className="avatar">
-          <div
-            className={
-              "thumb" + isRadioPlay &&
-              songInfo.encodeId === data?.encodeId &&
-              "playing"
-            }
-          >
-            <img src={data?.thumbnailM} alt={data?.description} />
-            <img src={liveLabel} className={"label"} alt="label" />
+          <div className={classThumb()}>
+            <img
+              src={data?.thumbnailM}
+              alt={data?.description}
+              className="w-[100%] h-[100%]"
+            />
           </div>
           {songInfo.encodeId !== data?.encodeId && (
-            <div className={"action"} onClick={() => handlePlayRadio(data)}>
+            <div
+              className="action"
+              onClick={() => {
+                handlePlayRadio(data)
+                dispatch(setIsRadioCurrent(true))
+              }}
+            >
               <FontAwesomeIcon icon={faPlayCircle} />
             </div>
           )}
           {songInfo.encodeId === data?.encodeId && isRadioPlay && (
             <div
-              className={"action"}
-              onClick={() => dispatch(setIsRadioPlay(!isRadioPlay))}
+              className="action"
+              onClick={() => {
+                dispatch(setIsPlay({ isPlay: false }))
+                dispatch(setIsRadioPlay(!isRadioPlay))
+                dispatch(setIsRadioCurrent(true))
+              }}
             >
               <FontAwesomeIcon icon={faPauseCircle} />
             </div>
           )}
           {songInfo.encodeId === data?.encodeId && !isRadioPlay && (
             <div
-              className={"action"}
-              onClick={() => dispatch(setIsRadioPlay(!isRadioPlay))}
+              className="action"
+              onClick={() => {
+                dispatch(setIsRadioPlay(!isRadioPlay))
+                dispatch(setIsPlay({ isPlay: false }))
+                dispatch(setIsRadioCurrent(true))
+              }}
             >
               <FontAwesomeIcon icon={faPlayCircle} />
             </div>
           )}
         </div>
         <div className={"info"}>
-          <h2 className={"name"}>{data?.title}</h2>
+          <img src={liveLabel} className={"label mb-[4px]"} alt="label" />
+          <h2 className="bg-[rgba(255,255,255,0.8)] px-[4px]">{data?.title}</h2>
           <p className={"listening"}>{data?.activeUsers} Người đang nghe</p>
         </div>
       </div>

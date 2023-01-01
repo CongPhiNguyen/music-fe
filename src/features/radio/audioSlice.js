@@ -3,6 +3,7 @@ import logozing from "./assets/logozing.png"
 const initialState = {
   isPlay: false,
   isRadioPlay: false,
+  isRadioCurrent: false,
   isMute: false,
   songId: localStorage.getItem("songId") || "",
   playlistId: localStorage.getItem("playlistId") || "",
@@ -33,8 +34,11 @@ const audioSlice = createSlice({
   name: "audio",
   initialState,
   reducers: {
-    setIsPlay: (state, action) => {
-      state.isPlay = action.payload
+    // setIsPlay: (state, action) => {
+    //   state.isPlay = action.payload
+    // },
+    setIsRadioCurrent: (state, action) => {
+      state.isRadioCurrent = action.payload
     },
     setIsRadioPlay: (state, action) => {
       state.isRadioPlay = action.payload
@@ -124,6 +128,7 @@ export const {
   setSrcRadio,
   setIsRadioPlay,
   setPlaylistRandom,
-  setCurrentIndexSongRandom
+  setCurrentIndexSongRandom,
+  setIsRadioCurrent
 } = audioSlice.actions
 export default audioSlice.reducer

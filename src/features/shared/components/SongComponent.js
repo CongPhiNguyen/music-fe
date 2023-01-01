@@ -11,6 +11,7 @@ import {
 } from "../musicSlice"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { setIsRadioCurrent } from "../../radio/audioSlice"
 export default function SongComponent(props) {
   const dispatch = useDispatch()
   const isPlay = useSelector((state) => state.musicData.isPlay)
@@ -53,6 +54,7 @@ export default function SongComponent(props) {
         <div
           onClick={() => {
             dispatch(changeIsPlay())
+            dispatch(setIsRadioCurrent(false))
           }}
           className="next-song__item-img"
           style={{ backgroundImage: `url('${props.song.background}')` }}
@@ -88,16 +90,21 @@ export default function SongComponent(props) {
           {props.song.singer}
         </span>
       </div>
-      <div className="next-song__item-action">
-        <span
-          onClick={() => navigate(`/song?id=${props.song.id}`)}
-          className="next-song__item-action-heart"
-        >
-          <FaEye />
-        </span>
-        <span onClick={handleRemoveSong} className="next-song__item-action-dot">
-          <FaTrash />
-        </span>
+      <div className="absolute right-0">
+        <div className="next-song__item-action">
+          <span
+            onClick={() => navigate(`/song?id=${props.song.id}`)}
+            className="next-song__item-action-heart"
+          >
+            <FaEye />
+          </span>
+          <span
+            onClick={handleRemoveSong}
+            className="next-song__item-action-dot"
+          >
+            <FaTrash />
+          </span>
+        </div>
       </div>
     </div>
   )

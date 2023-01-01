@@ -23,6 +23,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { setCurrentSong, setIsPlay } from "../musicSlice"
 import randomIntFromInterval from "../../../utilities/randomNumber"
 import axios from "axios"
+import { setIsRadioCurrent } from "../../radio/audioSlice"
 
 export default function MusicControl() {
   const dispatch = useDispatch()
@@ -40,6 +41,7 @@ export default function MusicControl() {
   const handlePlayMusic = () => {
     if (indexSong !== null) {
       dispatch(setIsPlay({ isPlay: true }))
+      dispatch(setIsRadioCurrent(false))
       radioRef.current.play()
     }
   }
@@ -67,6 +69,7 @@ export default function MusicControl() {
   useEffect(() => {
     if (indexSong !== null) {
       dispatch(setIsPlay({ isPlay: true }))
+      dispatch(setIsRadioCurrent(false))
       radioRef.current.play()
     } else {
       console.log("here")
@@ -100,6 +103,7 @@ export default function MusicControl() {
         dispatch(setIsPlay({ isPlay: false }))
         if (isRedo) {
           dispatch(setIsPlay({ isPlay: true }))
+          dispatch(setIsRadioCurrent(false))
           radioRef.current.play()
         }
         if (isRandom) {

@@ -14,16 +14,18 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 20px;
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 40px;
   }
   .avatar {
     display: block;
-    width: 120px;
+    width: 100px;
     height: 120px;
     border-radius: 50%;
+
     box-shadow: rgba(238, 8, 8, 0.16) 0px 1px 4px,
       rgb(51, 51, 51) 0px 0px 0px 3px;
     overflow: hidden;
@@ -37,10 +39,10 @@
 
     .action {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 120px;
-      height: 120px;
+      top: 18px;
+      left: 21px;
+      right: 17px;
+      bottom: 80px;
       border-radius: 50%;
       font-size: 4rem;
       color: var(--text-primary);
@@ -54,8 +56,6 @@
   .thumb {
     line-height: 0;
     left: 0;
-    width: 120px;
-    height: 120px;
     position: relative;
     transition: transform 0.6s;
   }
@@ -78,13 +78,6 @@
       -o-transform: rotate(360deg);
       transform: rotate(360deg);
     }
-  }
-
-  .label {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translate(-50%, 0);
   }
 
   .info {

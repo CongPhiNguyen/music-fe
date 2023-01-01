@@ -16,6 +16,7 @@ import { Col, Row } from "antd"
 import { addSongAndPlay, addSong } from "../musicSlice"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { setIsRadioCurrent } from "../../radio/audioSlice"
 
 function ComponentSong({ song }) {
   const navigate = useNavigate()
@@ -55,6 +56,7 @@ function ComponentSong({ song }) {
           id
         }
         dispatch(addSongAndPlay({ song: songSlice, username }))
+        dispatch(setIsRadioCurrent(false))
       })
       .catch((err) => {
         console.log(err)
