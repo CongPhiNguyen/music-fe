@@ -7,7 +7,9 @@ import { addSongAndPlay, addSong } from "../musicSlice"
 
 import "./SearchComponent.css"
 const ComponentMusic = ({ song, key }) => {
-  const username = useSelector((state) => state.authen.currentUserInfo.username)
+  const username = useSelector(
+    (state) => state?.authen?.currentUserInfo?.username
+  )
 
   const dispatch = useDispatch()
   const handleClickAddMusic = (id) => {

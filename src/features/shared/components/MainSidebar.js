@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import "./MainSidebar.css"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { PlayCircleFilled } from "@ant-design/icons"
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from "@ant-design/icons"
 import {
   BsFillBarChartLineFill,
   BsFillStarFill,
@@ -18,19 +18,30 @@ import { Modal } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useEffect } from "react"
-import { setPlaylists, selectedPlaylistFunct, removePlaylist } from "../musicSlice"
+import {
+  setPlaylists,
+  selectedPlaylistFunct,
+  removePlaylist
+} from "../musicSlice"
+
+import { BiRadio } from "react-icons/bi"
+
 export default function MainSidebar() {
   const isLogin = useSelector((state) => state.authen.isLogin)
-  const username = useSelector((state) => state.authen.currentUserInfo.username)
+  const username = useSelector(
+    (state) => state?.authen?.currentUserInfo?.username
+  )
   const playlists = useSelector((state) => state.musicData.playlists)
   const selectedPlaylist = useSelector(
     (state) => state.musicData.selectedPlaylist
   )
+  const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [selected, setSelected] = useState("home")
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [namePlaylist, setNamePlayList] = useState("Enter name playlist here")
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
   useEffect(() => {
     axios
       .get(`http://localhost:5050/api/v1/playlist/${username}`)
@@ -77,29 +88,45 @@ export default function MainSidebar() {
 
   const confirm = (playlistName) => {
     Modal.confirm({
-      title: 'Confirm',
+      title: "Confirm",
       icon: <ExclamationCircleOutlined />,
       content: `Are you sure delete playlist "${playlistName}" ?`,
-      okText: 'Delete',
-      cancelText: 'Cancel',
+      okText: "Delete",
+      cancelText: "Cancel",
       onOk: () => {
         console.log(playlistName)
-        axios.post("http://localhost:5050/api/v1/playlist/delete-playlist", {
-          username,
-          playlistName
-        })
-          .then(res => {
+        axios
+          .post("http://localhost:5050/api/v1/playlist/delete-playlist", {
+            username,
+            playlistName
+          })
+          .then((res) => {
             message.success("Delete success")
             dispatch(removePlaylist({ playlistName }))
-
           })
-          .catch(err => {
+          .catch((err) => {
             message.error(err.response.data.message)
           })
       }
-    });
+    })
   }
 
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/zing-chart":
+        setSelected("zing-chart")
+        break
+      case "/":
+        setSelected("home")
+        break
+      case "/radio":
+        setSelected("radio")
+        break
+      default:
+        setSelected("home")
+        break
+    }
+  }, [])
 
   return (
     <div>
@@ -118,28 +145,49 @@ export default function MainSidebar() {
             <li
               onClick={() => {
                 setSelected("home")
+                navigate("/")
               }}
-              className={`sidebar__personal-item ${selected === "home" && "active"
-                }`}
+              className={`sidebar__personal-item ${
+                selected === "home" && "active"
+              }`}
             >
               <NavLink className={"link"} to={"/"}>
                 <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4"> Cá Nhân</span>
+                <span className="pl-4">Cá Nhân</span>
+              </NavLink>
+            </li>
+            <li
+              onClick={() => {
+                setSelected("radio")
+                navigate("/radio")
+              }}
+              className={`sidebar__personal-item ${
+                selected === "radio" && "active"
+              }`}
+            >
+              <NavLink className={"link"} to={"/radio"}>
+                <BiRadio style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Radio</span>
               </NavLink>
             </li>
             <li
               onClick={() => {
                 setSelected("zing-chart")
+                navigate("/zing-chart")
               }}
-              className={`sidebar__personal-item ${selected === "zing-chart" && "active"
-                }`}
+              className={`sidebar__personal-item ${
+                selected === "zing-chart" && "active"
+              }`}
             >
               <NavLink className={"link"} to={"/zing-chart"}>
                 <BsFillBarChartLineFill style={{ fontSize: "2rem" }} />
                 <span className="pl-4"> Bảng xếp hạng</span>
               </NavLink>
             </li>
-            <li className="sidebar__library-top-item">
+            <li
+              className="sidebar__library-top-item"
+              onClick={() => navigate("/interactive")}
+            >
               <NavLink className={"link"} to={"/interactive"}>
                 <BsFillUmbrellaFill style={{ fontSize: "2.2rem" }} />
                 <span className="pl-4">Interactive</span>
@@ -158,11 +206,15 @@ export default function MainSidebar() {
                   onClick={() => {
                     dispatch(selectedPlaylistFunct({ _id: playlist._id }))
                   }}
-                  className={`sidebar__library-bot-item sidebar__personal-item ${playlist?._id === selectedPlaylist?._id && "active"
-                    }`}
+                  className={`sidebar__library-bot-item sidebar__personal-item ${
+                    playlist?._id === selectedPlaylist?._id && "active"
+                  }`}
                 >
                   {playlist.playlistName}
-                  <div onClick={() => confirm(playlist.playlistName)} className="sidebar__library-bot-extra-option trash">
+                  <div
+                    onClick={() => confirm(playlist.playlistName)}
+                    className="sidebar__library-bot-extra-option trash"
+                  >
                     <FaTrash />
                   </div>
                   <div className="sidebar__library-bot-extra-option">

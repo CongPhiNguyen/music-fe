@@ -159,6 +159,8 @@ export default function MusicControl() {
   const convertTime = (duration) => {
     var hours = Math.floor(duration / 60)
     var minutes = duration % 60
+    if (hours < 10) hours = "0" + hours
+    if (minutes < 10) minutes = "0" + minutes
     return hours + ":" + minutes
   }
 
@@ -260,6 +262,7 @@ export default function MusicControl() {
                 min="0"
                 max="100"
               />
+
               <span className="music-control__center-progress-time-end">
                 {indexSong !== null &&
                   convertTime(songsData[indexSong].duration)}
@@ -300,6 +303,17 @@ export default function MusicControl() {
                 max={1}
                 className="music-control__right-volumn-input"
               />
+              {/* <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.02}
+                value={volumn}
+                onChange={(event) => {
+                  setVolumn(event.target.valueAsNumber)
+                }}
+                className="music-control__right-volumn-input"
+              /> */}
             </div>
           </div>
         </Col>

@@ -13,16 +13,15 @@ import {
 } from "react-icons/fa"
 import { MdPostAdd } from "react-icons/md"
 import { Col, Row } from "antd"
-import {
-  addSongAndPlay,
-  addSong
-} from "../musicSlice"
+import { addSongAndPlay, addSong } from "../musicSlice"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
 function ComponentSong({ song }) {
   const navigate = useNavigate()
-  const username = useSelector((state) => state.authen.currentUserInfo.username)
+  const username = useSelector(
+    (state) => state?.authen?.currentUserInfo?.username
+  )
   const dispatch = useDispatch()
   const handleClickAddMusic = (id) => {
     axios
@@ -104,7 +103,10 @@ function ComponentSong({ song }) {
         {/* <span className="overview__allsong-item-end-tym">
           {/* <FaHeart />
         </span> */}
-        <span onClick={() => navigate(`/song?id=${song.encodeId}`)} className="overview__allsong-item-end-tym !text-[white]">
+        <span
+          onClick={() => navigate(`/song?id=${song.encodeId}`)}
+          className="overview__allsong-item-end-tym !text-[white]"
+        >
           <FaEye />
         </span>
       </div>
@@ -548,120 +550,122 @@ export default function Overview() {
           </Row>
         </ul>
       </div> */}
-      {
-        home && (
-          <div className="overview-option-singer">
-            <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] ">
-              {home[11].title}
-            </h1>
-            {
-              home[11].items.map((theme, key) => (
-                <React.Fragment key={key}>
-                  <div className="overview-option-song__heading flex">
-                    <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
-                      {theme.title}
-                    </h3>
-                    <div className="overview-option-song__right ml-[auto] flex items-center">
-                      <div className="overview-option-song__right-more-list">
-                        <span>Tất cả</span>
-                        <div>
-                          <FaChevronRight></FaChevronRight>
-                        </div>
-                      </div>
+      {home && (
+        <div className="overview-option-singer">
+          <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] ">
+            {home[11].title}
+          </h1>
+          {home[11].items.map((theme, key) => (
+            <React.Fragment key={key}>
+              <div className="overview-option-song__heading flex">
+                <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
+                  {theme.title}
+                </h3>
+                <div className="overview-option-song__right ml-[auto] flex items-center">
+                  <div className="overview-option-song__right-more-list">
+                    <span>Tất cả</span>
+                    <div>
+                      <FaChevronRight></FaChevronRight>
                     </div>
                   </div>
-                  <ul className='overview-option-playlist__list'>
-                    <Row gutter={[16, 16]}>
-                      {
-                        theme.artists.map((artist, key) => (
-                          <Col key={key} span={6}>
-                            <li className='overview-option-playlist__item cursor-pointer'>
-                              <div onClick={() => navigate(`/singer?id=${artist.alias}`)} className='overview-option-playlist__item-img-wrapper singer'>
-                                <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                                  <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                                    <FaEye />
-                                  </div>
-                                </div>
-                                <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: `url(${artist.thumbnailM})` }}>
-                                </div>
-                              </div>
-                              <div className='overview-option-singer__content'>
-                                <div className='overview-option-playlist__item-content-name'>
-                                  {artist.name}
-                                </div>
-                                <div className='overview-option-playlist__item-content-name1'>
-                                  {artist.totalFollow} follow
-                                </div>
-                              </div>
-                            </li>
-                          </Col>
-                        ))
-                      }
-                    </Row>
-                  </ul>
-                </React.Fragment>
-              ))
-            }
-          </div>
-        )
-      }
-      {
-        home && (
-          <div className="overview-option-singer">
-            <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] ">
-              {home[2].title}
-            </h1>
-            {
-              home[2].items.map((theme, key) => (
-                <React.Fragment key={key}>
-                  <div className="overview-option-song__heading flex">
-                    <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
-                      {theme.title}
-                    </h3>
-                    <div className="overview-option-song__right ml-[auto] flex items-center">
-                      <div className="overview-option-song__right-more-list">
-                        <span>Tất cả</span>
-                        <div>
-                          <FaChevronRight></FaChevronRight>
+                </div>
+              </div>
+              <ul className="overview-option-playlist__list">
+                <Row gutter={[16, 16]}>
+                  {theme.artists.map((artist, key) => (
+                    <Col key={key} span={6}>
+                      <li className="overview-option-playlist__item cursor-pointer">
+                        <div
+                          onClick={() => navigate(`/singer?id=${artist.alias}`)}
+                          className="overview-option-playlist__item-img-wrapper singer"
+                        >
+                          <div className="overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper">
+                            <div className="overview-option-playlist__item-img-wrapper-action-2">
+                              <FaEye />
+                            </div>
+                          </div>
+                          <div
+                            className="overview-option-playlist__item-img overview-option-singer__item-img "
+                            style={{
+                              backgroundImage: `url(${artist.thumbnailM})`
+                            }}
+                          ></div>
                         </div>
-                      </div>
+                        <div className="overview-option-singer__content">
+                          <div className="overview-option-playlist__item-content-name">
+                            {artist.name}
+                          </div>
+                          <div className="overview-option-playlist__item-content-name1">
+                            {artist.totalFollow} follow
+                          </div>
+                        </div>
+                      </li>
+                    </Col>
+                  ))}
+                </Row>
+              </ul>
+            </React.Fragment>
+          ))}
+        </div>
+      )}
+      {home && (
+        <div className="overview-option-singer">
+          <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] ">
+            {home[2].title}
+          </h1>
+          {home[2].items.map((theme, key) => (
+            <React.Fragment key={key}>
+              <div className="overview-option-song__heading flex">
+                <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
+                  {theme.title}
+                </h3>
+                <div className="overview-option-song__right ml-[auto] flex items-center">
+                  <div className="overview-option-song__right-more-list">
+                    <span>Tất cả</span>
+                    <div>
+                      <FaChevronRight></FaChevronRight>
                     </div>
                   </div>
-                  <ul className='overview-option-playlist__list'>
-                    <Row gutter={[16, 16]}>
-                      {
-                        theme.artists.map((artist, key) => (
-                          <Col key={key} span={6}>
-                            <li className='overview-option-playlist__item cursor-pointer'>
-                              <div onClick={() => navigate(`/singer?id=${artist.alias}`)} className='overview-option-playlist__item-img-wrapper singer'>
-                                <div className='overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper'>
-                                  <div className='overview-option-playlist__item-img-wrapper-action-2'>
-                                    <FaEye />
-                                  </div>
-                                </div>
-                                <div className="overview-option-playlist__item-img overview-option-singer__item-img " style={{ backgroundImage: `url(${artist.thumbnailM})` }}>
-                                </div>
-                              </div>
-                              <div className='overview-option-singer__content'>
-                                <div className='overview-option-playlist__item-content-name'>
-                                  {artist.name}
-                                </div>
-                                <div className='overview-option-playlist__item-content-name1'>
-                                  {artist.totalFollow} follow
-                                </div>
-                              </div>
-                            </li>
-                          </Col>
-                        ))
-                      }
-                    </Row>
-                  </ul>
-                </React.Fragment>
-              ))
-            }
-          </div>
-        )
-      }
+                </div>
+              </div>
+              <ul className="overview-option-playlist__list">
+                <Row gutter={[16, 16]}>
+                  {theme.artists.map((artist, key) => (
+                    <Col key={key} span={6}>
+                      <li className="overview-option-playlist__item cursor-pointer">
+                        <div
+                          onClick={() => navigate(`/singer?id=${artist.alias}`)}
+                          className="overview-option-playlist__item-img-wrapper singer"
+                        >
+                          <div className="overview-option-playlist__item-img-wrapper-action overview-option-mv__item-wrapper">
+                            <div className="overview-option-playlist__item-img-wrapper-action-2">
+                              <FaEye />
+                            </div>
+                          </div>
+                          <div
+                            className="overview-option-playlist__item-img overview-option-singer__item-img "
+                            style={{
+                              backgroundImage: `url(${artist.thumbnailM})`
+                            }}
+                          ></div>
+                        </div>
+                        <div className="overview-option-singer__content">
+                          <div className="overview-option-playlist__item-content-name">
+                            {artist.name}
+                          </div>
+                          <div className="overview-option-playlist__item-content-name1">
+                            {artist.totalFollow} follow
+                          </div>
+                        </div>
+                      </li>
+                    </Col>
+                  ))}
+                </Row>
+              </ul>
+            </React.Fragment>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

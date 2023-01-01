@@ -1,5 +1,7 @@
 import React from "react"
 import SignOTP from "../features/authen/pages/SignOTP.js"
+import Radio from "../features/radio/pages/Radio.js"
+import UserProfile from "../features/shared/components/UserProfile.js"
 import Test from "../features/test/Test.js"
 
 const SignUp = React.lazy(() => import("../features/authen/pages/Signup.js"))
@@ -23,8 +25,12 @@ const MainHome = React.lazy(() =>
 const Interactive = React.lazy(() =>
   import("../features/interactive/Interactive.js")
 )
-const SingerPage = React.lazy(() => import("../features/shared/pages/SingerPage"))
-const SongPage = React.lazy(() => import("../features/shared/pages/SongPage.js"))
+const SingerPage = React.lazy(() =>
+  import("../features/shared/pages/SingerPage")
+)
+const SongPage = React.lazy(() =>
+  import("../features/shared/pages/SongPage.js")
+)
 const Search = React.lazy(() => import("../features/shared/pages/Search"))
 
 const mainRoute = [
@@ -32,7 +38,7 @@ const mainRoute = [
   { path: "/home", name: "Home", element: <MainHome /> },
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
   { path: "/search", name: "Home", element: <Search /> },
-  { path: "/singer", name: "Singer", element: <SingerPage /> },
+  { path: "/singer", name: "Singer", element: <SingerPage /> }
 ]
 
 // Những route chỉ truy xuất khi chưa đăng nhập
@@ -54,6 +60,11 @@ const publicRoute = [
     path: "/sign-otp",
     name: "Sign OTP",
     element: <SignOTP />
+  },
+  {
+    path: "/sign-otp/:id",
+    name: "Sign OTP",
+    element: <SignOTP />
   }
 ]
 
@@ -70,7 +81,9 @@ const commonRoute = [
   { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
   { path: "/search", name: "Home", element: <Search /> },
   { path: "/singer", name: "Singer", element: <SingerPage /> },
-  { path: "/song", name: "Song", element: <SongPage /> }
+  { path: "/song", name: "Song", element: <SongPage /> },
+  { path: "/radio", name: "Radio", element: <Radio /> },
+  { path: "/user-profile", name: "User Profile", element: <UserProfile /> }
 ]
 
 // Route dùng cho manager

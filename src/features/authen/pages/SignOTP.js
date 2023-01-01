@@ -12,16 +12,27 @@ import {
 } from "antd"
 import { post } from "../../../api/axios"
 import URL from "../../../api/config"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { useEffect } from "react"
+import { REGEX_INVALID_EMAIL } from "../../../constant"
 
 export default function SignOTP() {
+  const params = useParams()
+  console.log(params)
   const navigate = useNavigate()
+  const [form] = Form.useForm()
 
   const [isSendingRequest, setIsSendingRequest] = useState(false)
   const [isSendRequest, setIsSendRequest] = useState(false)
   const [countDownVal, setCountDownVal] = useState(120)
   const [isError, setIsError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
+
+  useEffect(() => {
+    if (params.id) {
+      form.setFieldValue("email", params.id)
+    }
+  }, [params.id])
 
   const sendOTP = (email) => {
     if (email.length === 0) {
@@ -43,7 +54,7 @@ export default function SignOTP() {
         }
       })
       .catch((err) => {
-        message.error("Email not founded")
+        message.error("Email không hợp lệ hoặc chưa được đăng ký")
       })
     //OTP return setIsSendingRequest false
   }
@@ -53,14 +64,14 @@ export default function SignOTP() {
       .then((data) => {
         console.log("data", data.data.message)
         if (data.data.success) {
-          message.success("Your account was verified")
+          message.success("Tài khoản của bạn đã được xác thực")
           navigate("/login")
         } else {
           message.error(data?.data?.message)
         }
       })
       .catch((err) => {
-        message.error("Unexpected error")
+        message.error("Có lỗi xảy ra, không thể xác thực tài khoản")
       })
   }
   const onFinish = (value) => {
@@ -86,6 +97,7 @@ export default function SignOTP() {
                 Xác thực để truy cập P2Tune!
               </Typography>
               <Form
+                form={form}
                 name="basic"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
@@ -97,7 +109,11 @@ export default function SignOTP() {
                   label="Email"
                   name="email"
                   rules={[
-                    { required: true, message: "Please input your email!" }
+                    {
+                      required: true,
+                      pattern: REGEX_INVALID_EMAIL,
+                      message: "Email không hợp lệ"
+                    }
                   ]}
                 >
                   <div className="flex">

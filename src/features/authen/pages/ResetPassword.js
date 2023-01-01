@@ -18,7 +18,7 @@ export default function ResetPassword() {
   const navigate = useNavigate()
 
   const onFinish = (values) => {
-    navigate("/")
+    navigate("/login")
   }
 
   const onFinishFailed = (errorInfo) => {
