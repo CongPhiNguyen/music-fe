@@ -22,7 +22,9 @@ import ReactHlsPlayer from "react-hls-player/dist"
 import { Col, Row } from "antd"
 import { useSelector, useDispatch } from "react-redux"
 import { setIsPlay } from "../../shared/musicSlice"
-import { setIsRadioPlay } from "../audioSlice"
+import { setIsRadioCurrent, setIsRadioPlay } from "../audioSlice"
+import { IoMdExit } from "react-icons/io"
+
 export default function RadioController() {
   const dispatch = useDispatch()
   const songsData = useSelector((state) => state.musicData.songsData)
@@ -137,7 +139,13 @@ export default function RadioController() {
           <div className="music-control-right">
             {/* <FaPhotoVideo className="music-control__right-action-option"></FaPhotoVideo> */}
             {/* <FaMicrophone className="music-control__right-action-option"></FaMicrophone> */}
-            <BiSquare className="music-control__right-action-option"></BiSquare>
+            <IoMdExit
+              className="music-control__right-action-option"
+              onClick={() => {
+                dispatch(setIsRadioCurrent(false))
+              }}
+            ></IoMdExit>
+
             {isMute ? (
               <BsFillVolumeMuteFill
                 onClick={() => {

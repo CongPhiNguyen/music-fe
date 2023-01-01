@@ -33,9 +33,11 @@ function RadioChannel({ data }) {
     // dispatch(setPlaylistId(""))
   }
 
+  const isRadioCurrent = useSelector((state) => state.audio.isRadioCurrent)
+
   const classThumb = () => {
     if (isPlayMusic) return "thumb"
-    if (isRadioPlay && songInfo.encodeId === data?.encodeId)
+    if (isRadioPlay && songInfo.encodeId === data?.encodeId && isRadioCurrent)
       return "thumb playing"
     else return "thumb"
   }
@@ -79,6 +81,7 @@ function RadioChannel({ data }) {
               <FontAwesomeIcon icon={faPauseCircle} />
             </div>
           )}
+
           {songInfo.encodeId === data?.encodeId && !isRadioPlay && (
             <div
               className="action"
