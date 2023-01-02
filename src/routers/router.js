@@ -33,7 +33,9 @@ const SongPage = React.lazy(() =>
 )
 const Search = React.lazy(() => import("../features/shared/pages/Search"))
 const Home = React.lazy(() => import("../features/shared/pages/Home.js"))
-const Playlist = React.lazy(() => import("../features/shared/pages/Playlist.js"))
+const Playlist = React.lazy(() =>
+  import("../features/shared/pages/Playlist.js")
+)
 
 const mainRoute = [
   { path: "/", name: "Home", element: <MainHome /> },
@@ -85,14 +87,18 @@ const commonRoute = [
   { path: "/singer", name: "Singer", element: <SingerPage /> },
   { path: "/song", name: "Song", element: <SongPage /> },
   { path: "/radio", name: "Radio", element: <Radio /> },
-  { path: "/user-profile", name: "User Profile", element: <UserProfile /> }
+  { path: "/user-profile", name: "User Profile", element: <UserProfile /> },
   {
-    path: "/home", name: "Home", element: <Home />
+    path: "/home",
+    name: "Home",
+    element: <Home />
   },
   {
-    path: "/playlist/:id", name: "playlist", element: <Playlist />
+    path: "/playlist/:id",
+    name: "playlist",
+    element: <Playlist />
   },
-  { path: "*", name: "personal", element: <MainHome /> },
+  { path: "*", name: "personal", element: <MainHome /> }
 ]
 
 // Route dùng cho manager
