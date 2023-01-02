@@ -35,6 +35,29 @@ export const musicDataSlice = createSlice({
           state.indexSong = null
           state.isPlay = false
         }
+      } else {
+        state.songsData = state.songsData.filter((song, index) => index !== action.payload.index)
+        state.selectedPlaylist.songs = state.songsData
+        state.playlists = state.playlists.map(playlist => {
+          if (playlist._id === state.selectedPlaylist._id) {
+            return state.selectedPlaylist
+          }
+          return playlist
+        })
+        if (state.indexSong === action.payload.index) {
+          state.indexSong = null
+          state.isPlay = false
+        }
+        axios.post("http://localhost:5050/api/v1/playlist/update-playlist", {
+          songs: state.songsData.map(song => {
+            return {
+              ...song,
+              lyric: null
+            }
+          }),
+          username: action.payload.username,
+          playlistId: state.selectedPlaylist._id
+        })
       }
     },
     setCurrentSongAndUpdate: (state, action) => {

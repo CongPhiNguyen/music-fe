@@ -29,8 +29,7 @@ export default function SongComponent(props) {
     }
 
     const handleRemoveSong = () => {
-        console.log("123")
-        dispatch(removeSong({ index: props.index }))
+        dispatch(removeSong({ index: props.index, username }))
     }
 
     return (
