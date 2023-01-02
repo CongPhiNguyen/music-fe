@@ -17,7 +17,7 @@ import { addSongAndPlay, addSong } from "../musicSlice"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { setIsRadioCurrent } from "../../radio/audioSlice"
-
+import URL from "../../../api/config"
 function ComponentSong({ song }) {
   const navigate = useNavigate()
   const username = useSelector(
@@ -26,7 +26,7 @@ function ComponentSong({ song }) {
   const dispatch = useDispatch()
   const handleClickAddMusic = (id) => {
     axios
-      .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+      .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
         const songSlice = {
           background: song.thumbnail,
@@ -45,7 +45,7 @@ function ComponentSong({ song }) {
 
   const handleClickListenMusic = (id) => {
     axios
-      .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+      .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
         const songSlice = {
           background: song.thumbnail,
@@ -235,7 +235,7 @@ export default function Overview() {
   const navigate = useNavigate()
   useEffect(() => {
     axios
-      .get(`http://localhost:5050/api/v1/zing/get-random-song-list`)
+      .get(URL.BASE_API_ENDPOINT + `/zing/get-random-song-list`)
       .then((res) => {
         setSongsRandom(res.data.data)
         setHome(res.data.home.data.items)

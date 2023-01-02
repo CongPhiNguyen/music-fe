@@ -12,6 +12,7 @@ import {
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { setIsRadioCurrent } from "../../radio/audioSlice"
+import URL from "../../../api/config"
 export default function SongComponent(props) {
   const dispatch = useDispatch()
   const isPlay = useSelector((state) => state.musicData.isPlay)
@@ -22,9 +23,7 @@ export default function SongComponent(props) {
     if (!props.isActive) {
       const song = songsData.find((_, index) => index === props.index)
       axios
-        .get(
-          `http://localhost:5050/api/v1/zing/get-detail-song?idSong=${song.id}`
-        )
+        .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${song.id}`)
         .then((res) => {
           const pathSong = res.data.detail.data[128]
           dispatch(

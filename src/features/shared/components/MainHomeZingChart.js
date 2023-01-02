@@ -15,7 +15,7 @@ import { Row, Col } from "antd"
 import axios from "axios"
 import NavUser from "./NavUser"
 import { useNavigate } from "react-router-dom"
-
+import URL from "../../../api/config"
 const ComponentSongZingChart = (props) => {
   const navigate = useNavigate()
   const isPlay = useSelector((state) => state.musicData.isPlay)
@@ -71,7 +71,7 @@ export default function MainHomeZingChart() {
   useEffect(() => {
     const fetAPI = async () => {
       await axios
-        .get("http://localhost:5050/api/v1/user/top10")
+        .get(URL.BASE_API_ENDPOINT + "/user/top10")
         .then((res) => {
           setMusicOutstanding(
             res.data.data[0].items

@@ -26,7 +26,7 @@ import {
 } from "../musicSlice"
 
 import { BiRadio } from "react-icons/bi"
-
+import URL from "../../../api/config"
 export default function MainSidebar() {
   const isLogin = useSelector((state) => state.authen.isLogin)
   const username = useSelector(
@@ -48,7 +48,7 @@ export default function MainSidebar() {
   useEffect(() => {
     if (username) {
       axios
-        .get(`http://localhost:5050/api/v1/playlist/${username}`)
+        .get(URL.BASE_API_ENDPOINT + `/playlist/${username}`)
         .then((res) => {
           dispatch(setPlaylists({ playlists: res.data.playlists }))
         })
@@ -61,7 +61,7 @@ export default function MainSidebar() {
   const handleCreatePlaylist = async () => {
     if (isEdit) {
       axios
-        .post("http://localhost:5050/api/v1/playlist/update-name-playlist", {
+        .post(URL.BASE_API_ENDPOINT + "/playlist/update-name-playlist", {
           id: idEit,
           playlistName: namePlaylist,
           username
@@ -75,7 +75,7 @@ export default function MainSidebar() {
         })
     } else {
       await axios
-        .post(`http://localhost:5050/api/v1/playlist`, {
+        .post(URL.BASE_API_ENDPOINT + `/playlist`, {
           username,
           playlistName: namePlaylist
         })
@@ -83,7 +83,7 @@ export default function MainSidebar() {
           console.log(res)
           setNamePlayList("Enter name playlist here")
           axios
-            .get(`http://localhost:5050/api/v1/playlist/${username}`)
+            .get(URL.BASE_API_ENDPOINT + `/playlist/${username}`)
             .then((res) => {
               dispatch(setPlaylists({ playlists: res.data.playlists }))
             })
@@ -117,7 +117,7 @@ export default function MainSidebar() {
       cancelText: "Cancel",
       onOk: () => {
         axios
-          .post("http://localhost:5050/api/v1/playlist/delete-playlist", {
+          .post(URL.BASE_API_ENDPOINT + "/playlist/delete-playlist", {
             username,
             playlistName
           })

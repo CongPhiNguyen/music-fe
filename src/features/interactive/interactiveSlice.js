@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  hiddenSection: true
+  hiddenSession: true
 }
 
 export const interactiveSlice = createSlice({

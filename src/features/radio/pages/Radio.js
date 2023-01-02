@@ -5,13 +5,14 @@ import RadioChannel from "../components/RadioChannel"
 import { message, Spin } from "antd"
 import "../Radio.scss"
 import "../../shared/components/MainHome.css"
+import URL from "../../../api/config"
 export default function Radio() {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
 
   useEffect(() => {
     axios
-      .get("http://localhost:5050/api/v1/zing/get-radio")
+      .get(URL.BASE_API_ENDPOINT + "/zing/get-radio")
       .then((res) => {
         setData(res.data.data.items[0])
         setIsLoading(false)

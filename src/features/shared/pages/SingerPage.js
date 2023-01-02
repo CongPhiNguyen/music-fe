@@ -10,15 +10,15 @@ import { FaEllipsisH, FaPlay, FaEye } from "react-icons/fa"
 import { MdPostAdd } from "react-icons/md"
 import { addSongAndPlay, addSong } from "../musicSlice"
 import axios from "axios"
-
+import URL from "../../../api/config"
 export default function SingerPage() {
   const [singerInfo, setSingerInfo] = useState(null)
   const location = useLocation()
+  // console.log(URL.BASE_API_ENDPOINT)
   useEffect(() => {
     const fetchApi = async () => {
-      get(
-        "http://localhost:5050/api/v1/zing/get-singer-by-id" + location.search
-      )
+      axios
+        .get(URL.BASE_API_ENDPOINT + "/zing/get-singer-by-id" + location.search)
         .then((res) => {
           setSingerInfo(res.data.data)
         })
@@ -212,7 +212,7 @@ function ComponentSong({ song }) {
   const navigate = useNavigate()
   const handleClickAddMusic = (id) => {
     axios
-      .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+      .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
         const songSlice = {
           background: song.thumbnail,
@@ -231,7 +231,7 @@ function ComponentSong({ song }) {
 
   const handleClickListenMusic = (id) => {
     axios
-      .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+      .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
         const songSlice = {
           background: song.thumbnail,
