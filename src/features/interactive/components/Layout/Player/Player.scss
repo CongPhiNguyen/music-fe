@@ -1,0 +1,22 @@
+.player-progress {
+  width: 100%;
+  margin: 0 10px;
+  /* -webkit-appearance: none; */
+  height: 3px;
+  outline: none;
+  background-color: rgba(186, 40, 40, 0.3);
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.player-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 13px;
+  width: 13px;
+  appearance: none;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid rgb(216, 68, 68);
+}

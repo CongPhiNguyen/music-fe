@@ -43,14 +43,16 @@ export default function MainSidebar() {
   const [namePlaylist, setNamePlayList] = useState("Enter name playlist here")
   const [isFirstLoad, setIsFirstLoad] = useState(true)
   useEffect(() => {
-    axios
-      .get(`http://localhost:5050/api/v1/playlist/${username}`)
-      .then((res) => {
-        dispatch(setPlaylists({ playlists: res.data.playlists }))
-      })
-      .catch((err) => {
-        message.error(err.message)
-      })
+    if (username) {
+      axios
+        .get(`http://localhost:5050/api/v1/playlist/${username}`)
+        .then((res) => {
+          dispatch(setPlaylists({ playlists: res.data.playlists }))
+        })
+        .catch((err) => {
+          message.error(err.message)
+        })
+    }
   }, [])
 
   const handleCreatePlaylist = async () => {
@@ -136,7 +138,7 @@ export default function MainSidebar() {
           onClick={() => navigate("/")}
         >
           <img src="/logo.png" alt="" className="w-[40px] ml-[20px] h-[40px]" />
-          <p className="text-[#fff] ml-[10px] mt-[6px] text-[600] text-[20px] hover:cursor-pointer">
+          <p className="text-[#fff] ml-[8px] mt-[6px] text-[600] text-[20px] hover:cursor-pointer">
             P2Tune
           </p>
         </div>

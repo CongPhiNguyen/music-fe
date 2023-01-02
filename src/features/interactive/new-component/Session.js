@@ -5,18 +5,23 @@ import { BsFillPlayCircleFill, BsFillPauseCircleFill } from "react-icons/bs"
 import { BiEditAlt, BiSave } from "react-icons/bi"
 import SessionItem from "./SessionItem"
 import Draggable from "react-draggable"
-
+import { MdMinimize } from "react-icons/md"
+import { useDispatch, useSelector } from "react-redux"
+import { setHiddenSession } from "../interactiveSlice"
 export default function Session() {
+  const dispatch = useDispatch()
   const [isPause, setIsPause] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
   const [timerList, setTimerList] = useState([])
-  const removeSession = (indexSession) => {
+
+  const isHiddenSession = useSelector((state) => {
+    return state.interactive.hiddenSession
+  })
+
+  const removeSessionParent = (indexSession) => {
     setTimerList((prev) => {
-      return prev.filter((val, index) => {
-        if (indexSession === index) {
-          console.log(indexSession)
-        }
-        return indexSession !== index
+      return prev.filter((val) => {
+        return indexSession !== val.id
       })
     })
   }
@@ -35,11 +40,31 @@ export default function Session() {
     })
   }
 
+  console.log(isHiddenSession)
+
   return (
-    <div className="px-[40px] bg-[#070707] w-[320px] ml-[20px] rounded-[24px]">
-      <Typography.Title className="!text-[#fff] !text-[20px] pt-[14px]">
-        Session
-      </Typography.Title>
+    <div
+      className={
+        "px-[40px]  w-[320px] ml-[20px] rounded-[24px] " +
+        (isHiddenSession ? "" : "bg-[#070707]")
+      }
+    >
+      <div
+        className={"flex justify-between " + (isHiddenSession ? "hidden" : "")}
+      >
+        <Typography.Title className="!text-[#fff] !text-[20px] pt-[14px]">
+          Session
+        </Typography.Title>
+        <div
+          className="mt-[12px] cursor-pointer hover:opacity-40"
+          onClick={() => {
+            dispatch(setHiddenSession(true))
+          }}
+        >
+          <MdMinimize size={20} color="#fff"></MdMinimize>
+        </div>
+      </div>
+
       {/* Session item */}
       <div className="mt-[16px] mb-[12px]">
         {timerList.map((val, index) => {
@@ -48,7 +73,7 @@ export default function Session() {
             <SessionItem
               removeSession={() => {
                 // console.log("index", index)
-                removeSession(index)
+                removeSessionParent(val.id)
               }}
               id={val.id}
               name={val.name}
@@ -57,17 +82,24 @@ export default function Session() {
           )
         })}
       </div>
-      <Button
-        className="!w-[100%] !bg-[#070707] !text-[#FFF] !rounded-[12px]"
-        onClick={() => {
-          setTimerList((prev) => {
-            return [...prev, { id: prev.length, name: String("New Session") }]
-          })
-        }}
-      >
-        Thêm session
-      </Button>
-      <div className="h-[100px]"></div>
+      <div className={isHiddenSession ? "!hidden" : ""}>
+        <Button
+          className={
+            "!w-[100%] !bg-[#070707] !text-[#FFF] !rounded-[12px] mb-[20px]"
+          }
+          onClick={() => {
+            setTimerList((prev) => {
+              let num = prev.length
+              while (prev.some((val) => num === val.id)) {
+                num++
+              }
+              return [...prev, { id: num, name: String("New Session" + num) }]
+            })
+          }}
+        >
+          Thêm session
+        </Button>
+      </div>
     </div>
   )
 }

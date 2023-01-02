@@ -17,13 +17,13 @@ import { useTimer } from "react-timer-hook"
 import { useDispatch } from "react-redux"
 import { changeSong, setPlaying } from "../interactiveSlice"
 import ConcreteSession from "./ConcreteSession"
-
+import { useSelector } from "react-redux"
 const { Paragraph } = Typography
 
 export default function SessionItem(props) {
   const dispatch = useDispatch()
   const [isPause, setIsPause] = useState(true)
-  const [isEdit, setIsEdit] = useState(false)
+  const [isEdit, setIsEdit] = useState(true)
   // const [] =
   let expiryTimestamp = new Date()
   const {
@@ -92,6 +92,10 @@ export default function SessionItem(props) {
     pause()
   }
 
+  const isHiddenSession = useSelector((state) => {
+    return state.interactive.hiddenSession
+  })
+
   // console.log("props", props)
   return (
     <div className="mb-[12px]">
@@ -102,11 +106,14 @@ export default function SessionItem(props) {
             props.changeName(value)
           }
         }}
-        className="!text-[#fff] !text-[16px] !mb-[0px]"
+        className={
+          "!text-[#fff] !text-[16px] !mb-[0px] " +
+          (isHiddenSession ? "!hidden" : "")
+        }
       >
         {props?.name}
       </Paragraph>
-      <div className="border-[1px] border-[#fff] w-[100%] h-[50px] rounded-[10px] p-[6px] flex">
+      <div className="border-[1px] border-[#fff] w-[100%] h-[50px] rounded-[10px] p-[6px] flex  bg-[#070707]">
         <div className="mr-[12px]">
           {!isEdit ? null : !isPause ? (
             <BsFillPauseCircleFill
