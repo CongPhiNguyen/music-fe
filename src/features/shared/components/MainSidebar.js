@@ -21,7 +21,8 @@ import { useEffect } from "react"
 import {
   setPlaylists,
   selectedPlaylistFunct,
-  removePlaylist
+  removePlaylist,
+  updatePlaylist
 } from "../musicSlice"
 
 import { BiRadio } from "react-icons/bi"
@@ -139,6 +140,9 @@ export default function MainSidebar() {
       case "/":
         setSelected("home")
         break
+      case "/personal":
+        setSelected("personal")
+        break
       case "/radio":
         setSelected("radio")
         break
@@ -172,34 +176,6 @@ export default function MainSidebar() {
             <li
               onClick={() => {
                 setSelected("home")
-                navigate("/")
-              }}
-              className={`sidebar__personal-item ${
-                selected === "home" && "active"
-              }`}
-            >
-              <NavLink className={"link"} to={"/"}>
-                <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4">Cá Nhân</span>
-              </NavLink>
-            </li>
-            <li
-              onClick={() => {
-                setSelected("radio")
-                navigate("/radio")
-              }}
-              className={`sidebar__personal-item ${
-                selected === "radio" && "active"
-              }`}
-            >
-              <NavLink className={"link"} to={"/radio"}>
-                <BiRadio style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4">Radio</span>
-              </NavLink>
-            </li>
-            <li
-              onClick={() => {
-                setSelected("home")
                 navigate("/home")
               }}
               className={`sidebar__personal-item ${
@@ -211,6 +187,7 @@ export default function MainSidebar() {
                 <span className="pl-4">Home</span>
               </NavLink>
             </li>
+
             <li
               onClick={() => {
                 setSelected("zing-chart")
@@ -232,6 +209,34 @@ export default function MainSidebar() {
               <NavLink className={"link"} to={"/interactive"}>
                 <BsFillUmbrellaFill style={{ fontSize: "2.2rem" }} />
                 <span className="pl-4">Interactive</span>
+              </NavLink>
+            </li>
+            <li
+              onClick={() => {
+                setSelected("radio")
+                navigate("/radio")
+              }}
+              className={`sidebar__personal-item ${
+                selected === "radio" && "active"
+              }`}
+            >
+              <NavLink className={"link"} to={"/radio"}>
+                <BiRadio style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Radio</span>
+              </NavLink>
+            </li>
+            <li
+              onClick={() => {
+                setSelected("personal")
+                navigate("/personal")
+              }}
+              className={`sidebar__personal-item ${
+                selected === "personal" && "active"
+              }`}
+            >
+              <NavLink className={"link"} to={"/"}>
+                <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Cá Nhân</span>
               </NavLink>
             </li>
           </ul>
