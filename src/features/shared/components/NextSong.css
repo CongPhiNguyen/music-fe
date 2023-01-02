@@ -120,6 +120,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 3px;
+  position: relative;
 }
 
 .next-song__item-active {
@@ -172,6 +173,8 @@
 }
 
 .next-song__item-action {
+  position: absolute;
+  right: 0;
   display: flex;
   width: 55px;
   font-size: 1.4rem;

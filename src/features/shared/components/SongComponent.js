@@ -67,7 +67,7 @@ export default function SongComponent(props) {
                 </span>
             </div>
             <div className='next-song__item-action'>
-                <span onClick={() => navigate(`/song?id=${props.song.id}`)} className='next-song__item-action-heart'>
+                <span onClick={() => navigate(`/song?id=${props.song.id}`)} className='next-song__item-action-dot'>
                     <FaEye />
                 </span>
                 <span onClick={handleRemoveSong} className='next-song__item-action-dot'>

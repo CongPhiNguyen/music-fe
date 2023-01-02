@@ -74,7 +74,12 @@ export const musicDataSlice = createSlice({
             return playlist
           })
           axios.post("http://localhost:5050/api/v1/playlist/update-playlist", {
-            songs: state.songsData,
+            songs: state.songsData.map(song => {
+              return {
+                ...song,
+                lyric: null
+              }
+            }),
             username: action.payload.username,
             playlistId: state.selectedPlaylist._id
           })
@@ -106,7 +111,12 @@ export const musicDataSlice = createSlice({
           state.songsData = state.songsData.filter(song => song.id !== action.payload.song.id)
           state.songsData.push(action.payload.song)
           axios.post("http://localhost:5050/api/v1/playlist/add-song", {
-            song: state.songsData,
+            song: state.songsData.map(song => {
+              return {
+                ...song,
+                lyric: null
+              }
+            }),
             username: action.payload.username,
             playlistName: state.selectedPlaylist.playlistName
           })
@@ -141,7 +151,12 @@ export const musicDataSlice = createSlice({
           state.songsData = state.songsData.filter(song => song.id !== action.payload.song.id)
           state.songsData.push(action.payload.song)
           axios.post("http://localhost:5050/api/v1/playlist/add-song", {
-            songs: state.songsData,
+            songs: state.songsData.map(song => {
+              return {
+                ...song,
+                lyric: null
+              }
+            }),
             username: action.payload.username,
             playlistName: state.selectedPlaylist.playlistName
           })

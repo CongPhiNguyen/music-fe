@@ -281,6 +281,7 @@
   height: 244px;
   position: relative;
   margin-top: 6px;
+  z-index: 1;
 }
 
 .option-all__song-slider-img {
@@ -296,7 +297,7 @@
 .option-all__song-slider-img-third {
   width: 162px;
   height: 162px;
-  z-index: 1;
+  z-index: 0;
   opacity: 0.3;
   position: absolute;
   right: 0;
@@ -312,7 +313,7 @@
   right: 0;
   top: 7px;
   bottom: 7px;
-  z-index: 3;
+  z-index: 2;
   opacity: 1;
 }
 
