@@ -15,12 +15,11 @@ import { Divider, message, Radio, Typography } from "antd"
 import { GoRadioTower } from "react-icons/go"
 import { AiTwotoneEdit } from "react-icons/ai"
 import { GrFormAdd } from "react-icons/gr"
-import { SiTestinglibrary } from "react-icons/si"
 import { Modal } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useEffect } from "react"
-import { setPlaylists, selectedPlaylistFunct, removePlaylist } from "../musicSlice"
+import { setPlaylists, selectedPlaylistFunct, removePlaylist, updatePlaylist } from "../musicSlice"
 export default function MainSidebar() {
   const isLogin = useSelector((state) => state.authen.isLogin)
   const username = useSelector((state) => state.authen.currentUserInfo.username)
@@ -32,6 +31,8 @@ export default function MainSidebar() {
   const dispatch = useDispatch()
   const [selected, setSelected] = useState("personal")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
+  const [idEit, setIdEdit] = useState(false)
   const [namePlaylist, setNamePlayList] = useState("Enter name playlist here")
   useEffect(() => {
     axios
@@ -45,26 +46,42 @@ export default function MainSidebar() {
   }, [])
 
   const handleCreatePlaylist = async () => {
-    await axios
-      .post(`http://localhost:5050/api/v1/playlist`, {
-        username,
-        playlistName: namePlaylist
+    if (isEdit) {
+      axios.post("http://localhost:5050/api/v1/playlist/update-name-playlist", {
+        id: idEit,
+        playlistName: namePlaylist,
+        username
       })
-      .then((res) => {
-        console.log(res)
-        setNamePlayList("Enter name playlist here")
-        axios
-          .get(`http://localhost:5050/api/v1/playlist/${username}`)
-          .then((res) => {
-            dispatch(setPlaylists({ playlists: res.data.playlists }))
-          })
-          .catch((err) => {
-            message.error(err.message)
-          })
-      })
-      .catch((err) => {
-        message.error(err.response.data.message)
-      })
+        .then(res => {
+          message.success("Sửa tên thành công!")
+          dispatch(updatePlaylist({ playlistName: namePlaylist, id: idEit }))
+        })
+        .catch(err => {
+          message.error(err.response.data.message)
+        })
+    } else {
+      await axios
+        .post(`http://localhost:5050/api/v1/playlist`, {
+          username,
+          playlistName: namePlaylist
+        })
+        .then((res) => {
+          console.log(res)
+          setNamePlayList("Enter name playlist here")
+          axios
+            .get(`http://localhost:5050/api/v1/playlist/${username}`)
+            .then((res) => {
+              dispatch(setPlaylists({ playlists: res.data.playlists }))
+            })
+            .catch((err) => {
+              message.error(err.message)
+            })
+        })
+        .catch((err) => {
+          message.error(err.response.data.message)
+        })
+    }
+
 
     handleCancel()
   }
@@ -74,6 +91,7 @@ export default function MainSidebar() {
 
   const handleCancel = () => {
     setNamePlayList("Enter name playlist here")
+    setIsEdit(false)
     setIsModalOpen(false)
   }
 
@@ -85,7 +103,7 @@ export default function MainSidebar() {
       okText: 'Delete',
       cancelText: 'Cancel',
       onOk: () => {
-        console.log(playlistName)
+
         axios.post("http://localhost:5050/api/v1/playlist/delete-playlist", {
           username,
           playlistName
@@ -93,13 +111,20 @@ export default function MainSidebar() {
           .then(res => {
             message.success("Delete success")
             dispatch(removePlaylist({ playlistName }))
-
           })
           .catch(err => {
             message.error(err.response.data.message)
           })
       }
+
     });
+  }
+
+  const edit = (name, id) => {
+    setIdEdit(id)
+    setIsEdit(true)
+    setNamePlayList(name)
+    showModal()
   }
 
 
@@ -182,7 +207,7 @@ export default function MainSidebar() {
                   <div onClick={() => confirm(playlist.playlistName)} className="sidebar__library-bot-extra-option trash">
                     <FaTrash />
                   </div>
-                  <div className="sidebar__library-bot-extra-option">
+                  <div onClick={() => edit(playlist.playlistName, playlist._id)} className="sidebar__library-bot-extra-option">
                     <AiTwotoneEdit />
                   </div>
                 </div>
@@ -211,7 +236,7 @@ export default function MainSidebar() {
                   key="create"
                   onClick={handleCreatePlaylist}
                 >
-                  Tạo
+                  {isEdit ? "Lưu" : "Tạo"}
                 </div>
                 <div
                   className="btn-create cancel"

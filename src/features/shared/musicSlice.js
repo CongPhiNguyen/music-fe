@@ -36,6 +36,8 @@ export const musicDataSlice = createSlice({
           state.isPlay = false
         }
       } else {
+        state.heardRecently = state.heardRecently.filter((song, index) => index !== action.payload.index)
+        localStorage.setItem("songdata", JSON.stringify(state.songsData))
         state.songsData = state.songsData.filter((song, index) => index !== action.payload.index)
         state.selectedPlaylist.songs = state.songsData
         state.playlists = state.playlists.map(playlist => {
@@ -134,7 +136,7 @@ export const musicDataSlice = createSlice({
           state.songsData = state.songsData.filter(song => song.id !== action.payload.song.id)
           state.songsData.push(action.payload.song)
           axios.post("http://localhost:5050/api/v1/playlist/add-song", {
-            song: state.songsData.map(song => {
+            songs: state.songsData.map(song => {
               return {
                 ...song,
                 lyric: null
@@ -148,7 +150,7 @@ export const musicDataSlice = createSlice({
           state.heardRecently.push(action.payload.song)
           localStorage.setItem("songdata", JSON.stringify(state.heardRecently))
           state.playlists = state.playlists.map((value) => {
-            if (value._id === state.selectedPlaylist) {
+            if (value._id === state.selectedPlaylist._id) {
               value.songs = state.songsData
             }
             return value
@@ -187,7 +189,7 @@ export const musicDataSlice = createSlice({
           state.heardRecently.push(action.payload.song)
           localStorage.setItem("songdata", JSON.stringify(state.heardRecently))
           state.playlists = state.playlists.map((value) => {
-            if (value._id === state.selectedPlaylist) {
+            if (value._id === state.selectedPlaylist._id) {
               value.songs = state.songsData
             }
             return value
@@ -206,6 +208,14 @@ export const musicDataSlice = createSlice({
     },
     setPlaylists: (state, action) => {
       state.playlists = action.payload.playlists
+    },
+    updatePlaylist: (state, action) => {
+      state.playlists = state.playlists.map(playlist => {
+        if (playlist._id === action.payload.id) {
+          playlist.playlistName = action.payload.playlistName
+        }
+        return playlist
+      })
     },
     changeSelected: (state, action) => {
       state.indexSong = null
@@ -242,7 +252,8 @@ export const {
   selectedPlaylistFunct,
   setCurrentSongAndUpdate,
   removeSong,
-  removePlaylist
+  removePlaylist,
+  updatePlaylist
 } = musicDataSlice.actions
 
 export default musicDataSlice.reducer
