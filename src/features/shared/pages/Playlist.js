@@ -241,7 +241,8 @@ function ComponentSong({ song }) {
                     singer: song.artistsNames,
                     pathSong: res.data.detail.data[128],
                     duration: song.duration,
-                    id
+                    id,
+                    lyric: res.data.lyric.data.sentences
                 }
                 dispatch(addSongAndPlay({ song: songSlice, username }))
             })
