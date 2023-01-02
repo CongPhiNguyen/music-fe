@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
+import URL from "../../api/config"
+
 const initialState = {
   songsData: localStorage.getItem("songdata")
     ? JSON.parse(localStorage.getItem("songdata"))
@@ -42,11 +44,15 @@ export const musicDataSlice = createSlice({
           state.isPlay = false
         }
       } else {
-        state.heardRecently = state.heardRecently.filter((song, index) => index !== action.payload.index)
+        state.heardRecently = state.heardRecently.filter(
+          (song, index) => index !== action.payload.index
+        )
         localStorage.setItem("songdata", JSON.stringify(state.songsData))
-        state.songsData = state.songsData.filter((song, index) => index !== action.payload.index)
+        state.songsData = state.songsData.filter(
+          (song, index) => index !== action.payload.index
+        )
         state.selectedPlaylist.songs = state.songsData
-        state.playlists = state.playlists.map(playlist => {
+        state.playlists = state.playlists.map((playlist) => {
           if (playlist._id === state.selectedPlaylist._id) {
             return state.selectedPlaylist
           }
@@ -56,8 +62,8 @@ export const musicDataSlice = createSlice({
           state.indexSong = null
           state.isPlay = false
         }
-        axios.post("http://localhost:5050/api/v1/playlist/update-playlist", {
-          songs: state.songsData.map(song => {
+        axios.post(URL.BASE_API_ENDPOINT + "/playlist/update-playlist", {
+          songs: state.songsData.map((song) => {
             return {
               ...song,
               lyric: null
@@ -107,8 +113,8 @@ export const musicDataSlice = createSlice({
             }
             return playlist
           })
-          axios.post("http://localhost:5050/api/v1/playlist/update-playlist", {
-            songs: state.songsData.map(song => {
+          axios.post(URL.BASE_API_ENDPOINT + "/playlist/update-playlist", {
+            songs: state.songsData.map((song) => {
               return {
                 ...song,
                 lyric: null
@@ -148,8 +154,8 @@ export const musicDataSlice = createSlice({
             (song) => song.id !== action.payload.song.id
           )
           state.songsData.push(action.payload.song)
-          axios.post("http://localhost:5050/api/v1/playlist/add-song", {
-            songs: state.songsData.map(song => {
+          axios.post(URL.BASE_API_ENDPOINT + "/playlist/add-song", {
+            songs: state.songsData.map((song) => {
               return {
                 ...song,
                 lyric: null
@@ -196,8 +202,8 @@ export const musicDataSlice = createSlice({
             (song) => song.id !== action.payload.song.id
           )
           state.songsData.push(action.payload.song)
-          axios.post("http://localhost:5050/api/v1/playlist/add-song", {
-            songs: state.songsData.map(song => {
+          axios.post(URL.BASE_API_ENDPOINT + "/playlist/add-song", {
+            songs: state.songsData.map((song) => {
               return {
                 ...song,
                 lyric: null
@@ -235,7 +241,7 @@ export const musicDataSlice = createSlice({
       state.playlists = action.payload.playlists
     },
     updatePlaylist: (state, action) => {
-      state.playlists = state.playlists.map(playlist => {
+      state.playlists = state.playlists.map((playlist) => {
         if (playlist._id === action.payload.id) {
           playlist.playlistName = action.payload.playlistName
         }

@@ -8,7 +8,7 @@ import { Button } from "antd"
 
 import Reactpip from "react-picture-in-picture"
 import Test2 from "./components/Test2"
-
+import URL from "../../api/config"
 export default function Test() {
   const [data, setData] = useState([])
   const valueCT = useContext(StoreContext)
@@ -21,7 +21,7 @@ export default function Test() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5050/api/v1/zing/get-top-and-stream")
+      .get(URL.BASE_API_ENDPOINT + "/zing/get-top-and-stream")
       .then((data) => {
         setData(
           data?.data?.data?.songFix.map((val) => {

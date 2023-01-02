@@ -10,7 +10,7 @@ import {
 import { MdPostAdd } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { addSongAndPlay, addSong } from "../musicSlice"
-
+import URL from "../../../api/config"
 import "./SearchComponent.css"
 import { useNavigate } from "react-router-dom"
 const ComponentMusic = ({ song, key }) => {
@@ -19,7 +19,7 @@ const ComponentMusic = ({ song, key }) => {
   const dispatch = useDispatch()
   const handleClickAddMusic = (id) => {
     axios
-      .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+      .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
         const songSlice = {
           background: song.thumbnail,
@@ -38,7 +38,7 @@ const ComponentMusic = ({ song, key }) => {
 
   const handleClickListenMusic = (id) => {
     axios
-      .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
+      .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
         const songSlice = {
           background: song.thumbnail,
