@@ -8,12 +8,12 @@ import {
   BsFillStarFill,
   BsFillUmbrellaFill
 } from "react-icons/bs"
+import { MdHome } from "react-icons/md"
 import { FaTrash } from "react-icons/fa"
 import { Divider, message, Radio, Typography } from "antd"
 import { GoRadioTower } from "react-icons/go"
 import { AiTwotoneEdit } from "react-icons/ai"
 import { GrFormAdd } from "react-icons/gr"
-import { SiTestinglibrary } from "react-icons/si"
 import { Modal } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
@@ -38,8 +38,10 @@ export default function MainSidebar() {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [selected, setSelected] = useState("home")
+  const [selected, setSelected] = useState("personal")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
+  const [idEit, setIdEdit] = useState(false)
   const [namePlaylist, setNamePlayList] = useState("Enter name playlist here")
   const [isFirstLoad, setIsFirstLoad] = useState(true)
   useEffect(() => {
@@ -56,26 +58,42 @@ export default function MainSidebar() {
   }, [])
 
   const handleCreatePlaylist = async () => {
-    await axios
-      .post(`http://localhost:5050/api/v1/playlist`, {
-        username,
-        playlistName: namePlaylist
-      })
-      .then((res) => {
-        console.log(res)
-        setNamePlayList("Enter name playlist here")
-        axios
-          .get(`http://localhost:5050/api/v1/playlist/${username}`)
-          .then((res) => {
-            dispatch(setPlaylists({ playlists: res.data.playlists }))
-          })
-          .catch((err) => {
-            message.error(err.message)
-          })
-      })
-      .catch((err) => {
-        message.error(err.response.data.message)
-      })
+    if (isEdit) {
+      axios
+        .post("http://localhost:5050/api/v1/playlist/update-name-playlist", {
+          id: idEit,
+          playlistName: namePlaylist,
+          username
+        })
+        .then((res) => {
+          message.success("Sửa tên thành công!")
+          dispatch(updatePlaylist({ playlistName: namePlaylist, id: idEit }))
+        })
+        .catch((err) => {
+          message.error(err.response.data.message)
+        })
+    } else {
+      await axios
+        .post(`http://localhost:5050/api/v1/playlist`, {
+          username,
+          playlistName: namePlaylist
+        })
+        .then((res) => {
+          console.log(res)
+          setNamePlayList("Enter name playlist here")
+          axios
+            .get(`http://localhost:5050/api/v1/playlist/${username}`)
+            .then((res) => {
+              dispatch(setPlaylists({ playlists: res.data.playlists }))
+            })
+            .catch((err) => {
+              message.error(err.message)
+            })
+        })
+        .catch((err) => {
+          message.error(err.response.data.message)
+        })
+    }
 
     handleCancel()
   }
@@ -85,6 +103,7 @@ export default function MainSidebar() {
 
   const handleCancel = () => {
     setNamePlayList("Enter name playlist here")
+    setIsEdit(false)
     setIsModalOpen(false)
   }
 
@@ -96,7 +115,6 @@ export default function MainSidebar() {
       okText: "Delete",
       cancelText: "Cancel",
       onOk: () => {
-        console.log(playlistName)
         axios
           .post("http://localhost:5050/api/v1/playlist/delete-playlist", {
             username,
@@ -129,6 +147,13 @@ export default function MainSidebar() {
         break
     }
   }, [])
+
+  const edit = (name, id) => {
+    setIdEdit(id)
+    setIsEdit(true)
+    setNamePlayList(name)
+    showModal()
+  }
 
   return (
     <div>
@@ -170,6 +195,20 @@ export default function MainSidebar() {
               <NavLink className={"link"} to={"/radio"}>
                 <BiRadio style={{ fontSize: "2.2rem" }} />
                 <span className="pl-4">Radio</span>
+              </NavLink>
+            </li>
+            <li
+              onClick={() => {
+                setSelected("home")
+                navigate("/home")
+              }}
+              className={`sidebar__personal-item ${
+                selected === "home" && "active"
+              }`}
+            >
+              <NavLink className={"link"} to={"/home"}>
+                <MdHome style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Home</span>
               </NavLink>
             </li>
             <li
@@ -219,7 +258,10 @@ export default function MainSidebar() {
                   >
                     <FaTrash />
                   </div>
-                  <div className="sidebar__library-bot-extra-option">
+                  <div
+                    onClick={() => edit(playlist.playlistName, playlist._id)}
+                    className="sidebar__library-bot-extra-option"
+                  >
                     <AiTwotoneEdit />
                   </div>
                 </div>
@@ -248,7 +290,7 @@ export default function MainSidebar() {
                   key="create"
                   onClick={handleCreatePlaylist}
                 >
-                  Tạo
+                  {isEdit ? "Lưu" : "Tạo"}
                 </div>
                 <div
                   className="btn-create cancel"

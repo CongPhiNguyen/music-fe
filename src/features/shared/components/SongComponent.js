@@ -16,9 +16,7 @@ export default function SongComponent(props) {
   const dispatch = useDispatch()
   const isPlay = useSelector((state) => state.musicData.isPlay)
   const songsData = useSelector((state) => state.musicData?.songsData)
-  const username = useSelector(
-    (state) => state?.authen?.currentUserInfo?.username
-  )
+  const username = useSelector((state) => state.authen.currentUserInfo.username)
   const navigate = useNavigate()
   const handleClickNextSong = () => {
     if (!props.isActive) {
@@ -30,7 +28,12 @@ export default function SongComponent(props) {
         .then((res) => {
           const pathSong = res.data.detail.data[128]
           dispatch(
-            setCurrentSongAndUpdate({ pathSong, index: props.index, username })
+            setCurrentSongAndUpdate({
+              pathSong,
+              index: props.index,
+              username,
+              lyric: res.data.lyric.data.sentences
+            })
           )
         })
         .catch((err) => {
@@ -40,8 +43,7 @@ export default function SongComponent(props) {
   }
 
   const handleRemoveSong = () => {
-    console.log("123")
-    dispatch(removeSong({ index: props.index }))
+    dispatch(removeSong({ index: props.index, username }))
   }
 
   return (
@@ -59,18 +61,30 @@ export default function SongComponent(props) {
           className="next-song__item-img"
           style={{ backgroundImage: `url('${props.song.background}')` }}
         >
-          {isPlay ? (
-            <div className="next-song__item-playing-box">
-              <img
-                className="next-song__item-playing-box-img"
-                alt="play"
-                src="./assets/img/songs/icon-playing.gif"
-              />
-            </div>
-          ) : (
-            <div className="next-song__item-play-btn !flex">
-              <BsPlayFill />
-            </div>
+          {isPlay && (
+            <React.Fragment>
+              <div className="next-song__item-playing-box">
+                <img
+                  className="next-song__item-playing-box-img"
+                  alt="play"
+                  src="./assets/img/songs/icon-playing.gif"
+                />
+              </div>
+              <div className="next-song__item-action">
+                <span
+                  onClick={() => navigate(`/song?id=${props.song.id}`)}
+                  className="next-song__item-action-dot"
+                >
+                  <FaEye />
+                </span>
+                <span
+                  onClick={handleRemoveSong}
+                  className="next-song__item-action-dot"
+                >
+                  <FaTrash />
+                </span>
+              </div>
+            </React.Fragment>
           )}
         </div>
       ) : (

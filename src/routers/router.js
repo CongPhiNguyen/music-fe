@@ -32,6 +32,8 @@ const SongPage = React.lazy(() =>
   import("../features/shared/pages/SongPage.js")
 )
 const Search = React.lazy(() => import("../features/shared/pages/Search"))
+const Home = React.lazy(() => import("../features/shared/pages/Home.js"))
+const Playlist = React.lazy(() => import("../features/shared/pages/Playlist.js"))
 
 const mainRoute = [
   { path: "/", name: "Home", element: <MainHome /> },
@@ -76,14 +78,21 @@ const protectedRoute = [
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
-  { path: "/", name: "Home1", element: <MainHome /> },
-  { path: "/home", name: "Home", element: <MainHome /> },
-  { path: "/zing-chart", name: "Home", element: <MainHomeZingChart /> },
-  { path: "/search", name: "Home", element: <Search /> },
+  { path: "/", name: "personal", element: <MainHome /> },
+  { path: "/personal", name: "personal", element: <MainHome /> },
+  { path: "/zing-chart", name: "zing chart", element: <MainHomeZingChart /> },
+  { path: "/search", name: "search", element: <Search /> },
   { path: "/singer", name: "Singer", element: <SingerPage /> },
   { path: "/song", name: "Song", element: <SongPage /> },
   { path: "/radio", name: "Radio", element: <Radio /> },
   { path: "/user-profile", name: "User Profile", element: <UserProfile /> }
+  {
+    path: "/home", name: "Home", element: <Home />
+  },
+  {
+    path: "/playlist/:id", name: "playlist", element: <Playlist />
+  },
+  { path: "*", name: "personal", element: <MainHome /> },
 ]
 
 // Route dùng cho manager
