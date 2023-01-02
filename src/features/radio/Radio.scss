@@ -1,0 +1,114 @@
+.container {
+  margin-top: 40px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  .channel-bg {
+    line-height: 0;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    vertical-align: middle;
+  }
+  .content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 40px;
+  }
+  .avatar {
+    display: block;
+    width: 100px;
+    height: 120px;
+    border-radius: 50%;
+
+    box-shadow: rgba(238, 8, 8, 0.16) 0px 1px 4px,
+      rgb(51, 51, 51) 0px 0px 0px 3px;
+    overflow: hidden;
+    &:hover .action {
+      display: flex;
+    }
+    &:hover .thumb {
+      transform: scale(1.1);
+    }
+    margin-top: 20px;
+
+    .action {
+      position: absolute;
+      top: 18px;
+      left: 21px;
+      right: 17px;
+      bottom: 80px;
+      border-radius: 50%;
+      font-size: 4rem;
+      color: var(--text-primary);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+  }
+  .thumb {
+    line-height: 0;
+    left: 0;
+    position: relative;
+    transition: transform 0.6s;
+  }
+  .thumb.playing {
+    animation: rotating 10s linear infinite;
+  }
+
+  @keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-primary);
+  }
+
+  .name {
+    display: block;
+    font-weight: 700;
+  }
+
+  .listening {
+    color: #333;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 739px) {
+    .channel-bg {
+      display: none;
+    }
+    .avatar {
+      position: relative;
+    }
+    .content {
+      position: relative;
+    }
+    .listening {
+      color: var(--text-primary);
+    }
+  }
+}

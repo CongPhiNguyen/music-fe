@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = {}
+const initialState = {
+  hiddenSection: true
+}
 
 export const interactiveSlice = createSlice({
   name: "interactive",
@@ -24,10 +26,14 @@ export const interactiveSlice = createSlice({
     },
     setCurrenstSession: (state, action) => {
       state.currentSession = action.payload
+    },
+    setHiddenSession: (state, action) => {
+      state.hiddenSession = action.payload
     }
   }
 })
 
-export const { changeSong, setPlaying } = interactiveSlice.actions
+export const { changeSong, setPlaying, setHiddenSession } =
+  interactiveSlice.actions
 
 export default interactiveSlice.reducer

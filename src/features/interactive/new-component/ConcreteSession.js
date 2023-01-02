@@ -24,86 +24,93 @@ export default function ConcreteSession(props) {
         1
       )
     : 0
-  // console.log(props.hours * 3600 + props.minutes * 60 + props.seconds)
+  // console.log("props", props)
   return (
-    <Draggable>
-      <div className="px-[20px] bg-[#070707] w-[280px] ml-[20px] rounded-[24px] mt-[100px] text-[#fff] py-[12px] absolute">
-        <p className="text-[16px] px-[20px] mb-[-10px]">{props.name}</p>
-        <ReactApexChart
-          options={{
-            chart: {
-              height: 250,
-              type: "radialBar"
-            },
-            plotOptions: {
-              radialBar: {
-                hollow: {
-                  size: "70%"
-                },
-                dataLabels: {
-                  name: {
-                    // show: false,
-                    fontSize: "28px",
-                    color: "#fff"
+    <div>
+      <Draggable
+        onMouseDown={(e, data) => {
+          console.log(e, data)
+        }}
+      >
+        <div className="px-[20px] bg-[#070707] w-[280px] ml-[20px] rounded-[24px] mt-[100px] text-[#fff] py-[12px] absolute">
+          <p className="text-[16px] px-[20px] mb-[-10px]">{props.name}</p>
+          <ReactApexChart
+            options={{
+              chart: {
+                height: 250,
+                type: "radialBar"
+              },
+              plotOptions: {
+                radialBar: {
+                  hollow: {
+                    size: "70%"
                   },
-                  value: {
-                    show: false,
-                    fontSize: "16px",
-                    color: "#fff"
-                  },
-                  total: {
-                    // show: true,
-                    color: "#fff"
+                  dataLabels: {
+                    name: {
+                      // show: false,
+                      fontSize: "28px",
+                      color: "#fff"
+                    },
+                    value: {
+                      show: false,
+                      fontSize: "16px",
+                      color: "#fff"
+                    },
+                    total: {
+                      // show: true,
+                      color: "#fff"
+                    }
                   }
                 }
-              }
-            },
-            labels: [""]
-          }}
-          series={[value]}
-          type="radialBar"
-          height={300}
-        />
-        <div className="flex absolute top-[131px] left-[64px] text-[white] !text-[36px]">
-          <p className="p-[4px]">
-            {props.hours < 10 ? "0" + props.hours : props.hours}
-          </p>
-          <p className="mt-[4px]">:</p>
-          <p className="p-[4px]">
-            {props.minutes < 10 ? "0" + props.minutes : props.minutes}
-          </p>
-          <p className="mt-[4px]">:</p>
-          <p className="p-[4px]">
-            {props.seconds < 10 ? "0" + props.seconds : props.seconds}
-          </p>
-        </div>
-        {!props.isPause && (
-          <div className="flex justify-center absolute top-[200px] left-[103px]">
-            <AiOutlineBell size={18} />
-            <p className="text-[16px] ml-[2px] mt-[-3px]">
-              {formatHour(props.estimateEndTime)}
+              },
+              labels: [""]
+            }}
+            series={[value]}
+            type="radialBar"
+            height={300}
+          />
+          <div className="flex absolute top-[131px] left-[64px] text-[white] !text-[36px]">
+            <p className="p-[4px]">
+              {props.hours < 10 ? "0" + props.hours : props.hours}
+            </p>
+            <p className="mt-[4px]">:</p>
+            <p className="p-[4px]">
+              {props.minutes < 10 ? "0" + props.minutes : props.minutes}
+            </p>
+            <p className="mt-[4px]">:</p>
+            <p className="p-[4px]">
+              {props.seconds < 10 ? "0" + props.seconds : props.seconds}
             </p>
           </div>
-        )}
-
-        <div className="flex justify-center mt-[-20px]">
-          {!props.isPause ? (
-            <BsFillPauseCircleFill
-              size={32}
-              onClick={() => {
-                props.handlePause()
-              }}
-            />
-          ) : (
-            <BsFillPlayCircleFill
-              size={32}
-              onClick={() => {
-                props.handlePlay()
-              }}
-            />
+          {!props.isPause && (
+            <div className="flex justify-center absolute top-[200px] left-[103px]">
+              <AiOutlineBell size={18} />
+              <p className="text-[16px] ml-[2px] mt-[-3px]">
+                {formatHour(props.estimateEndTime)}
+              </p>
+            </div>
           )}
+          <div className="flex justify-center mt-[-20px] text-[white]z-[1000]">
+            {!props.isPause ? (
+              <BsFillPauseCircleFill
+                size={32}
+                onClick={() => {
+                  console.log("havertz")
+                  props?.handlePause()
+                }}
+              />
+            ) : (
+              <BsFillPlayCircleFill
+                size={32}
+                onClick={() => {
+                  console.log("kai")
+                  props?.handlePlay()
+                }}
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </Draggable>
+      </Draggable>
+    </div>
   )
 }

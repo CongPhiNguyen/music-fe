@@ -7,8 +7,11 @@ import Slider from "@mui/material/Slider"
 import { StoreContext } from "../../../store"
 import { chill, jazzy, sleep } from "../../../data/dataSong"
 import { faL } from "@fortawesome/free-solid-svg-icons"
+import { useDispatch } from "react-redux"
+import { setHiddenSession } from "../../../interactiveSlice"
 
 const LateralMenu = () => {
+  const dispatch = useDispatch()
   const [mood, setMood] = useState(false)
   const [playlist, setPlaylist] = useState(false)
   const [change, setChange] = useState(false)
@@ -382,7 +385,7 @@ const LateralMenu = () => {
         <div className="change-set m-[16px] max-h-[600px] rounded-[16px] overflow-y-auto">
           <div className="h-[42px] flex items-center justify-between">
             <h4 className="font-[700] text-[20px] text-white leading-[24px]">
-              Change Set
+              Thay đổi bối cảnh
             </h4>
           </div>
           <div className="mb-[16px] cursor-pointer bg-[#0005]">
@@ -463,28 +466,30 @@ const LateralMenu = () => {
         <div className="mx-[16px] py-[10px]">
           <div className="h-[54px] flex items-center justify-between">
             <h4 className="font-[700] text-[20px] text-white leading-[24px]">
-              Productivity
+              Sáng tạo
             </h4>
           </div>
           <div className="relative">
             <div>
-              <div className="bg-[hsla(0,0%,100%,.05)] flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]">
+              <div
+                className="bg-[hsla(0,0%,100%,.05)] 
+                hover:bg-[#8c6c45]
+                flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]"
+                onClick={() => {
+                  dispatch(setHiddenSession(false))
+                }}
+              >
                 <img
-                  className="brightness-[9] opacity-20 w-[28px] h-[28px]"
+                  className="brightness-[9] opacity-20 w-[28px] h-[28px] group-hover:brightness-[100] hover:opacity-100"
                   src="./assets/img/product/play.svg"
                   alt="play"
                 />
                 <h6 className="text-[16px] font-[500] leading-[16px] mx-[16px] text-white flex-1">
-                  Start Session
+                  Sử dụng Session
                 </h6>
-                <img
-                  className="w-[24px] h-[24px] opacity-10"
-                  src="./assets/img/product/lock.svg"
-                  alt="lock"
-                />
               </div>
             </div>
-            <div>
+            {/* <div>
               <div className="bg-[hsla(0,0%,100%,.05)] flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]">
                 <img
                   className="brightness-[9] opacity-20 w-[28px] h-[28px]"
@@ -500,7 +505,7 @@ const LateralMenu = () => {
                   alt="lock"
                 />
               </div>
-            </div>
+            </div> */}
             <div>
               <div className="bg-[hsla(0,0%,100%,.05)] flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]">
                 <img
@@ -509,7 +514,7 @@ const LateralMenu = () => {
                   alt="notes"
                 />
                 <h6 className="text-[16px] font-[500] leading-[16px] mx-[16px] text-white flex-1">
-                  Notes
+                  Ghi chú
                 </h6>
                 <img
                   className="w-[24px] h-[24px] opacity-10"
@@ -518,7 +523,7 @@ const LateralMenu = () => {
                 />
               </div>
             </div>
-            <div>
+            {/* <div>
               <div className="bg-[hsla(0,0%,100%,.05)] flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]">
                 <img
                   className="brightness-[9] opacity-20 w-[28px] h-[28px]"
@@ -534,7 +539,7 @@ const LateralMenu = () => {
                   alt="lock"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

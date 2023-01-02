@@ -15,7 +15,11 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { cookiesUtil } from "../../../utilities/cookiesUtils"
 import { GoogleOutlined } from "@ant-design/icons"
 import URL from "../../../api/config"
-
+import {
+  REGEX_INVALID_CHAR,
+  REGEX_INVALID_EMAIL,
+  REGEX_INVALID_FULLNAME
+} from "../../../constant/index.js"
 export default function Signup() {
   const navigate = useNavigate()
   const [isSendRequest, setIsSendRequest] = useState(false)
@@ -28,8 +32,12 @@ export default function Signup() {
     }
     setIsSendRequest(true)
     post(URL.URL_SIGN_UP, values)
-      .then((data) => {
-        navigate("/sign-otp")
+      .then((res) => {
+        if (res.data.success) {
+          navigate("/sign-otp/" + values.email)
+        } else {
+          message.error(res.data.errorMessage)
+        }
       })
       .catch((err) => {
         console.log("err", err)
@@ -67,7 +75,12 @@ export default function Signup() {
                   label="Tên đăng nhập"
                   name="username"
                   rules={[
-                    { required: true, message: "Please input your username!" }
+                    {
+                      require: true,
+                      pattern: /^[\d,\w,@]{8,50}$/,
+                      message:
+                        "Tên đăng nhập phải dài hơn 8 ký tự và nhỏ hơn 50 ký tự. Không chứa ký tự đặc biệt nào ngoài @"
+                    }
                   ]}
                 >
                   <Input />
@@ -78,7 +91,11 @@ export default function Signup() {
                   label="Email"
                   name="email"
                   rules={[
-                    { required: true, message: "Please input your mail!" }
+                    {
+                      required: true,
+                      pattern: REGEX_INVALID_EMAIL,
+                      message: "Email không hợp lệ"
+                    }
                   ]}
                 >
                   <div className="flex">
@@ -91,7 +108,12 @@ export default function Signup() {
                   label="Họ và tên"
                   name="name"
                   rules={[
-                    { required: true, message: "Please input your name!" }
+                    {
+                      required: true,
+                      pattern: REGEX_INVALID_FULLNAME,
+                      message:
+                        "Tên không được để trống, chứa số hay ký tự đặc biệt!"
+                    }
                   ]}
                 >
                   <Input />
@@ -101,7 +123,12 @@ export default function Signup() {
                   label="Mật khẩu"
                   name="password"
                   rules={[
-                    { required: true, message: "Mật khẩu không được để trống" }
+                    {
+                      required: true,
+                      pattern: /^.{8,50}$/,
+                      message:
+                        "Mật khẩu không được để trống, phải dài hơn 8 ký tự và ngắn hơn 50 ký tự"
+                    }
                   ]}
                 >
                   <Input.Password />
@@ -113,7 +140,8 @@ export default function Signup() {
                   rules={[
                     {
                       required: true,
-                      message: "Mật khẩu xác nhận không được để trông"
+                      message:
+                        "Mật khẩu xác nhận không được để trống, phải dài hơn 8 ký tự và ngắn hơn 50 ký tự"
                     }
                   ]}
                 >

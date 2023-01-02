@@ -1,78 +1,100 @@
-import React, { useState, useMemo } from "react"
+import React, { useState } from "react"
 import "./MainSidebar.css"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { PlayCircleFilled } from "@ant-design/icons"
-import {
-  FaCompactDisc,
-  FaListAlt,
-  FaMusic,
-  FaBuromobelexperte,
-  FaPhotoVideo
-} from "react-icons/fa"
+import { ExclamationCircleOutlined } from "@ant-design/icons"
 import {
   BsFillBarChartLineFill,
   BsFillStarFill,
   BsFillUmbrellaFill
 } from "react-icons/bs"
-import {
-  CheckOutlined,
-  HighlightOutlined,
-  SmileFilled,
-  SmileOutlined
-} from "@ant-design/icons"
+import { MdHome } from "react-icons/md"
+import { FaTrash } from "react-icons/fa"
 import { Divider, message, Radio, Typography } from "antd"
 import { GoRadioTower } from "react-icons/go"
 import { AiTwotoneEdit } from "react-icons/ai"
 import { GrFormAdd } from "react-icons/gr"
-import { SiTestinglibrary } from "react-icons/si"
 import { Modal } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useEffect } from "react"
-import { setPlaylists, selectedPlaylistFunct } from "../musicSlice"
+import {
+  setPlaylists,
+  selectedPlaylistFunct,
+  removePlaylist,
+  updatePlaylist
+} from "../musicSlice"
+
+import { BiRadio } from "react-icons/bi"
+
 export default function MainSidebar() {
   const isLogin = useSelector((state) => state.authen.isLogin)
-  const username = useSelector((state) => state.authen.currentUserInfo.username)
+  const username = useSelector(
+    (state) => state?.authen?.currentUserInfo?.username
+  )
   const playlists = useSelector((state) => state.musicData.playlists)
   const selectedPlaylist = useSelector(
     (state) => state.musicData.selectedPlaylist
   )
+  const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [selected, setSelected] = useState("home")
+  const [selected, setSelected] = useState("personal")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
+  const [idEit, setIdEdit] = useState(false)
   const [namePlaylist, setNamePlayList] = useState("Enter name playlist here")
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
   useEffect(() => {
-    axios
-      .get(`http://localhost:5050/api/v1/playlist/${username}`)
-      .then((res) => {
-        dispatch(setPlaylists({ playlists: res.data.playlists }))
-      })
-      .catch((err) => {
-        message.error(err.message)
-      })
+    if (username) {
+      axios
+        .get(`http://localhost:5050/api/v1/playlist/${username}`)
+        .then((res) => {
+          dispatch(setPlaylists({ playlists: res.data.playlists }))
+        })
+        .catch((err) => {
+          message.error(err.message)
+        })
+    }
   }, [])
 
   const handleCreatePlaylist = async () => {
-    await axios
-      .post(`http://localhost:5050/api/v1/playlist`, {
-        username,
-        playlistName: namePlaylist
-      })
-      .then((res) => {
-        setNamePlayList("Enter name playlist here")
-        axios
-          .get(`http://localhost:5050/api/v1/playlist/${username}`)
-          .then((res) => {
-            dispatch(setPlaylists({ playlists: res.data.playlists }))
-          })
-          .catch((err) => {
-            message.error(err.message)
-          })
-      })
-      .catch((err) => {
-        message.error(err.message)
-      })
+    if (isEdit) {
+      axios
+        .post("http://localhost:5050/api/v1/playlist/update-name-playlist", {
+          id: idEit,
+          playlistName: namePlaylist,
+          username
+        })
+        .then((res) => {
+          message.success("Sửa tên thành công!")
+          dispatch(updatePlaylist({ playlistName: namePlaylist, id: idEit }))
+        })
+        .catch((err) => {
+          message.error(err.response.data.message)
+        })
+    } else {
+      await axios
+        .post(`http://localhost:5050/api/v1/playlist`, {
+          username,
+          playlistName: namePlaylist
+        })
+        .then((res) => {
+          console.log(res)
+          setNamePlayList("Enter name playlist here")
+          axios
+            .get(`http://localhost:5050/api/v1/playlist/${username}`)
+            .then((res) => {
+              dispatch(setPlaylists({ playlists: res.data.playlists }))
+            })
+            .catch((err) => {
+              message.error(err.message)
+            })
+        })
+        .catch((err) => {
+          message.error(err.response.data.message)
+        })
+    }
 
     handleCancel()
   }
@@ -82,8 +104,61 @@ export default function MainSidebar() {
 
   const handleCancel = () => {
     setNamePlayList("Enter name playlist here")
+    setIsEdit(false)
     setIsModalOpen(false)
   }
+
+  const confirm = (playlistName) => {
+    Modal.confirm({
+      title: "Confirm",
+      icon: <ExclamationCircleOutlined />,
+      content: `Are you sure delete playlist "${playlistName}" ?`,
+      okText: "Delete",
+      cancelText: "Cancel",
+      onOk: () => {
+        axios
+          .post("http://localhost:5050/api/v1/playlist/delete-playlist", {
+            username,
+            playlistName
+          })
+          .then((res) => {
+            message.success("Delete success")
+            dispatch(removePlaylist({ playlistName }))
+          })
+          .catch((err) => {
+            message.error(err.response.data.message)
+          })
+      }
+    })
+  }
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case "/zing-chart":
+        setSelected("zing-chart")
+        break
+      case "/":
+        setSelected("home")
+        break
+      case "/personal":
+        setSelected("personal")
+        break
+      case "/radio":
+        setSelected("radio")
+        break
+      default:
+        setSelected("home")
+        break
+    }
+  }, [])
+
+  const edit = (name, id) => {
+    setIdEdit(id)
+    setIsEdit(true)
+    setNamePlayList(name)
+    showModal()
+  }
+
   return (
     <div>
       <div className="MainSidebar">
@@ -92,7 +167,7 @@ export default function MainSidebar() {
           onClick={() => navigate("/")}
         >
           <img src="/logo.png" alt="" className="w-[40px] ml-[20px] h-[40px]" />
-          <p className="text-[#fff] ml-[10px] mt-[6px] text-[600] text-[20px] hover:cursor-pointer">
+          <p className="text-[#fff] ml-[8px] mt-[6px] text-[600] text-[20px] hover:cursor-pointer">
             P2Tune
           </p>
         </div>
@@ -101,31 +176,22 @@ export default function MainSidebar() {
             <li
               onClick={() => {
                 setSelected("home")
+                navigate("/home")
               }}
               className={`sidebar__personal-item ${
                 selected === "home" && "active"
               }`}
             >
-              <NavLink className={"link"} to={"/"}>
-                <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4"> Cá Nhân</span>
+              <NavLink className={"link"} to={"/home"}>
+                <MdHome style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Home</span>
               </NavLink>
             </li>
-            {/* <li className="sidebar__personal-item">
-            <NavLink className={"link"} to={"/home"}>
-              <FaCompactDisc style={{ fontSize: "2.2rem" }} />
-              <span className="pl-4"> Khám Phá</span>
-            </NavLink>
-          </li> */}
-            {/* <li className="sidebar__personal-item">
-            <NavLink className={"link"} to={"/home"}>
-              <FaListAlt style={{ fontSize: "2rem" }} />
-              <span className="pl-4"> Theo Dõi</span>
-            </NavLink>
-          </li> */}
+
             <li
               onClick={() => {
                 setSelected("zing-chart")
+                navigate("/zing-chart")
               }}
               className={`sidebar__personal-item ${
                 selected === "zing-chart" && "active"
@@ -136,62 +202,46 @@ export default function MainSidebar() {
                 <span className="pl-4"> Bảng xếp hạng</span>
               </NavLink>
             </li>
-            <li className="sidebar__library-top-item">
+            <li
+              className="sidebar__library-top-item"
+              onClick={() => navigate("/interactive")}
+            >
               <NavLink className={"link"} to={"/interactive"}>
                 <BsFillUmbrellaFill style={{ fontSize: "2.2rem" }} />
                 <span className="pl-4">Interactive</span>
               </NavLink>
             </li>
-            {/* <li className="sidebar__library-top-item">
-              <NavLink className={"link"} to={"/test"}>
-                <SiTestinglibrary style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4">Test</span>
+            <li
+              onClick={() => {
+                setSelected("radio")
+                navigate("/radio")
+              }}
+              className={`sidebar__personal-item ${
+                selected === "radio" && "active"
+              }`}
+            >
+              <NavLink className={"link"} to={"/radio"}>
+                <BiRadio style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Radio</span>
               </NavLink>
-            </li> */}
-            {/* <li className="sidebar__personal-item">
-            <NavLink className={"link"} to={"/"}>
-              <GoRadioTower style={{ fontSize: "2.2rem" }} />
-              <span className="pl-4"> Radio</span>
-            </NavLink>
-          </li> */}
+            </li>
+            <li
+              onClick={() => {
+                setSelected("personal")
+                navigate("/personal")
+              }}
+              className={`sidebar__personal-item ${
+                selected === "personal" && "active"
+              }`}
+            >
+              <NavLink className={"link"} to={"/"}>
+                <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Cá Nhân</span>
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="sildebar__line"></div>
-        {/* <div className="sildebar__library">
-        <div className="sidebar__library-top">
-          <ul className="sidebar__library-top-list">
-            <li className="sidebar__library-top-item">
-              <NavLink className={"link"} to={"/"}>
-                <FaMusic style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4"> Nhạc Mới</span>
-              </NavLink>
-            </li>
-            <li className="sidebar__library-top-item">
-              <NavLink className={"link"} to={"/"}>
-                <FaBuromobelexperte style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4"> Thể Loại</span>
-              </NavLink>
-            </li>
-            <li className="sidebar__library-top-item">
-              <NavLink className={"link"} to={"/"}>
-                <BsFillStarFill style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4"> Top 100</span>
-              </NavLink>
-            </li>
-            <li className="sidebar__library-top-item">
-              <NavLink className={"link"} to={"/"}>
-                <FaPhotoVideo style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4"> MV</span>
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-        {/* <div className="sidebar__library-center">
-          <span className="sidebar__library-center-heading">
-            Nghe nhạc không quảng cáo cùng kho nhạc VIP
-          </span>
-          <span className="sidebar__library-center-vip">Nâng cấp vip</span>
-        </div> */}
         {isLogin && (
           <div className="sidebar__library-bot">
             <div className="sidebar__library-bot-title">PLAY LIST</div>
@@ -207,9 +257,18 @@ export default function MainSidebar() {
                   }`}
                 >
                   {playlist.playlistName}
-                  <span className="sidebar__library-bot-extra-option">
+                  <div
+                    onClick={() => confirm(playlist.playlistName)}
+                    className="sidebar__library-bot-extra-option trash"
+                  >
+                    <FaTrash />
+                  </div>
+                  <div
+                    onClick={() => edit(playlist.playlistName, playlist._id)}
+                    className="sidebar__library-bot-extra-option"
+                  >
                     <AiTwotoneEdit />
-                  </span>
+                  </div>
                 </div>
               )
             })}
@@ -236,7 +295,7 @@ export default function MainSidebar() {
                   key="create"
                   onClick={handleCreatePlaylist}
                 >
-                  Tạo
+                  {isEdit ? "Lưu" : "Tạo"}
                 </div>
                 <div
                   className="btn-create cancel"

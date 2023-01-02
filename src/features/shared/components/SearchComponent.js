@@ -1,14 +1,21 @@
 import axios from "axios"
 import React from "react"
-import { FaPhotoVideo, FaHeart, FaEllipsisH, FaPlay } from "react-icons/fa"
+import {
+  FaPhotoVideo,
+  FaHeart,
+  FaEllipsisH,
+  FaPlay,
+  FaEye
+} from "react-icons/fa"
 import { MdPostAdd } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { addSongAndPlay, addSong } from "../musicSlice"
 
 import "./SearchComponent.css"
+import { useNavigate } from "react-router-dom"
 const ComponentMusic = ({ song, key }) => {
   const username = useSelector((state) => state.authen.currentUserInfo.username)
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleClickAddMusic = (id) => {
     axios
@@ -19,7 +26,8 @@ const ComponentMusic = ({ song, key }) => {
           name: song.title,
           singer: song.artistsNames,
           pathSong: res.data.detail.data[128],
-          duration: song.duration
+          duration: song.duration,
+          id
         }
         dispatch(addSong({ song: songSlice, username }))
       })
@@ -32,21 +40,14 @@ const ComponentMusic = ({ song, key }) => {
     axios
       .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
-        console.log(res.data.lyric.data.file)
-        console.log(JSON.parse(res.data.lyric.data.file))
-        fetch(res.data.lyric.data.file)
-          .then((result) => {
-            console.log(result)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
         const songSlice = {
           background: song.thumbnail,
           name: song.title,
           singer: song.artistsNames,
           pathSong: res.data.detail.data[128],
-          duration: song.duration
+          duration: song.duration,
+          id,
+          lyric: res.data.lyric.data.sentences
         }
         dispatch(addSongAndPlay({ song: songSlice, username }))
       })
@@ -93,6 +94,12 @@ const ComponentMusic = ({ song, key }) => {
           className="overview__allsong-item-end-tym !text-white"
         >
           <FaPlay />
+        </span>
+        <span
+          onClick={() => navigate(`/song?id=${song.encodeId}`)}
+          className="overview__allsong-item-end-tym !text-[white]"
+        >
+          <FaEye />
         </span>
         {/* <span className="overview__allsong-item-end-tym">
           <FaHeart />

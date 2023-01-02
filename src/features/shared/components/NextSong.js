@@ -123,7 +123,7 @@ export default function NextSong() {
               </h2>
               {songsData.length === 0 ? (
                 <h3 className="next-song__last-heading">
-                  Bạn hiện chưa nghẹ nhạc
+                  Bạn hiện chưa nghe nhạc
                 </h3>
               ) : (
                 <>

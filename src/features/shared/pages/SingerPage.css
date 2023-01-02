@@ -1,0 +1,40 @@
+.singer-page {
+  margin-top: 50px;
+  padding: 50px;
+}
+
+.singer-header-img {
+  border-radius: 50%;
+  max-width: 300px;
+}
+
+.singer-name {
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+  margin: 0;
+}
+
+.singer-birthday {
+  font-size: 2rem;
+  color: white;
+  margin: 0;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.singer-follow {
+  margin: 0;
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.649);
+  margin: 0;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.793);
+  border-radius: 16px;
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.205);
+}
+
+.singer-biography {
+  color: white;
+}

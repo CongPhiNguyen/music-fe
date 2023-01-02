@@ -9,10 +9,12 @@ import Layout from "../features/shared/pages/Layout"
 const Routers = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    get(URL.URL_REFESH)
+    get(URL.URL_REFRESH)
       .then((data) => {
-        dispatch(setCurrentUserInfo({ username: data?.data?.username }))
-        dispatch(handleLogin({ info: data?.data?.data }))
+        if (data?.data?.success) {
+          dispatch(setCurrentUserInfo({ username: data?.data?.username }))
+          dispatch(handleLogin({ info: data?.data?.data }))
+        }
       })
       .catch((err) => {
         console.log("err", err)
