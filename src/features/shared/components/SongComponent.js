@@ -20,7 +20,7 @@ export default function SongComponent(props) {
                 .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${song.id}`)
                 .then((res) => {
                     const pathSong = res.data.detail.data[128]
-                    dispatch(setCurrentSongAndUpdate({ pathSong, index: props.index, username }))
+                    dispatch(setCurrentSongAndUpdate({ pathSong, index: props.index, username, lyric: res.data.lyric.data.sentences }))
                 })
                 .catch((err) => {
                     console.log(err)

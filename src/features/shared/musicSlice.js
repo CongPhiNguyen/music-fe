@@ -46,6 +46,7 @@ export const musicDataSlice = createSlice({
           state.songsData = state.songsData.map((song, index) => {
             if (index === action.payload.index) {
               song.pathSong = action.payload.pathSong
+              song.lyric = action.payload.lyric
             }
             return song
           })
@@ -58,6 +59,7 @@ export const musicDataSlice = createSlice({
             songs: state.selectedPlaylist.songs.map((song, index) => {
               if (index === action.payload.index) {
                 song.pathSong = action.payload.pathSong
+                song.lyric = action.payload.lyric
                 state.heardRecently.push(song)
                 localStorage.setItem("songdata", JSON.stringify(state.heardRecently))
               }

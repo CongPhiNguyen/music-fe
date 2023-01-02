@@ -5,15 +5,20 @@ import { get } from "../../../api/axios"
 import "./SongPage.css"
 import { Row, Col, Spin } from 'antd'
 import { FaPlay, FaHeart } from 'react-icons/fa'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { addSongAndPlay } from '../musicSlice'
+
 export default function SongPage() {
+    const dispatch = useDispatch()
     const location = useLocation()
     const [detail, setDetail] = useState(null)
+    const username = useSelector((state) => state.authen.currentUserInfo.username)
     const [lyric, setLyric] = useState(null)
     useEffect(() => {
         const fetchApi = async () => {
             get('http://localhost:5050/api/v1/zing/get-song-by-id' + location.search)
                 .then(res => {
-                    console.log(res.data)
                     setDetail(res.data.detail.data)
                     setLyric(res.data.lyric?.data)
                 })
@@ -23,6 +28,26 @@ export default function SongPage() {
         }
         fetchApi()
     }, [])
+
+    const handleListenToMusic = () => {
+        axios
+            .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${detail.encodeId}`)
+            .then((res) => {
+                const songSlice = {
+                    background: detail.thumbnail,
+                    name: detail.title,
+                    singer: detail.artistsNames,
+                    pathSong: res.data.detail.data[128],
+                    duration: detail.duration,
+                    id: detail.encodeId,
+                    lyric: res.data.lyric.data.sentences
+                }
+                dispatch(addSongAndPlay({ song: songSlice, username }))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     const convertTime = (duration) => {
         var hours = Math.floor(duration / 60)
@@ -57,7 +82,7 @@ export default function SongPage() {
                 <Row gutter={[24, 24]}>
                     <Col span={24}>
                         <div className='song-body-control'>
-                            <div className='song-body-play'>
+                            <div onClick={handleListenToMusic} className='song-body-play'>
                                 <FaPlay></FaPlay>
                             </div>
                             <div className='song-body-heart'>
