@@ -33,7 +33,7 @@ export default function SongPage() {
     axios
       .get(
         URL.BASE_API_ENDPOINT +
-          `/zing/get-detail-song?idSong=${detail.encodeId}`
+        `/zing/get-detail-song?idSong=${detail.encodeId}`
       )
       .then((res) => {
         const songSlice = {
@@ -120,11 +120,30 @@ export default function SongPage() {
             </div>
           </Col>
           <Col span={16}>
-            <div className="lyric-title">Lyric</div>
-            <pre
+            <div className="lyric-title">Lyric:</div>
+            {/* <pre
               className="lyric-content"
               dangerouslySetInnerHTML={{ __html: lyric.lyric }}
-            ></pre>
+            ></pre> */}
+            {
+              lyric.sentences ? (<>
+                {lyric.sentences.map((value, key) => {
+                  return (
+                    <div key={key} style={{ textAlign: "start", fontSize: "20px", paddingBottom: "15px", paddingLeft: "50px" }} className="music-control__left-content-song">
+                      {value.words.map((item, key1) => {
+                        return (
+                          <span className={`word-lyric`} style={{ paddingRight: "10px" }} key={key1}>{item.data}</span>
+                        )
+                      })}
+                    </div>
+                  )
+                })}
+              </>) : (
+                <div style={{ textAlign: "center", fontSize: "24px" }} className="music-control__left-content-song">
+                  Bài hát hiện chưa có lời
+                </div>
+              )
+            }
           </Col>
         </Row>
       </div>
