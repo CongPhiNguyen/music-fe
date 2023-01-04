@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentSong, changeIsPlay, setCurrentSongAndUpdate, removeSong } from '../musicSlice'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { message } from 'antd'
 export default function SongComponent(props) {
     const dispatch = useDispatch()
     const isPlay = useSelector(state => state.musicData.isPlay)
@@ -19,8 +20,13 @@ export default function SongComponent(props) {
             axios
                 .get(`http://localhost:5050/api/v1/zing/get-detail-song?idSong=${song.id}`)
                 .then((res) => {
-                    const pathSong = res.data.detail.data[128]
-                    dispatch(setCurrentSongAndUpdate({ pathSong, index: props.index, username, lyric: res.data.lyric.data.sentences }))
+                    if (res?.data?.detail?.err !== -1150) {
+                        const pathSong = res.data.detail.data[128]
+                        dispatch(setCurrentSongAndUpdate({ pathSong, index: props.index, username, lyric: res.data.lyric.data.sentences }))
+
+                    } else {
+                        message.success("Bài nhạc dành cho người có tài khoản VIP")
+                    }
                 })
                 .catch((err) => {
                     console.log(err)

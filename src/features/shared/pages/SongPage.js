@@ -3,7 +3,7 @@ import NavUser from "../components/NavUser"
 import { useLocation } from "react-router-dom"
 import { get } from "../../../api/axios"
 import "./SongPage.css"
-import { Row, Col, Spin } from "antd"
+import { Row, Col, Spin, message } from "antd"
 import { FaPlay, FaHeart } from "react-icons/fa"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
@@ -36,16 +36,20 @@ export default function SongPage() {
         `/zing/get-detail-song?idSong=${detail.encodeId}`
       )
       .then((res) => {
-        const songSlice = {
-          background: detail.thumbnail,
-          name: detail.title,
-          singer: detail.artistsNames,
-          pathSong: res.data.detail.data[128],
-          duration: detail.duration,
-          id: detail.encodeId,
-          lyric: res.data.lyric.data.sentences
+        if (res?.data?.detail?.err !== -1150) {
+          const songSlice = {
+            background: detail.thumbnail,
+            name: detail.title,
+            singer: detail.artistsNames,
+            pathSong: res.data.detail.data[128],
+            duration: detail.duration,
+            id: detail.encodeId,
+            lyric: res.data.lyric.data.sentences
+          }
+          dispatch(addSongAndPlay({ song: songSlice, username }))
+        } else {
+          message.success("Bài nhạc dành cho người có tài khoản VIP")
         }
-        dispatch(addSongAndPlay({ song: songSlice, username }))
       })
       .catch((err) => {
         console.log(err)
