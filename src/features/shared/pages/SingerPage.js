@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { get } from "../../../api/axios"
 import "./SingerPage.css"
 import NavUser from "../components/NavUser"
-import { Row, Col, Spin } from "antd"
+import { Row, Col, Spin, message } from "antd"
 import { useSelector, useDispatch } from "react-redux"
 import { FaEllipsisH, FaPlay, FaEye } from "react-icons/fa"
 import { MdPostAdd } from "react-icons/md"
@@ -214,15 +214,20 @@ function ComponentSong({ song }) {
     axios
       .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
-        const songSlice = {
-          background: song.thumbnail,
-          name: song.title,
-          singer: song.artistsNames,
-          pathSong: res.data.detail.data[128],
-          duration: song.duration,
-          id
+        if (res?.data?.detail?.err !== -1150) {
+          const songSlice = {
+            background: song.thumbnail,
+            name: song.title,
+            singer: song.artistsNames,
+            pathSong: res.data.detail.data[128],
+            duration: song.duration,
+            id
+          }
+          dispatch(addSong({ song: songSlice, username }))
+
+        } else {
+          message.success("Bài nhạc dành cho người có tài khoản VIP")
         }
-        dispatch(addSong({ song: songSlice, username }))
       })
       .catch((err) => {
         console.log(err)
@@ -233,16 +238,21 @@ function ComponentSong({ song }) {
     axios
       .get(URL.BASE_API_ENDPOINT + `/zing/get-detail-song?idSong=${id}`)
       .then((res) => {
-        const songSlice = {
-          background: song.thumbnail,
-          name: song.title,
-          singer: song.artistsNames,
-          pathSong: res.data.detail.data[128],
-          duration: song.duration,
-          id,
-          lyric: res.data.lyric.data.sentences
+        if (res?.data?.detail?.err !== -1150) {
+
+          const songSlice = {
+            background: song.thumbnail,
+            name: song.title,
+            singer: song.artistsNames,
+            pathSong: res.data.detail.data[128],
+            duration: song.duration,
+            id,
+            lyric: res.data.lyric.data.sentences
+          }
+          dispatch(addSongAndPlay({ song: songSlice, username }))
+        } else {
+          message.success("Bài nhạc dành cho người có tài khoản VIP")
         }
-        dispatch(addSongAndPlay({ song: songSlice, username }))
       })
       .catch((err) => {
         console.log(err)

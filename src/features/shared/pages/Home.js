@@ -43,7 +43,7 @@ export default function Home() {
               <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] pb-10 ">
                 {home[11].title}
               </h1>
-              {home[11].items.map((theme, key) => (
+              {home[11]?.items?.map((theme, key) => (
                 <React.Fragment key={key}>
                   <div className="overview-option-song__heading flex">
                     <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
