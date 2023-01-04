@@ -45,7 +45,7 @@ export default function Header() {
             onClick={() => {
               cookiesUtil.remove("jwt")
               navigate("/login")
-              message.success("Logout successfully")
+              message.success("Đăng xuất thành công")
               dispatch(setCurrentUserInfo({}))
             }}
           >

@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState, LegacyRef } from "react"
 import "./MusicControl.css"
-import {
-  FaRandom,
-  FaRedoAlt
-} from "react-icons/fa"
+import { FaRandom, FaRedoAlt } from "react-icons/fa"
 import { BiSquare } from "react-icons/bi"
 import { TiDeleteOutline } from "react-icons/ti"
 import { GiMicrophone } from "react-icons/gi"
@@ -47,7 +44,7 @@ export default function MusicControl() {
   }
 
   useEffect(() => {
-    console.log(songsData[indexSong]);
+    console.log(songsData[indexSong])
   }, [indexSong])
 
   useEffect(() => {
@@ -90,21 +87,21 @@ export default function MusicControl() {
   const formatTime = (number) => {
     const minutes = Math.floor(number / 60)
     const seconds = Math.floor(number - minutes * 60)
-    return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds
-      }`
+    return `${minutes < 10 ? "0" + minutes : minutes}:${
+      seconds < 10 ? "0" + seconds : seconds
+    }`
   }
 
   useEffect(() => {
     lyricRef?.current?.scrollIntoView({
-      behavior: 'smooth',
+      behavior: "smooth",
       inline: "center",
-      block: "center",
+      block: "center"
     })
   }, [currentTime])
 
   const handleTimeUpdate = () => {
     if (radioRef.current.duration) {
-
       setCurrentTime((radioRef.current.currentTime * 1000).toFixed(0))
       setCurrentTimeMusic(formatTime(radioRef.current.currentTime))
       const progressPercent = Math.floor(
@@ -182,16 +179,29 @@ export default function MusicControl() {
 
   return (
     <div className="music-control">
-      <div style={{ display: isShowLyric ? "flex" : "none" }} onClick={() => setIsShowLyric(false)} className="music-control-wrapper">
-        <div onClick={(e) => e.stopPropagation()} className="music-control-wrapper_lyric">
+      <div
+        style={{ display: isShowLyric ? "flex" : "none" }}
+        onClick={() => setIsShowLyric(false)}
+        className="music-control-wrapper"
+      >
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="music-control-wrapper_lyric"
+        >
           <div style={{ display: "flex", justifyContent: "end" }}>
-            <div onClick={() => setIsShowLyric(false)} className="music-control-wrapper_lyric-btn">
+            <div
+              onClick={() => setIsShowLyric(false)}
+              className="music-control-wrapper_lyric-btn"
+            >
               <TiDeleteOutline />
             </div>
           </div>
           <Row>
             <Col span={8}>
-              <div style={{ textAlign: "center", fontSize: "24px" }} className="music-control__left-content-song">
+              <div
+                style={{ textAlign: "center", fontSize: "24px" }}
+                className="music-control__left-content-song"
+              >
                 {songsData[indexSong]?.name}
               </div>
               <div className="music-control-wrapper_lyric-img">
@@ -200,28 +210,59 @@ export default function MusicControl() {
             </Col>
             <Col span={16}>
               <div style={{ position: "relative" }}>
-                <div ref={lyricBody} className="music-control-wrapper_lyric-body">
-                  {
-                    songsData[indexSong]?.lyric ? (<>
+                <div
+                  ref={lyricBody}
+                  className="music-control-wrapper_lyric-body"
+                >
+                  {songsData[indexSong]?.lyric ? (
+                    <>
                       {songsData[indexSong]?.lyric.map((value, key) => {
                         const startTime = value.words[0].startTime
-                        const endTime = value.words[value.words.length - 1].endTime
+                        const endTime =
+                          value.words[value.words.length - 1].endTime
                         return (
-                          <div ref={currentTime > startTime && currentTime < endTime ? lyricRef : null} key={key} style={{ textAlign: "start", fontSize: "20px", paddingBottom: "15px", paddingLeft: "50px" }} className="music-control__left-content-song">
+                          <div
+                            ref={
+                              currentTime > startTime && currentTime < endTime
+                                ? lyricRef
+                                : null
+                            }
+                            key={key}
+                            style={{
+                              textAlign: "start",
+                              fontSize: "20px",
+                              paddingBottom: "15px",
+                              paddingLeft: "50px"
+                            }}
+                            className="music-control__left-content-song"
+                          >
                             {value.words.map((item, key1) => {
                               return (
-                                <span className={`word-lyric ${currentTime > item.startTime && currentTime < item.endTime && "active"}`} style={{ paddingRight: "10px" }} key={key1}>{item.data}</span>
+                                <span
+                                  className={`word-lyric ${
+                                    currentTime > item.startTime &&
+                                    currentTime < item.endTime &&
+                                    "active"
+                                  }`}
+                                  style={{ paddingRight: "10px" }}
+                                  key={key1}
+                                >
+                                  {item.data}
+                                </span>
                               )
                             })}
                           </div>
                         )
                       })}
-                    </>) : (
-                      <div style={{ textAlign: "center", fontSize: "24px" }} className="music-control__left-content-song">
-                        Bài hát hiện chưa có lời
-                      </div>
-                    )
-                  }
+                    </>
+                  ) : (
+                    <div
+                      style={{ textAlign: "center", fontSize: "24px" }}
+                      className="music-control__left-content-song"
+                    >
+                      Bài hát hiện chưa có lời
+                    </div>
+                  )}
                 </div>
                 <div className="music-control-wrapper_lyric-overlay"></div>
               </div>
@@ -239,8 +280,9 @@ export default function MusicControl() {
               <div
                 ref={cdThumbAnimate}
                 style={{
-                  backgroundImage: `url('${indexSong !== null && songsData[indexSong]?.background
-                    }')`
+                  backgroundImage: `url('${
+                    indexSong !== null && songsData[indexSong]?.background
+                  }')`
                 }}
                 className={`music-control__left-img `}
               ></div>
@@ -313,6 +355,7 @@ export default function MusicControl() {
                 ref={radioRef}
                 id="audio"
                 src={indexSong !== null && songsData[indexSong].pathSong}
+                muted={isMute}
               ></audio>
               <input
                 onChange={handleChangeMusic}
@@ -336,7 +379,10 @@ export default function MusicControl() {
           <div className="music-control-right">
             {/* <FaPhotoVideo className="music-control__right-action-option"></FaPhotoVideo> */}
             {/* <FaMicrophone className="music-control__right-action-option"></FaMicrophone> */}
-            <GiMicrophone onClick={() => setIsShowLyric(true)} className="music-control__right-action-option"></GiMicrophone>
+            <GiMicrophone
+              onClick={() => setIsShowLyric(true)}
+              className="music-control__right-action-option"
+            ></GiMicrophone>
             {isMute ? (
               <BsFillVolumeMuteFill
                 onClick={() => {

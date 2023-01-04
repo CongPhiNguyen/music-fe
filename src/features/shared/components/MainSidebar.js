@@ -27,6 +27,9 @@ import {
 
 import { BiRadio } from "react-icons/bi"
 import URL from "../../../api/config"
+
+import { FaUserAlt } from "react-icons/fa"
+
 export default function MainSidebar() {
   const isLogin = useSelector((state) => state.authen.isLogin)
   const username = useSelector(
@@ -122,7 +125,7 @@ export default function MainSidebar() {
             playlistName
           })
           .then((res) => {
-            message.success("Delete success")
+            message.success("Xóa playlist thành công")
             dispatch(removePlaylist({ playlistName }))
           })
           .catch((err) => {
@@ -203,15 +206,6 @@ export default function MainSidebar() {
               </NavLink>
             </li>
             <li
-              className="sidebar__library-top-item"
-              onClick={() => navigate("/interactive")}
-            >
-              <NavLink className={"link"} to={"/interactive"}>
-                <BsFillUmbrellaFill style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4">Interactive</span>
-              </NavLink>
-            </li>
-            <li
               onClick={() => {
                 setSelected("radio")
                 navigate("/radio")
@@ -226,19 +220,31 @@ export default function MainSidebar() {
               </NavLink>
             </li>
             <li
-              onClick={() => {
-                setSelected("personal")
-                navigate("/personal")
-              }}
-              className={`sidebar__personal-item ${
-                selected === "personal" && "active"
-              }`}
+              className="sidebar__library-top-item"
+              onClick={() => navigate("/interactive")}
             >
-              <NavLink className={"link"} to={"/"}>
-                <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
-                <span className="pl-4">Cá Nhân</span>
+              <NavLink className={"link"} to={"/interactive"}>
+                <BsFillUmbrellaFill style={{ fontSize: "2.2rem" }} />
+                <span className="pl-4">Interactive</span>
               </NavLink>
             </li>
+
+            {username && (
+              <li
+                onClick={() => {
+                  setSelected("personal")
+                  navigate("/personal")
+                }}
+                className={`sidebar__personal-item ${
+                  selected === "personal" && "active"
+                }`}
+              >
+                <NavLink className={"link"} to={"/"}>
+                  <FaUserAlt style={{ fontSize: "2.2rem" }} />
+                  <span className="pl-4">Cá Nhân</span>
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
         <div className="sildebar__line"></div>

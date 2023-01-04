@@ -80,7 +80,7 @@ const protectedRoute = [
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
-  { path: "/", name: "personal", element: <MainHome /> },
+  { path: "/", name: "home", element: <Home /> },
   { path: "/personal", name: "personal", element: <MainHome /> },
   { path: "/zing-chart", name: "zing chart", element: <MainHomeZingChart /> },
   { path: "/search", name: "search", element: <Search /> },

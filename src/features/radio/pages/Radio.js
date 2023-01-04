@@ -23,13 +23,15 @@ export default function Radio() {
       })
   }, [])
 
-  if (isLoading) {
+  if (isLoading)
     return (
-      <div className="main-home text-center pt-[200px]">
-        <Spin />
+      <div className="main-home text-center mt-[15%]">
+        <Spin size="large" />
+        <p className="mt-[12px] text-[16px] text-[#fff]">
+          Đợi xíu nhé, thông tin radio đang được load...
+        </p>
       </div>
     )
-  }
 
   return (
     <div className="main-home">

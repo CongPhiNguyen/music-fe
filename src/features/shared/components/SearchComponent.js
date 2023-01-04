@@ -7,6 +7,7 @@ import {
   FaPlay,
   FaEye
 } from "react-icons/fa"
+import { Spin } from "antd"
 import { MdPostAdd } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { addSongAndPlay, addSong } from "../musicSlice"
@@ -59,6 +60,8 @@ const ComponentMusic = ({ song, key }) => {
   const convertTime = (duration) => {
     var hours = Math.floor(duration / 60)
     var minutes = duration % 60
+    if (hours < 10) hours = "0" + hours
+    if (minutes < 10) minutes = "0" + minutes
     return hours + ":" + minutes
   }
 
@@ -116,11 +119,20 @@ export default function SearchComponent(props) {
   return (
     <div className="search-main">
       <div className="zing-chart__heading">Kết quả tìm kiếm</div>
-      <ul style={{ listStyle: "none" }}>
-        {props?.songs?.map((song, key) => (
-          <ComponentMusic song={song} key={key}></ComponentMusic>
-        ))}
-      </ul>
+      {props.isLoading ? (
+        <div className="main-home text-center mt-[300px]">
+          <Spin size="large" />
+          <p className="mt-[12px] text-[16px] text-[#fff]">
+            Đang tìm kiếm, đợi xíu nhé...
+          </p>
+        </div>
+      ) : (
+        <ul style={{ listStyle: "none" }}>
+          {props?.songs?.map((song, key) => (
+            <ComponentMusic song={song} key={key}></ComponentMusic>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

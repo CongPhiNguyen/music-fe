@@ -1,5 +1,6 @@
 import React from "react"
+import "./Personal.css"
 
 export default function UserProfile() {
-  return <div>UserProfile</div>
+  return <div className="main-home-personal">UserProfile</div>
 }

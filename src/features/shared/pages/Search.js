@@ -9,12 +9,14 @@ export default function Search() {
   const location = useLocation()
   const param = useParams()
   const [songs, setSongs] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const fetchApiSearch = async () => {
       axios
         .get(URL.BASE_API_ENDPOINT + `/zing/search` + location.search)
         .then((res) => {
           setSongs(res.data.data.data.songs)
+          setIsLoading(false)
         })
         .catch((err) => {
           console.log(err)
@@ -26,7 +28,7 @@ export default function Search() {
   return (
     <div className="main-home">
       <NavUser></NavUser>
-      <SearchComponent songs={songs}></SearchComponent>
+      <SearchComponent songs={songs} isLoading={isLoading}></SearchComponent>
     </div>
   )
 }

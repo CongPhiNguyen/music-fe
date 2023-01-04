@@ -506,7 +506,7 @@ const LateralMenu = () => {
                 />
               </div>
             </div> */}
-            <div>
+            {/* <div>
               <div className="bg-[hsla(0,0%,100%,.05)] flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]">
                 <img
                   className="brightness-[9] opacity-20 w-[28px] h-[28px]"
@@ -522,7 +522,7 @@ const LateralMenu = () => {
                   alt="lock"
                 />
               </div>
-            </div>
+            </div> */}
             {/* <div>
               <div className="bg-[hsla(0,0%,100%,.05)] flex items-center rounded-[13px] cursor-pointer flex-row mb-[12px] py-[8px] pl-[16px] pr-[8px]">
                 <img

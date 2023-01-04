@@ -36,7 +36,7 @@ export default function SignOTP() {
 
   const sendOTP = (email) => {
     if (email.length === 0) {
-      message.error("The email can not be blanked")
+      message.error("Không được để trống email")
       return
     }
     setIsSendingRequest(true)
