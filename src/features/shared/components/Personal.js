@@ -33,7 +33,7 @@ export default function Personal() {
               navigate("/user-profile")
             }}
           >
-            Edit profile
+            Chỉnh sửa thông tin cá nhân
           </Button>
         </div>
       )}
