@@ -22,15 +22,22 @@ export default function NavUser() {
   const handleSearch = () => {
     navigate(`/search?search=${search}`)
   }
+  const userInfo = useSelector((state) => state.authen.currentUserInfo)
   return (
     <div>
       <div className="main-home__header-wrapper">
         <div className="main-home__header">
           <div className="main-home__header-undo">
-            <div onClick={() => navigate(-1)} className="main-home__header-undo-icon">
+            <div
+              onClick={() => navigate(-1)}
+              className="main-home__header-undo-icon"
+            >
               <FaArrowLeft></FaArrowLeft>
             </div>
-            <div onClick={() => navigate(1)} className="main-home__header-undo-icon">
+            <div
+              onClick={() => navigate(1)}
+              className="main-home__header-undo-icon"
+            >
               <FaArrowRight></FaArrowRight>
             </div>
           </div>
@@ -79,7 +86,11 @@ export default function NavUser() {
                 <div className="main-home__header-right-user">
                   <img
                     alt="user"
-                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    src={
+                      userInfo
+                        ? userInfo.avatarUrl
+                        : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    }
                   />
                 </div>
               </>

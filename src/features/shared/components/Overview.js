@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import "./Overview.css"
-import {
-  FaChevronRight,
-  FaUpload,
-  FaEye,
-  FaEllipsisH,
-  FaPlay,
-  FaPlus,
-  FaTimes,
-  FaRandom
-} from "react-icons/fa"
+import { FaChevronRight, FaEye, FaPlay } from "react-icons/fa"
 import { MdPostAdd } from "react-icons/md"
 import { Col, Row, message } from "antd"
 import { addSongAndPlay, addSong } from "../musicSlice"
@@ -271,7 +262,7 @@ export default function Overview() {
                 <FaChevronRight></FaChevronRight>
               </div>
             </div>
-            <div className="overview-option-song__right-upload hover:opacity-80">
+            {/* <div className="overview-option-song__right-upload hover:opacity-80">
               <span className="pr-2">
                 <FaUpload></FaUpload>
               </span>
@@ -282,7 +273,7 @@ export default function Overview() {
                 <FaUpload></FaUpload>
               </span>
               <span>Tải lên</span>
-            </div>
+            </div> */}
           </div>
         </div>
         <Row className="mt-1">

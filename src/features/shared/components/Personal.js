@@ -3,7 +3,10 @@ import "./Personal.css"
 import { FaEllipsisH } from "react-icons/fa"
 import Overview from "./Overview"
 import { useSelector } from "react-redux"
+import { Button } from "antd"
+import { useNavigate } from "react-router-dom"
 export default function Personal() {
+  const navigate = useNavigate()
   const [option, setOption] = useState("tongquan")
 
   const userInformation = useSelector((state) => {
@@ -24,13 +27,14 @@ export default function Personal() {
           <span className="main-home-personal__profile-name">
             {userInformation.fullName}
           </span>
-          <div className="main-home-personal__profile-vip">
-            {/* <span className='main-home-personal__profile-vip-upgrate'>Nâng cấp vip</span> */}
-            {/* <span className='main-home-personal__profile-vip-entercode'>Nâng cấp vip</span> */}
-            {/* <span className="main-home-personal__profile-vip-option">
-            <FaEllipsisH></FaEllipsisH>
-          </span> */}
-          </div>
+          <Button
+            className="!rounded-[18px] !bg-[rgba(0,0,0,0)] !text-[#fff]"
+            onClick={() => {
+              navigate("/user-profile")
+            }}
+          >
+            Chỉnh sửa thông tin cá nhân
+          </Button>
         </div>
       )}
 

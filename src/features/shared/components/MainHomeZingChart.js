@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa"
 import { useSelector, useDispatch } from "react-redux"
 import { setCurrentSong, changeIsPlay } from "../musicSlice"
-import { Row, Col } from "antd"
+import { Row, Col, Spin } from "antd"
 import axios from "axios"
 import NavUser from "./NavUser"
 import { useNavigate } from "react-router-dom"
@@ -25,6 +25,7 @@ const ComponentSongZingChart = (props) => {
       dispatch(setCurrentSong({ index: props.index }))
     }
   }
+
   return (
     <li className="zing-chart__song-item">
       <div className="zing-chart__song-item-left">
@@ -68,6 +69,8 @@ export default function MainHomeZingChart() {
   const [vietNam, setVietNam] = useState([])
   const [chauA, setChauA] = useState([])
   const [chauAu, setChauAu] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     const fetAPI = async () => {
       await axios
@@ -101,6 +104,7 @@ export default function MainHomeZingChart() {
               })
               .flat()
           )
+          setIsLoading(false)
         })
         .catch((err) => {
           console.log(err)
@@ -109,7 +113,15 @@ export default function MainHomeZingChart() {
     fetAPI()
   }, [])
   const navigate = useNavigate()
-
+  if (isLoading)
+    return (
+      <div className="main-home text-center mt-[15%]">
+        <Spin size="large" />
+        <p className="mt-[12px] text-[16px] text-[#fff]">
+          Đợi xíu nhé, thông tin bảng xếp hạng đang được load...
+        </p>
+      </div>
+    )
   return (
     <div className="main-home">
       <NavUser></NavUser>

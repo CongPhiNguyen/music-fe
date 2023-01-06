@@ -32,11 +32,11 @@ export default function SignOTP() {
     if (params.id) {
       form.setFieldValue("email", params.id)
     }
-  }, [params.id])
+  }, [form, params.id])
 
   const sendOTP = (email) => {
     if (email.length === 0) {
-      message.error("The email can not be blanked")
+      message.error("Không được để trống email")
       return
     }
     setIsSendingRequest(true)
@@ -99,7 +99,7 @@ export default function SignOTP() {
               <Form
                 form={form}
                 name="basic"
-                initialValues={{ remember: true }}
+                initialValues={{ remember: true, email: params.id }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -122,6 +122,7 @@ export default function SignOTP() {
                       onChange={(value) => {
                         setIsError(false)
                       }}
+                      value={params.id}
                     />
                     <Button
                       type="primary"

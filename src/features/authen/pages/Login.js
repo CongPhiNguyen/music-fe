@@ -37,12 +37,12 @@ export default function Login() {
     post(URL.URL_SIGN_IN, value)
       .then((data) => {
         if (data?.data?.success) {
-          message.success("Sign in successfully")
+          message.success("Đăng nhập thành công")
           cookiesUtil.setAccessToken(data?.data?.jwt)
           dispatch(handleLogin({ info: data?.data?.data }))
           navigate("/home")
         } else {
-          if (data?.data?.message === "You account is not verified") {
+          if (data?.data?.message === "Tài khoản của bạn chưa được xác thực") {
             setIsVerifiedAccount(false)
           }
           message.error(data?.data?.message)
