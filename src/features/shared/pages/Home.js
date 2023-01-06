@@ -31,7 +31,7 @@ export default function Home() {
               <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] pb-10 ">
                 {home[11].title}
               </h1>
-              {home[11].items.map((theme, key) => (
+              {home[11].items?.map((theme, key) => (
                 <React.Fragment key={key}>
                   <div className="overview-option-song__heading flex">
                     <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">
@@ -51,7 +51,7 @@ export default function Home() {
                   </div>
                   <ul className="overview-option-playlist__list">
                     <Row gutter={[16, 16]}>
-                      {theme.artists.map((artist, key) => (
+                      {theme.artists?.map((artist, key) => (
                         <Col key={key} span={6}>
                           <li className="overview-option-playlist__item cursor-pointer">
                             <div
@@ -94,7 +94,7 @@ export default function Home() {
               <h1 className="p-0 m-[0 0 20px 0] text-[3rem] text-[white] ">
                 {home[2].title}
               </h1>
-              {home[2].items.map((theme, key) => (
+              {home[2].items?.map((theme, key) => (
                 <React.Fragment key={key}>
                   <div className="overview-option-song__heading flex">
                     <h3 className="p-0 m-[0 0 20px 0] text-[2rem] text-[white] ">

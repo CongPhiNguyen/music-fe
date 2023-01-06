@@ -44,7 +44,6 @@ export default function MainSidebar() {
   const [isEdit, setIsEdit] = useState(false)
   const [idEit, setIdEdit] = useState(false)
   const [namePlaylist, setNamePlayList] = useState("Enter name playlist here")
-  const [isFirstLoad, setIsFirstLoad] = useState(true)
   useEffect(() => {
     if (username) {
       axios
@@ -56,7 +55,7 @@ export default function MainSidebar() {
           message.error(err.message)
         })
     }
-  }, [])
+  }, [username])
 
   const handleCreatePlaylist = async () => {
     if (isEdit) {
@@ -178,9 +177,8 @@ export default function MainSidebar() {
                 setSelected("home")
                 navigate("/home")
               }}
-              className={`sidebar__personal-item ${
-                selected === "home" && "active"
-              }`}
+              className={`sidebar__personal-item ${selected === "home" && "active"
+                }`}
             >
               <NavLink className={"link"} to={"/home"}>
                 <MdHome style={{ fontSize: "2.2rem" }} />
@@ -193,9 +191,8 @@ export default function MainSidebar() {
                 setSelected("zing-chart")
                 navigate("/zing-chart")
               }}
-              className={`sidebar__personal-item ${
-                selected === "zing-chart" && "active"
-              }`}
+              className={`sidebar__personal-item ${selected === "zing-chart" && "active"
+                }`}
             >
               <NavLink className={"link"} to={"/zing-chart"}>
                 <BsFillBarChartLineFill style={{ fontSize: "2rem" }} />
@@ -216,9 +213,8 @@ export default function MainSidebar() {
                 setSelected("radio")
                 navigate("/radio")
               }}
-              className={`sidebar__personal-item ${
-                selected === "radio" && "active"
-              }`}
+              className={`sidebar__personal-item ${selected === "radio" && "active"
+                }`}
             >
               <NavLink className={"link"} to={"/radio"}>
                 <BiRadio style={{ fontSize: "2.2rem" }} />
@@ -230,9 +226,8 @@ export default function MainSidebar() {
                 setSelected("personal")
                 navigate("/personal")
               }}
-              className={`sidebar__personal-item ${
-                selected === "personal" && "active"
-              }`}
+              className={`sidebar__personal-item ${selected === "personal" && "active"
+                }`}
             >
               <NavLink className={"link"} to={"/"}>
                 <PlayCircleFilled style={{ fontSize: "2.2rem" }} />
@@ -252,9 +247,8 @@ export default function MainSidebar() {
                   onClick={() => {
                     dispatch(selectedPlaylistFunct({ _id: playlist._id }))
                   }}
-                  className={`sidebar__library-bot-item sidebar__personal-item ${
-                    playlist?._id === selectedPlaylist?._id && "active"
-                  }`}
+                  className={`sidebar__library-bot-item sidebar__personal-item ${playlist?._id === selectedPlaylist?._id && "active"
+                    }`}
                 >
                   {playlist.playlistName}
                   <div
