@@ -164,7 +164,6 @@ export const musicDataSlice = createSlice({
             username: action.payload.username,
             playlistName: state.selectedPlaylist.playlistName
           })
-
           state.heardRecently = state.heardRecently.filter(
             (song) => song.id !== action.payload.song.id
           )
@@ -176,7 +175,7 @@ export const musicDataSlice = createSlice({
             }
             return value
           })
-          state.selectedPlaylist = state.songsData
+          state.selectedPlaylist.songs = state.songsData
         } else {
           state.selected = "HEARD_RECENTLY"
           state.heardRecently = state.heardRecently.filter(
@@ -198,6 +197,8 @@ export const musicDataSlice = createSlice({
         localStorage.setItem("songdata", JSON.stringify(state.songsData))
       } else {
         if (state.selectedPlaylist) {
+          console.log(state.selectedPlaylist)
+
           state.songsData = state.songsData.filter(
             (song) => song.id !== action.payload.song.id
           )
@@ -223,7 +224,7 @@ export const musicDataSlice = createSlice({
             }
             return value
           })
-          state.selectedPlaylist = state.songsData
+          state.selectedPlaylist.songs = state.songsData
         } else {
           state.selected = "HEARD_RECENTLY"
           state.heardRecently = state.heardRecently.filter(

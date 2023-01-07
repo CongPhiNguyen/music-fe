@@ -4,7 +4,6 @@ import MainSidebar from "../components/MainSidebar"
 import NextSong from "../components/NextSong"
 import "../components/MainHomeZingChart.css"
 import "../components/Overview.css"
-
 import { Outlet } from "react-router-dom"
 import "./Home.css"
 import "./ZingChart.css"
@@ -18,10 +17,10 @@ export default function ZingChart() {
   return (
     <div
       className="w-screen h-screen home"
-      style={{
-        backgroundImage:
-          "url(./assets/img/background-theme/backroundThemes/0.svg)"
-      }}
+    // style={{
+    //   backgroundImage:
+    //     "url(./assets/img/background-theme/backroundThemes/0.svg)"
+    // }}
     >
       <div className="w-full">
         <MainSidebar></MainSidebar>

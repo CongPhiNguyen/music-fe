@@ -120,6 +120,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 3px;
+  position: relative;
 }
 
 .next-song__item-active {
@@ -181,6 +182,8 @@
   justify-content: space-between;
   margin-right: 10px;
   display: none;
+  position: absolute;
+  right: 0;
 }
 
 .next-song__item-action-heart {

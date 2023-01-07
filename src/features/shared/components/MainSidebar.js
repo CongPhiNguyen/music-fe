@@ -97,7 +97,6 @@ export default function MainSidebar() {
           message.error(err.response.data.message)
         })
     }
-
     handleCancel()
   }
   const showModal = () => {

@@ -44,10 +44,6 @@ export default function MusicControl() {
   }
 
   useEffect(() => {
-    console.log(songsData[indexSong])
-  }, [indexSong])
-
-  useEffect(() => {
     cdThumb.current = cdThumbAnimate.current.animate(
       [{ transform: "rotate(180deg)" }],
       {
@@ -87,9 +83,8 @@ export default function MusicControl() {
   const formatTime = (number) => {
     const minutes = Math.floor(number / 60)
     const seconds = Math.floor(number - minutes * 60)
-    return `${minutes < 10 ? "0" + minutes : minutes}:${
-      seconds < 10 ? "0" + seconds : seconds
-    }`
+    return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds
+      }`
   }
 
   useEffect(() => {
@@ -239,11 +234,10 @@ export default function MusicControl() {
                             {value.words.map((item, key1) => {
                               return (
                                 <span
-                                  className={`word-lyric ${
-                                    currentTime > item.startTime &&
+                                  className={`word-lyric ${currentTime > item.startTime &&
                                     currentTime < item.endTime &&
                                     "active"
-                                  }`}
+                                    }`}
                                   style={{ paddingRight: "10px" }}
                                   key={key1}
                                 >
@@ -280,9 +274,8 @@ export default function MusicControl() {
               <div
                 ref={cdThumbAnimate}
                 style={{
-                  backgroundImage: `url('${
-                    indexSong !== null && songsData[indexSong]?.background
-                  }')`
+                  backgroundImage: `url('${indexSong !== null && songsData[indexSong]?.background
+                    }')`
                 }}
                 className={`music-control__left-img `}
               ></div>
